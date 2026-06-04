@@ -54,6 +54,19 @@ Meeting these is what separates award-winning from amateur — they enable great
 - Deploy to production: `vercel --prod` from project root
 - Live URL: https://pm-website-six.vercel.app/
 
+## Closing the loop (end of every working session)
+When we finish a meaningful chunk of work, produce a BUILD REPORT I can paste
+back into my planning chat, in this format:
+
+BUILT: what shipped
+CHANGED FROM THE BRIEF: what differed and why
+DECISIONS MADE: technical decisions worth recording
+NEW/REMOVED: components, files, dependencies (with rough sizes)
+AFFECTS DESIGN/STRATEGY: anything the planning side should know
+STATUS: live / local only / needs review
+
+Keep it short and factual.
+
 ## The only real "don'ts"
 - Don't ship things *broken* (the robot lesson).
 - Don't add decoration with zero intent — but a strong *intentional* signature element has intent, so that's a yes.
