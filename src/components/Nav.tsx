@@ -4,7 +4,7 @@ import { clsx } from 'clsx';
 const links = [
   { label: 'Building', href: '#builder-projects' },
   { label: 'Work', href: '#work-experience' },
-  { label: 'Case Studies', href: '#case-studies' },
+  { label: 'Case Studies', href: '#work' },
   { label: 'Beyond', href: '#personality-gallery' },
   { label: 'Contact', href: '#contact' },
 ];

@@ -1,3 +1,4 @@
+import { Routes, Route } from 'react-router-dom';
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
@@ -9,6 +10,9 @@ import WorkExperience from './components/WorkExperience';
 import CaseStudies from './components/CaseStudies';
 import PersonalityGallery from './components/PersonalityGallery';
 import Contact from './components/Contact';
+import RapidoCaseStudy from './pages/RapidoCaseStudy';
+import PlumCaseStudy from './pages/PlumCaseStudy';
+import HealthGlowCaseStudy from './pages/HealthGlowCaseStudy';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,7 +23,7 @@ gsap.ticker.add((time) => {
 });
 gsap.ticker.lagSmoothing(0);
 
-export default function App() {
+function LandingPage() {
   return (
     <div className="bg-bg text-off-white min-h-screen font-sans">
       <Nav />
@@ -32,5 +36,16 @@ export default function App() {
         <Contact />
       </main>
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/case-studies/rapido" element={<RapidoCaseStudy />} />
+      <Route path="/case-studies/plum" element={<PlumCaseStudy />} />
+      <Route path="/case-studies/health-and-glow" element={<HealthGlowCaseStudy />} />
+    </Routes>
   );
 }

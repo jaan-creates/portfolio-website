@@ -95,7 +95,7 @@ export default function Hero() {
 
         {/* CTA */}
         <a
-          href="#case-studies"
+          href="#work"
           className="mt-2 inline-flex items-center gap-2 self-start border border-off-white/20 hover:border-accent-purple/60 text-off-white/80 hover:text-off-white text-sm font-sans font-medium px-5 py-2.5 rounded-full transition-all duration-300 hover:bg-accent-purple/10 group"
         >
           View the work
