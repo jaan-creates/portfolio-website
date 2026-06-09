@@ -72,3 +72,42 @@ Keep it short and factual.
 - Don't add decoration with zero intent — but a strong *intentional* signature element has intent, so that's a yes.
 - Don't change design tokens (color, type, spacing) **silently** — but absolutely *propose* token changes if they'd make something better.
 - Don't install or commit silently. Propose, then act.
+
+## Architecture & invariants (do NOT break)
+
+### Routing — react-router-dom v6 (BrowserRouter in main.tsx, routes in App.tsx)
+/                                  → LandingPage
+/case-studies/rapido               → RapidoCaseStudy (built)
+/case-studies/push-notifications   → PushNotificationsCaseStudy (built)
+/case-studies/push-guidebook       → PushNotificationGuidebook (built, not in grid — direct URL only)
+/case-studies/plum                 → PlumCaseStudy (PLACEHOLDER)
+/case-studies/health-and-glow      → HealthGlowCaseStudy (PLACEHOLDER)
+
+### Motion invariants
+- Lenis + GSAP ticker is wired at MODULE LEVEL in App.tsx. Never move it into a useEffect — breaks site-wide smooth scroll.
+- Every GSAP ScrollTrigger uses gsap.matchMedia() + mm.revert() cleanup and is prefers-reduced-motion safe. Match this for any new scroll animation.
+- Animate transform/opacity only.
+
+### Theming
+- Tailwind tokens: bg #0D0D0F · surface-raised #1A1A1F · surface-border rgba(255,255,255,0.06)
+  · accent (global teal) #14B8A6 · accent-purple #7F77DD · accent-green #22C55E · accent-orange #F97316
+- Per-study accent: passed to CaseStudyLayout as `accentColor`, exposed as `--case-accent` on the layout's outer div. Children read var(--case-accent) — no prop drilling. Set ONCE at page level.
+- Fonts: Space Grotesk (display) · Inter (body) · JetBrains Mono (font-mono: stats, timestamps, mono labels)
+- Fluid type scale --step--1 … --step-4 (clamp) in index.css
+
+### Layout
+- Case-study detail pages: max-w-3xl mx-auto px-6. Never px-16.
+
+### Security
+- Supabase keys in .env as VITE_*. Never hardcode. (Not yet wired — relevant when Contact form lands.)
+
+## Component map — src/components/case-study/
+Layout: CaseStudyLayout (progress bar, sticky nav, --case-accent), CaseStudySection
+Rapido: CaseStudyMeta, PullQuote, FindingGrid, PersonaGrid, EmpathyMap (own quadrant colors, NOT --case-accent), DecisionBlock, CaseStudyTable, StatRow, CaseStudyNext
+Push: NotificationCard, InsightCallout, ScenarioBar, AssessmentGrid, AppHeader, BiasCard, NotificationTimeline, BarChart
+Guidebook: PipelineFlow, PlatformSplit, TypeDefinition, TypeSubCards, AnatomyBlock
+
+## Open TODOs (next session)
+- Rapido content gaps: Role/Timeline/Context/Outcome meta; Decision 1&2 "why" sentences; Decision 3 chosen recommendation + outcome; confirm "12+" driver count; reflection paragraph.
+- PlumCaseStudy + HealthGlowCaseStudy: awaiting content HTMLs.
+- Link guidebook from Push Notifications page (CaseStudyNext → /case-studies/push-guidebook).

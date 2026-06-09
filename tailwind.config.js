@@ -25,6 +25,7 @@ export default {
       fontFamily: {
         display: ['"Clash Display"', 'sans-serif'],
         sans: ['Satoshi', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'monospace'],
       },
       fontSize: {
         '7xl': ['4.5rem', { lineHeight: '1.05', letterSpacing: '-0.02em' }],

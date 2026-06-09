@@ -105,6 +105,18 @@
     /* Animation removed to allow GSAP scroll-driven y-tweens */
   }
 
+  /* Notification card glow — used on Push Notifications case study */
+  @keyframes notifCardGlow {
+    0%, 100% { border-color: rgba(255,255,255,0.13); box-shadow: none; }
+    50%       { border-color: rgba(127,119,221,0.35); box-shadow: 0 0 18px rgba(127,119,221,0.1); }
+  }
+  .notif-card-glow {
+    animation: notifCardGlow 5s ease-in-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .notif-card-glow { animation: none; }
+  }
+
   /* Nav blur */
   .nav-blur {
     backdrop-filter: blur(20px);

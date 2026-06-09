@@ -13,6 +13,8 @@ import Contact from './components/Contact';
 import RapidoCaseStudy from './pages/RapidoCaseStudy';
 import PlumCaseStudy from './pages/PlumCaseStudy';
 import HealthGlowCaseStudy from './pages/HealthGlowCaseStudy';
+import PushNotificationsCaseStudy from './pages/PushNotificationsCaseStudy';
+import PushNotificationGuidebook from './pages/PushNotificationGuidebook';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -46,6 +48,8 @@ export default function App() {
       <Route path="/case-studies/rapido" element={<RapidoCaseStudy />} />
       <Route path="/case-studies/plum" element={<PlumCaseStudy />} />
       <Route path="/case-studies/health-and-glow" element={<HealthGlowCaseStudy />} />
+      <Route path="/case-studies/push-notifications" element={<PushNotificationsCaseStudy />} />
+      <Route path="/case-studies/push-guidebook" element={<PushNotificationGuidebook />} />
     </Routes>
   );
 }

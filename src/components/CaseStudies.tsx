@@ -66,10 +66,10 @@ const caseStudies: CaseStudyItem[] = [
     company: 'Thought Leadership',
     domain: 'Research',
     hook: "A teardown of how India's biggest apps use psychology to get you to tap.",
-    accent: '#5E7D3A',
-    href: null,
-    status: 'soon',
-    readTime: '',
+    accent: '#7F77DD',
+    href: '/case-studies/push-notifications',
+    status: 'live',
+    readTime: '15 min',
   },
   {
     id: '06',
@@ -87,116 +87,35 @@ const caseStudies: CaseStudyItem[] = [
 function DomainPill({ label, accent }: { label: string; accent: string }) {
   return (
     <span
-      className="font-sans text-xs font-medium px-3 py-1 rounded-full"
-      style={{
-        backgroundColor: `${accent}26`,
-        color: accent,
-      }}
+      className="font-sans text-xs font-medium px-3 py-1 rounded-full inline-block"
+      style={{ backgroundColor: `${accent}26`, color: accent }}
     >
       {label}
     </span>
   );
 }
 
-function FeaturedCard({ item }: { item: CaseStudyItem }) {
-  return (
-    <Link
-      to={item.href!}
-      className="work-card group relative overflow-hidden rounded-2xl flex flex-col justify-end md:col-span-2"
-      style={{
-        minHeight: '240px',
-        backgroundColor: '#1A1A1F',
-        borderLeft: '3px solid transparent',
-        transition: 'border-color 0.25s ease',
-        textDecoration: 'none',
-      }}
-      onMouseEnter={(e) => {
-        (e.currentTarget as HTMLElement).style.borderColor = item.accent;
-      }}
-      onMouseLeave={(e) => {
-        (e.currentTarget as HTMLElement).style.borderColor = 'transparent';
-      }}
-    >
-      {/* Giant background chapter number */}
-      <span
-        aria-hidden="true"
-        className="absolute font-display font-bold select-none pointer-events-none"
-        style={{
-          fontSize: '180px',
-          color: item.accent,
-          opacity: 0.08,
-          lineHeight: 1,
-          left: '24px',
-          bottom: '-16px',
-        }}
-      >
-        {item.id}
-      </span>
-
-      {/* Right gradient base */}
-      <div
-        aria-hidden="true"
-        className="absolute right-0 top-0 bottom-0 w-[35%] pointer-events-none"
-        style={{
-          background: `linear-gradient(to left, ${item.accent}1A, transparent)`,
-        }}
-      />
-      {/* Right gradient hover overlay */}
-      <div
-        aria-hidden="true"
-        className="absolute right-0 top-0 bottom-0 w-[35%] pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        style={{
-          background: `linear-gradient(to left, ${item.accent}29, transparent)`,
-        }}
-      />
-
-      {/* Foreground content */}
-      <div className="relative z-10 p-8 flex flex-col gap-3">
-        <div className="flex items-center gap-3">
-          <DomainPill label={item.domain} accent={item.accent} />
-          {item.readTime && (
-            <span className="font-sans text-xs text-muted-light">
-              {item.readTime}
-            </span>
-          )}
-        </div>
-        <h3 className="font-display font-bold text-off-white text-2xl md:text-3xl leading-tight max-w-lg">
-          {item.title}
-        </h3>
-        <p className="font-sans text-muted-light text-sm max-w-md leading-relaxed">
-          {item.hook}
-        </p>
-        <span
-          className="font-sans text-sm font-medium opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 inline-block"
-          style={{ color: item.accent }}
-        >
-          Read the case →
-        </span>
-      </div>
-    </Link>
-  );
-}
-
-function GridCard({ item }: { item: CaseStudyItem }) {
+function WorkCard({ item }: { item: CaseStudyItem }) {
   const isLive = item.status === 'live';
 
   const inner = (
     <div
-      className="work-card group h-full flex flex-col gap-4"
+      className="work-card group relative overflow-hidden rounded-2xl flex flex-col h-full"
       style={{
         backgroundColor: '#1A1A1F',
-        borderRadius: '16px',
-        padding: '32px',
         borderLeft: '3px solid transparent',
-        transition: 'transform 0.25s cubic-bezier(0.16,1,0.3,1), border-color 0.25s ease',
+        padding: '28px',
+        minHeight: '260px',
+        transition: isLive
+          ? 'transform 0.25s cubic-bezier(0.16,1,0.3,1), border-color 0.25s ease'
+          : 'none',
         cursor: isLive ? 'pointer' : 'default',
-        position: 'relative',
       }}
       onMouseEnter={
         isLive
           ? (e) => {
               const el = e.currentTarget as HTMLElement;
-              el.style.transform = 'translateY(-6px)';
+              el.style.transform = 'translateY(-5px)';
               el.style.borderColor = item.accent;
             }
           : undefined
@@ -211,94 +130,125 @@ function GridCard({ item }: { item: CaseStudyItem }) {
           : undefined
       }
     >
+      {/* Background chapter number — bottom right */}
+      <span
+        aria-hidden="true"
+        className="absolute font-display font-bold select-none pointer-events-none"
+        style={{
+          fontSize: '110px',
+          color: item.accent,
+          opacity: 0.07,
+          lineHeight: 1,
+          right: '12px',
+          bottom: '-6px',
+        }}
+      >
+        {item.id}
+      </span>
+
+      {/* Right accent gradient — base layer (live only) */}
+      {isLive && (
+        <>
+          <div
+            aria-hidden="true"
+            className="absolute right-0 top-0 bottom-0 w-2/5 pointer-events-none"
+            style={{
+              background: `linear-gradient(to left, ${item.accent}14, transparent)`,
+            }}
+          />
+          {/* Hover overlay — deepens on hover */}
+          <div
+            aria-hidden="true"
+            className="absolute right-0 top-0 bottom-0 w-2/5 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            style={{
+              background: `linear-gradient(to left, ${item.accent}28, transparent)`,
+            }}
+          />
+        </>
+      )}
+
+      {/* Soon pill */}
       {item.status === 'soon' && (
         <span
-          className="absolute top-5 right-5 font-sans text-xs px-2.5 py-1 rounded-full"
+          className="absolute top-5 right-5 font-sans text-xs px-2.5 py-1 rounded-full z-10"
           style={{ backgroundColor: '#232328', color: '#A1A1AA' }}
         >
           Coming soon
         </span>
       )}
 
-      <div className="flex items-center gap-3">
-        <span className="font-sans text-xs text-muted-light">{item.id}</span>
-        <DomainPill label={item.domain} accent={item.accent} />
-      </div>
-
-      <div className="flex flex-col gap-2 flex-1">
-        <h3
-          className="font-display font-bold text-off-white leading-snug"
-          style={{ fontSize: 'clamp(1.1rem, 2vw, 1.3rem)' }}
-        >
-          {item.title}
-        </h3>
-        <p className="font-sans text-muted-light text-sm leading-relaxed">
-          {item.hook}
-        </p>
-      </div>
-
-      <div className="flex items-center justify-between pt-2">
-        {item.readTime && (
-          <span className="font-sans text-xs text-muted-light">
-            {item.readTime}
-          </span>
-        )}
-        {isLive && (
+      {/* Card content */}
+      <div className="relative z-10 flex flex-col gap-3 flex-1">
+        {/* Top: chapter + company name */}
+        <div className="flex items-center gap-2">
           <span
-            className="font-sans text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-            style={{ color: item.accent }}
+            className="font-mono text-xs"
+            style={{ color: isLive ? item.accent : '#4B5563', opacity: 0.8 }}
           >
-            Read →
+            {item.id}
           </span>
-        )}
+          <span
+            className="font-mono text-xs"
+            style={{ color: isLive ? item.accent : '#4B5563', opacity: 0.5 }}
+            aria-hidden="true"
+          >
+            ·
+          </span>
+          <span
+            className="font-mono text-xs tracking-widest uppercase"
+            style={{ color: isLive ? item.accent : '#4B5563' }}
+          >
+            {item.company}
+          </span>
+        </div>
+
+        {/* Domain pill */}
+        <div>
+          <DomainPill label={item.domain} accent={item.accent} />
+        </div>
+
+        {/* Title + hook — grows to fill space */}
+        <div className="flex flex-col gap-2 flex-1">
+          <h3
+            className="font-display font-bold text-off-white leading-snug"
+            style={{ fontSize: 'clamp(1.1rem, 2vw, 1.35rem)' }}
+          >
+            {item.title}
+          </h3>
+          <p className="font-sans text-muted-light text-sm leading-relaxed">
+            {item.hook}
+          </p>
+        </div>
+
+        {/* Bottom: readTime + hover CTA */}
+        <div className="flex items-center justify-between pt-3 mt-auto">
+          {item.readTime ? (
+            <span className="font-mono text-xs text-muted-light">{item.readTime}</span>
+          ) : (
+            <span />
+          )}
+          {isLive && (
+            <span
+              className="font-sans text-sm font-medium opacity-0 translate-y-1.5 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 inline-block"
+              style={{ color: item.accent }}
+            >
+              Read the case →
+            </span>
+          )}
+        </div>
       </div>
     </div>
   );
 
   if (isLive && item.href) {
     return (
-      <Link to={item.href} className="block">
+      <Link to={item.href} className="block h-full" style={{ textDecoration: 'none' }}>
         {inner}
       </Link>
     );
   }
-  return <div>{inner}</div>;
-}
 
-function WideCard({ item }: { item: CaseStudyItem }) {
-  return (
-    <div
-      className="work-card md:col-span-2 rounded-2xl"
-      style={{
-        backgroundColor: '#1A1A1F',
-        padding: '32px',
-        borderLeft: '3px solid transparent',
-        position: 'relative',
-      }}
-    >
-      <span
-        className="absolute top-5 right-5 font-sans text-xs px-2.5 py-1 rounded-full"
-        style={{ backgroundColor: '#232328', color: '#A1A1AA' }}
-      >
-        Coming soon
-      </span>
-      <div className="flex flex-col gap-3 max-w-xl">
-        <div className="flex items-center gap-3">
-          <span className="font-sans text-xs text-muted-light">{item.id}</span>
-          <DomainPill label={item.domain} accent={item.accent} />
-        </div>
-        <h3
-          className="font-display font-bold text-off-white leading-snug"
-          style={{ fontSize: 'clamp(1.1rem, 2vw, 1.3rem)' }}
-        >
-          {item.title}
-        </h3>
-        <p className="font-sans text-muted-light text-sm leading-relaxed">
-          {item.hook}
-        </p>
-      </div>
-    </div>
-  );
+  return <div className="h-full">{inner}</div>;
 }
 
 export default function CaseStudies() {
@@ -313,7 +263,7 @@ export default function CaseStudies() {
             opacity: 1,
             y: 0,
             duration: 0.6,
-            delay: i * 0.1,
+            delay: i * 0.08,
             scrollTrigger: {
               trigger: card,
               start: 'top 85%',
@@ -326,16 +276,10 @@ export default function CaseStudies() {
     return () => mm.revert();
   }, []);
 
-  const [featured, ...rest] = caseStudies;
-  const gridItems = rest.slice(0, 4);
-  const wideItem = rest[4];
-
   return (
-    <section
-      id="work"
-      className="w-full bg-bg px-8 md:px-16 lg:px-24 py-24"
-    >
+    <section id="work" className="w-full bg-bg px-8 md:px-16 lg:px-24 py-24">
       <div className="max-w-6xl mx-auto w-full">
+        {/* Header */}
         <span className="text-xs font-sans font-medium tracking-[0.18em] uppercase text-muted-light mb-4 block">
           THE WORK
         </span>
@@ -352,12 +296,11 @@ export default function CaseStudies() {
           Every one started by asking the person no one else thought to ask.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <FeaturedCard item={featured} />
-          {gridItems.map((item) => (
-            <GridCard key={item.id} item={item} />
+        {/* Uniform 2-col grid — all 6 cards equal */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 auto-rows-fr">
+          {caseStudies.map((item) => (
+            <WorkCard key={item.id} item={item} />
           ))}
-          <WideCard item={wideItem} />
         </div>
       </div>
     </section>
