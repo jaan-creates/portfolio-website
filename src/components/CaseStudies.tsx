@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
+import BlockReveal from './BlockReveal';
+import { useTheme } from '../contexts/ThemeContext';
 
 interface CaseStudyItem {
   id: string;
@@ -10,6 +12,7 @@ interface CaseStudyItem {
   domain: string;
   hook: string;
   accent: string;
+  lightAccent: string;
   href: string | null;
   status: 'live' | 'soon';
   readTime: string;
@@ -23,6 +26,7 @@ const caseStudies: CaseStudyItem[] = [
     domain: 'Mobility',
     hook: 'I rode with drivers for two weeks and found a product problem hiding in plain sight.',
     accent: '#FFD11A',
+    lightAccent: '#9A6B00',
     href: '/case-studies/rapido',
     status: 'live',
     readTime: '8 min',
@@ -34,6 +38,7 @@ const caseStudies: CaseStudyItem[] = [
     domain: 'Healthcare',
     hook: 'Telehealth had a trust problem, not a feature gap. I mapped the whole journey to find it.',
     accent: '#E8517F',
+    lightAccent: '#BE2E61',
     href: '/case-studies/plum',
     status: 'live',
     readTime: '7 min',
@@ -45,6 +50,7 @@ const caseStudies: CaseStudyItem[] = [
     domain: 'Beauty-Tech',
     hook: 'Before "AI features" were a mandate, I designed one that actually knew your skin.',
     accent: '#F07A1E',
+    lightAccent: '#C4560F',
     href: '/case-studies/health-and-glow',
     status: 'live',
     readTime: '6 min',
@@ -56,9 +62,10 @@ const caseStudies: CaseStudyItem[] = [
     domain: 'Pet Care',
     hook: 'Market sizing, personas, two-sided marketplace. The full 0→1 playbook.',
     accent: '#6C7BF5',
-    href: null,
-    status: 'soon',
-    readTime: '',
+    lightAccent: '#454FC9',
+    href: '/case-studies/petz',
+    status: 'live',
+    readTime: '10 min',
   },
   {
     id: '05',
@@ -67,6 +74,7 @@ const caseStudies: CaseStudyItem[] = [
     domain: 'Research',
     hook: "A teardown of how India's biggest apps use psychology to get you to tap.",
     accent: '#7F77DD',
+    lightAccent: '#5E55C4',
     href: '/case-studies/push-notifications',
     status: 'live',
     readTime: '15 min',
@@ -77,10 +85,23 @@ const caseStudies: CaseStudyItem[] = [
     company: 'Swiggy',
     domain: 'Food-Tech',
     hook: "When every option is a good option, that's the product problem.",
-    accent: '#FF6B35',
-    href: null,
-    status: 'soon',
-    readTime: '',
+    accent: '#FC8019',
+    lightAccent: '#C2410C',
+    href: '/case-studies/swiggy',
+    status: 'live',
+    readTime: '8 min',
+  },
+  {
+    id: '07',
+    title: 'Push Notification Guidebook',
+    company: 'Thought Leadership',
+    domain: 'Research',
+    hook: 'The average app sends 2.4 pushes per week. The average user disables them within 5 days. All 8 types — what they are, when they work, and exactly how they fail.',
+    accent: '#7F77DD',
+    lightAccent: '#5E55C4',
+    href: '/case-studies/push-guidebook',
+    status: 'live',
+    readTime: '12 min',
   },
 ];
 
@@ -95,14 +116,14 @@ function DomainPill({ label, accent }: { label: string; accent: string }) {
   );
 }
 
-function WorkCard({ item }: { item: CaseStudyItem }) {
+function WorkCard({ item, resolvedAccent }: { item: CaseStudyItem; resolvedAccent: string }) {
   const isLive = item.status === 'live';
 
   const inner = (
     <div
-      className="work-card group relative overflow-hidden rounded-2xl flex flex-col h-full"
+      className="work-card card-shadow group relative overflow-hidden rounded-2xl flex flex-col h-full"
       style={{
-        backgroundColor: '#1A1A1F',
+        backgroundColor: 'var(--color-surface)',
         borderLeft: '3px solid transparent',
         padding: '28px',
         minHeight: '260px',
@@ -116,7 +137,7 @@ function WorkCard({ item }: { item: CaseStudyItem }) {
           ? (e) => {
               const el = e.currentTarget as HTMLElement;
               el.style.transform = 'translateY(-5px)';
-              el.style.borderColor = item.accent;
+              el.style.borderColor = resolvedAccent;
             }
           : undefined
       }
@@ -130,13 +151,13 @@ function WorkCard({ item }: { item: CaseStudyItem }) {
           : undefined
       }
     >
-      {/* Background chapter number — bottom right */}
+      {/* Background chapter number */}
       <span
         aria-hidden="true"
         className="absolute font-display font-bold select-none pointer-events-none"
         style={{
           fontSize: '110px',
-          color: item.accent,
+          color: resolvedAccent,
           opacity: 0.07,
           lineHeight: 1,
           right: '12px',
@@ -146,22 +167,21 @@ function WorkCard({ item }: { item: CaseStudyItem }) {
         {item.id}
       </span>
 
-      {/* Right accent gradient — base layer (live only) */}
+      {/* Right accent gradient */}
       {isLive && (
         <>
           <div
             aria-hidden="true"
             className="absolute right-0 top-0 bottom-0 w-2/5 pointer-events-none"
             style={{
-              background: `linear-gradient(to left, ${item.accent}14, transparent)`,
+              background: `linear-gradient(to left, ${resolvedAccent}14, transparent)`,
             }}
           />
-          {/* Hover overlay — deepens on hover */}
           <div
             aria-hidden="true"
             className="absolute right-0 top-0 bottom-0 w-2/5 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
             style={{
-              background: `linear-gradient(to left, ${item.accent}28, transparent)`,
+              background: `linear-gradient(to left, ${resolvedAccent}28, transparent)`,
             }}
           />
         </>
@@ -171,7 +191,7 @@ function WorkCard({ item }: { item: CaseStudyItem }) {
       {item.status === 'soon' && (
         <span
           className="absolute top-5 right-5 font-sans text-xs px-2.5 py-1 rounded-full z-10"
-          style={{ backgroundColor: '#232328', color: '#A1A1AA' }}
+          style={{ backgroundColor: 'var(--color-surface-raised)', color: 'var(--color-muted-light)' }}
         >
           Coming soon
         </span>
@@ -183,20 +203,20 @@ function WorkCard({ item }: { item: CaseStudyItem }) {
         <div className="flex items-center gap-2">
           <span
             className="font-mono text-xs"
-            style={{ color: isLive ? item.accent : '#4B5563', opacity: 0.8 }}
+            style={{ color: isLive ? resolvedAccent : 'var(--color-muted-light)', opacity: 0.8 }}
           >
             {item.id}
           </span>
           <span
             className="font-mono text-xs"
-            style={{ color: isLive ? item.accent : '#4B5563', opacity: 0.5 }}
+            style={{ color: isLive ? resolvedAccent : 'var(--color-muted-light)', opacity: 0.5 }}
             aria-hidden="true"
           >
             ·
           </span>
           <span
             className="font-mono text-xs tracking-widest uppercase"
-            style={{ color: isLive ? item.accent : '#4B5563' }}
+            style={{ color: isLive ? resolvedAccent : 'var(--color-muted-light)' }}
           >
             {item.company}
           </span>
@@ -204,10 +224,10 @@ function WorkCard({ item }: { item: CaseStudyItem }) {
 
         {/* Domain pill */}
         <div>
-          <DomainPill label={item.domain} accent={item.accent} />
+          <DomainPill label={item.domain} accent={resolvedAccent} />
         </div>
 
-        {/* Title + hook — grows to fill space */}
+        {/* Title + hook */}
         <div className="flex flex-col gap-2 flex-1">
           <h3
             className="font-display font-bold text-off-white leading-snug"
@@ -230,7 +250,7 @@ function WorkCard({ item }: { item: CaseStudyItem }) {
           {isLive && (
             <span
               className="font-sans text-sm font-medium opacity-0 translate-y-1.5 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 inline-block"
-              style={{ color: item.accent }}
+              style={{ color: resolvedAccent }}
             >
               Read the case →
             </span>
@@ -252,6 +272,8 @@ function WorkCard({ item }: { item: CaseStudyItem }) {
 }
 
 export default function CaseStudies() {
+  const { theme } = useTheme();
+
   useEffect(() => {
     const mm = gsap.matchMedia();
     mm.add('(prefers-reduced-motion: no-preference)', () => {
@@ -283,23 +305,30 @@ export default function CaseStudies() {
         <span className="text-xs font-sans font-medium tracking-[0.18em] uppercase text-muted-light mb-4 block">
           THE WORK
         </span>
-        <h2
-          className="font-display font-semibold text-off-white mb-4"
-          style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)' }}
-        >
-          Six products. Six different worlds.
-        </h2>
-        <p
-          className="font-sans text-muted-light mb-16 max-w-[640px] leading-relaxed"
-          style={{ fontSize: 'clamp(1rem, 1.5vw, 1.125rem)' }}
-        >
-          Every one started by asking the person no one else thought to ask.
-        </p>
+        <BlockReveal animateOnScroll className="mb-4">
+          <h2
+            className="font-display font-semibold text-off-white"
+            style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)' }}
+          >
+            Seven products. Seven different worlds.
+          </h2>
+        </BlockReveal>
+        <BlockReveal animateOnScroll className="mb-16">
+          <p
+            className="font-sans text-muted-light max-w-[640px] leading-relaxed"
+            style={{ fontSize: 'clamp(1rem, 1.5vw, 1.125rem)' }}
+          >
+            Every one started by asking the person no one else thought to ask.
+          </p>
+        </BlockReveal>
 
-        {/* Uniform 2-col grid — all 6 cards equal */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 auto-rows-fr">
           {caseStudies.map((item) => (
-            <WorkCard key={item.id} item={item} />
+            <WorkCard
+              key={item.id}
+              item={item}
+              resolvedAccent={theme === 'light' ? item.lightAccent : item.accent}
+            />
           ))}
         </div>
       </div>

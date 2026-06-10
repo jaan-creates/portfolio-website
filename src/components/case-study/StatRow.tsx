@@ -15,7 +15,7 @@ export default function StatRow({ stats }: StatRowProps) {
       className="grid gap-px rounded-xl overflow-hidden mb-10"
       style={{
         gridTemplateColumns: `repeat(${stats.length}, 1fr)`,
-        background: 'rgba(255,255,255,0.06)',
+        background: 'var(--color-surface-border)',
       }}
     >
       {stats.map((stat, i) => {
@@ -23,7 +23,7 @@ export default function StatRow({ stats }: StatRowProps) {
           ? stat.color
           : stat.isPrimary
           ? 'var(--case-accent)'
-          : '#FAFAF9';
+          : 'var(--color-off-white)';
         return (
           <div key={i} className="bg-surface-raised px-6 py-8 md:px-8 md:py-9 text-center">
             <div

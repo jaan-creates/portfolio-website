@@ -3,12 +3,45 @@
 @tailwind utilities;
 
 @layer base {
+  /* ===== Design tokens ===== */
   :root {
+    /* Dark mode defaults */
+    --color-bg: #0D0D0F;
+    --shadow-raised: none;
+    --shadow-card: none;
+    --color-off-white: #FAFAF9;
+    --color-surface: #131316;
+    --color-surface-raised: #1A1A1F;
+    --color-surface-border: rgba(255, 255, 255, 0.06);
+    --color-muted: #6B7280;
+    --color-muted-dark: #3F3F46;
+    --color-muted-light: #A1A1AA;
+    --color-accent-purple: #7F77DD;
+    --color-accent-green: #22C55E;
+    --color-accent-orange: #F97316;
+
+    /* Fluid type scale */
     --step--1: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
     --step-0:  clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
     --step-1:  clamp(1.125rem, 1rem + 0.625vw, 1.375rem);
     --step-2:  clamp(1.375rem, 1.2rem + 0.875vw, 1.75rem);
     --step-4:  clamp(2rem, 1.5rem + 2.5vw, 3rem);
+  }
+
+  html.light {
+    --color-bg: #F5F4F0;
+    --color-off-white: #1A1A1F;
+    --color-surface: #EDECEA;
+    --color-surface-raised: #F5F4F0;
+    --color-surface-border: rgba(0, 0, 0, 0.08);
+    --color-muted: #52525B;
+    --color-muted-dark: #C4C2BC;
+    --color-muted-light: #4B5563;
+    --color-accent-purple: #5A4FCF;
+    --color-accent-green: #15803D;
+    --color-accent-orange: #C2410C;
+    --shadow-raised: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+    --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.07);
   }
 
   *, *::before, *::after {
@@ -22,17 +55,18 @@
   }
 
   body {
-    background-color: #0D0D0F;
-    color: #FAFAF9;
+    background-color: var(--color-bg);
+    color: var(--color-off-white);
     font-family: 'Satoshi', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   ::selection {
     background: rgba(127, 119, 221, 0.3);
-    color: #FAFAF9;
+    color: var(--color-off-white);
   }
 }
 
@@ -60,7 +94,7 @@
   }
 
   .grid-tile {
-    border: 0.5px solid rgba(127, 119, 221, 0.16);
+    border: 0.5px solid var(--color-surface-border);
     transition: background 1.3s ease;
   }
 
@@ -69,9 +103,9 @@
   }
 
   /* nth-child color cycling for tiles */
-  .grid-tile:nth-child(3n+1):hover { background: #22C55E; }
-  .grid-tile:nth-child(3n+2):hover { background: #7F77DD; }
-  .grid-tile:nth-child(3n+3):hover { background: #F97316; }
+  .grid-tile:nth-child(3n+1):hover { background: var(--color-accent-green); }
+  .grid-tile:nth-child(3n+2):hover { background: var(--color-accent-purple); }
+  .grid-tile:nth-child(3n+3):hover { background: var(--color-accent-orange); }
 
   /* Portrait mask */
   .portrait-mask {
@@ -117,6 +151,14 @@
     .notif-card-glow { animation: none; }
   }
 
+  /* Elevation shadow — adapts per theme */
+  .card-shadow {
+    box-shadow: var(--shadow-card);
+  }
+  .raised-shadow {
+    box-shadow: var(--shadow-raised);
+  }
+
   /* Nav blur */
   .nav-blur {
     backdrop-filter: blur(20px);
@@ -128,7 +170,7 @@
     width: 4px;
   }
   ::-webkit-scrollbar-track {
-    background: #0D0D0F;
+    background: var(--color-bg);
   }
   ::-webkit-scrollbar-thumb {
     background: rgba(127, 119, 221, 0.4);
@@ -145,3 +187,121 @@
   }
 }
 
+/* ===== Beyond the Resume ===== */
+.beyond-resume {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--color-bg);
+}
+
+.beyond-bg { position: absolute; inset: 0; will-change: transform; }
+.beyond-bg-item {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  will-change: opacity;
+}
+.beyond-bg-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, color-mix(in srgb, var(--color-bg) 88%, transparent) 38%, color-mix(in srgb, var(--color-bg) 45%, transparent) 100%);
+}
+
+.beyond-titles-container {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  clip-path: polygon(0 28%, 100% 16%, 100% 76%, 0 88%);
+  --line-opacity-top: 0;
+  --line-opacity-bottom: 0;
+}
+.beyond-titles-container::before,
+.beyond-titles-container::after {
+  content: '';
+  position: absolute;
+  left: -10%;
+  width: 120%;
+  height: 1px;
+  background: rgba(244,244,245,0.18);
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.beyond-titles-container::before { top: 28%; transform: rotate(-6deg); opacity: var(--line-opacity-top, 0); }
+.beyond-titles-container::after  { bottom: 24%; transform: rotate(-6deg); opacity: var(--line-opacity-bottom, 0); }
+
+.beyond-titles-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-left: 10vw;
+  will-change: transform;
+}
+.beyond-titles-wrapper h2 {
+  margin: 0;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--color-off-white);
+  will-change: opacity;
+}
+
+.beyond-images {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 3;
+}
+.beyond-img {
+  position: absolute;
+  width: 200px;
+  height: 150px;
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.beyond-header {
+  position: absolute;
+  left: 2rem;
+  top: 50%;
+  transform: translateY(-50%) rotate(-90deg);
+  transform-origin: left center;
+  z-index: 4;
+  color: color-mix(in srgb, var(--color-off-white) 45%, transparent);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  will-change: opacity;
+}
+.beyond-header p { margin: 0; }
+
+.beyond-intro-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+}
+.beyond-intro-text {
+  flex: 1;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--color-off-white);
+}
+.beyond-intro-right { text-align: right; }
+.beyond-intro-left  { text-align: left; }

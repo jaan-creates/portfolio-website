@@ -1,6 +1,7 @@
 // TODO: Add real contact form, social links, and availability status
 
 import { Mail, Twitter, Linkedin, Github } from 'lucide-react';
+import BlockReveal from './BlockReveal';
 
 export default function Contact() {
   return (
@@ -15,11 +16,13 @@ export default function Contact() {
           Available for new projects
         </div>
 
-        <h2 className="font-display font-semibold text-off-white"
-          style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)' }}
-        >
-          Let&rsquo;s build something
-        </h2>
+        <BlockReveal animateOnScroll>
+          <h2 className="font-display font-semibold text-off-white"
+            style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)' }}
+          >
+            Let&rsquo;s build something
+          </h2>
+        </BlockReveal>
 
         <p className="text-muted-light font-sans text-lg leading-relaxed max-w-md">
           Whether it&rsquo;s a product idea, a collab, or just a chat about AI — my inbox is open.

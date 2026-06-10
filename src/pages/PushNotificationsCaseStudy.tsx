@@ -200,6 +200,7 @@ export default function PushNotificationsCaseStudy() {
       company="Thought Leadership"
       domain="Research"
       accentColor="#7F77DD"
+      lightAccentColor="#5E55C4"
       readTime="15 min read"
     >
       {/* App badges */}
@@ -212,7 +213,7 @@ export default function PushNotificationsCaseStudy() {
           <div
             key={name}
             className="flex items-center gap-2 rounded-full px-3 py-1.5"
-            style={{ background: '#1C1C21', border: '0.5px solid rgba(255,255,255,0.08)' }}
+            style={{ background: 'var(--color-surface-raised)', border: '0.5px solid var(--color-surface-border)' }}
           >
             <div
               className="flex-shrink-0 flex items-center justify-center rounded-md font-bold"
@@ -249,7 +250,7 @@ export default function PushNotificationsCaseStudy() {
                 ? '0.5px solid rgba(127,119,221,0.35)'
                 : variant === 'green'
                 ? '0.5px solid rgba(34,197,94,0.35)'
-                : '0.5px solid rgba(255,255,255,0.08)',
+                : '0.5px solid var(--color-surface-border)',
               color: variant === 'purple' ? '#A78BFA' : variant === 'green' ? '#22C55E' : '#6B7280',
               background: variant === 'purple'
                 ? 'rgba(127,119,221,0.08)'
@@ -476,8 +477,8 @@ export default function PushNotificationsCaseStudy() {
         <div
           className="flex items-baseline gap-4 py-6 my-4"
           style={{
-            borderTop: '0.5px solid rgba(255,255,255,0.08)',
-            borderBottom: '0.5px solid rgba(255,255,255,0.08)',
+            borderTop: '0.5px solid var(--color-surface-border)',
+            borderBottom: '0.5px solid var(--color-surface-border)',
           }}
         >
           <span
@@ -546,7 +547,7 @@ export default function PushNotificationsCaseStudy() {
           className="my-3 p-4 rounded-lg font-sans text-sm"
           style={{
             background: '#141417',
-            border: '0.5px solid rgba(255,255,255,0.08)',
+            border: '0.5px solid var(--color-surface-border)',
             borderLeft: '2px solid #6B7280',
           }}
         >
@@ -598,7 +599,7 @@ export default function PushNotificationsCaseStudy() {
               className="rounded-xl p-5 relative overflow-hidden"
               style={{
                 background: '#141417',
-                border: '0.5px solid rgba(255,255,255,0.08)',
+                border: '0.5px solid var(--color-surface-border)',
               }}
             >
               {/* Top accent bar */}

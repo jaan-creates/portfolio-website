@@ -33,7 +33,7 @@ export default function NotificationTimeline({
   return (
     <div
       className="rounded-xl p-5 my-4"
-      style={{ background: '#141417', border: '0.5px solid rgba(255,255,255,0.08)' }}
+      style={{ background: 'var(--color-surface)', border: '0.5px solid var(--color-surface-border)' }}
     >
       {/* Header */}
       <div className="flex items-center gap-3 mb-4">

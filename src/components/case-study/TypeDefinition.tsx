@@ -18,10 +18,10 @@ export default function TypeDefinition({ variant = 'purple', children }: TypeDef
     <div
       className="rounded-r-xl mb-5"
       style={{
-        background: '#141417',
-        borderTop: '0.5px solid rgba(255,255,255,0.08)',
-        borderRight: '0.5px solid rgba(255,255,255,0.08)',
-        borderBottom: '0.5px solid rgba(255,255,255,0.08)',
+        background: 'var(--color-surface)',
+        borderTop: '0.5px solid var(--color-surface-border)',
+        borderRight: '0.5px solid var(--color-surface-border)',
+        borderBottom: '0.5px solid var(--color-surface-border)',
         borderLeft: `2px solid ${color}`,
         padding: '18px 22px',
       }}

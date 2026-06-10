@@ -17,6 +17,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <meta name="theme-color" content="#0D0D0F" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#F5F4F0" media="(prefers-color-scheme: light)" />
+    <script>
+      (function() {
+        var stored = localStorage.getItem('theme');
+        var theme = stored === 'light' ? 'light' : 'dark';
+        if (theme === 'light') document.documentElement.classList.add('light');
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

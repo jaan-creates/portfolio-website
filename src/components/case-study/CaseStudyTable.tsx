@@ -15,7 +15,7 @@ interface CaseStudyTableProps {
 
 export default function CaseStudyTable({ columns, rows }: CaseStudyTableProps) {
   return (
-    <div className="mt-6 mb-2 overflow-x-auto rounded-xl" style={{ border: '0.5px solid rgba(255,255,255,0.06)' }}>
+    <div className="mt-6 mb-2 overflow-x-auto rounded-xl" style={{ border: '0.5px solid var(--color-surface-border)' }}>
       <table className="w-full border-collapse" style={{ fontSize: 'var(--step--1)' }}>
         <thead>
           <tr>
@@ -24,8 +24,8 @@ export default function CaseStudyTable({ columns, rows }: CaseStudyTableProps) {
                 key={key}
                 className="text-left font-sans font-medium uppercase tracking-[0.08em] text-muted-light px-4 py-3"
                 style={{
-                  background: '#232328',
-                  borderBottom: '0.5px solid rgba(255,255,255,0.06)',
+                  background: 'var(--color-surface)',
+                  borderBottom: '0.5px solid var(--color-surface-border)',
                   fontSize: '11px',
                   letterSpacing: '0.08em',
                   whiteSpace: 'nowrap',
@@ -42,7 +42,7 @@ export default function CaseStudyTable({ columns, rows }: CaseStudyTableProps) {
               key={ri}
               className="transition-colors duration-150"
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.background = '#232328';
+                (e.currentTarget as HTMLElement).style.background = 'var(--color-surface)';
               }}
               onMouseLeave={(e) => {
                 (e.currentTarget as HTMLElement).style.background = '';
@@ -53,14 +53,14 @@ export default function CaseStudyTable({ columns, rows }: CaseStudyTableProps) {
                   key={key}
                   className="px-4 py-3 text-off-white leading-snug"
                   style={{
-                    background: '#1A1A1F',
+                    background: 'var(--color-surface-raised)',
                     borderBottom:
                       ri < rows.length - 1
-                        ? '0.5px solid rgba(255,255,255,0.06)'
+                        ? '0.5px solid var(--color-surface-border)'
                         : 'none',
                     borderRight:
                       ci < columns.length - 1
-                        ? '0.5px solid rgba(255,255,255,0.06)'
+                        ? '0.5px solid var(--color-surface-border)'
                         : 'none',
                   }}
                 >

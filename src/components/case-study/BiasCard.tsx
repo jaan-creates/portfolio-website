@@ -34,8 +34,8 @@ export default function BiasCard({
     <div
       className="rounded-xl p-4"
       style={{
-        background: '#141417',
-        border: '0.5px solid rgba(255,255,255,0.08)',
+        background: 'var(--color-surface)',
+        border: '0.5px solid var(--color-surface-border)',
       }}
     >
       {/* Bias type chip */}
@@ -82,10 +82,10 @@ export default function BiasCard({
             {notifTimestamp}
           </span>
         </div>
-        <p className="font-sans font-bold leading-snug mb-0.5" style={{ fontSize: '12px' }}>
+        <p className="font-sans font-bold leading-snug mb-0.5" style={{ fontSize: '12px', color: '#FAFAF9' }}>
           {notifTitle}
         </p>
-        <p className="font-sans text-muted-light leading-relaxed" style={{ fontSize: '11px' }}>
+        <p className="font-sans leading-relaxed" style={{ fontSize: '11px', color: '#9CA3AF' }}>
           {notifBody}
         </p>
       </div>

@@ -1,3 +1,5 @@
+import { useTheme } from '../../contexts/ThemeContext';
+
 interface NotifIcon {
   label: string;
   bg: string;
@@ -28,12 +30,7 @@ interface NotificationCardProps {
   chipVariant?: ChipVariant;
 }
 
-const VARIANT_STYLES: Record<NotifVariant, React.CSSProperties> = {
-  default: { background: '#1C1C21', borderColor: 'rgba(255,255,255,0.13)' },
-  dark:    { background: '#0d0d12', borderColor: 'rgba(255,255,255,0.13)' },
-  ios:     { background: 'rgba(255,255,255,0.07)', borderColor: 'rgba(255,255,255,0.14)' },
-  red:     { background: 'rgba(239,68,68,0.04)', borderColor: 'rgba(239,68,68,0.22)' },
-};
+// VARIANT_STYLES is computed inside the component to be theme-aware for the ios variant
 
 const CHIP_STYLES: Record<ChipVariant, React.CSSProperties> = {
   cp: { background: 'rgba(127,119,221,0.07)', color: '#A78BFA', border: '0.5px solid rgba(127,119,221,0.4)' },
@@ -57,8 +54,15 @@ export default function NotificationCard({
   chipLabel,
   chipVariant = 'cp',
 }: NotificationCardProps) {
+  const { theme } = useTheme();
   const isIos = variant === 'ios';
-  const variantStyle = VARIANT_STYLES[variant];
+
+  const variantStyle: React.CSSProperties = {
+    default: { background: '#1C1C21',                             borderColor: 'rgba(255,255,255,0.13)' },
+    dark:    { background: '#0d0d12',                             borderColor: 'rgba(255,255,255,0.13)' },
+    ios:     { background: theme === 'light' ? '#1C1C21' : 'rgba(255,255,255,0.07)', borderColor: 'rgba(255,255,255,0.13)' },
+    red:     { background: 'rgba(239,68,68,0.04)',                borderColor: 'rgba(239,68,68,0.22)' },
+  }[variant];
 
   const titleColor = isIos ? '#fff' : '#FAFAF9';
   const bodyColor  = isIos ? 'rgba(255,255,255,0.55)' : '#9CA3AF';

@@ -82,6 +82,7 @@ Keep it short and factual.
 /case-studies/push-guidebook       → PushNotificationGuidebook (built, not in grid — direct URL only)
 /case-studies/plum                 → PlumCaseStudy (PLACEHOLDER)
 /case-studies/health-and-glow      → HealthGlowCaseStudy (PLACEHOLDER)
+/projects/daybreak                 → DaybreakProject (built)
 
 ### Motion invariants
 - Lenis + GSAP ticker is wired at MODULE LEVEL in App.tsx. Never move it into a useEffect — breaks site-wide smooth scroll.

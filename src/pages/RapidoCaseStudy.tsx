@@ -6,22 +6,21 @@ import FindingGrid from '../components/case-study/FindingGrid';
 import PersonaGrid from '../components/case-study/PersonaGrid';
 import EmpathyMap from '../components/case-study/EmpathyMap';
 import DecisionBlock from '../components/case-study/DecisionBlock';
-import CaseStudyTable from '../components/case-study/CaseStudyTable';
 import StatRow from '../components/case-study/StatRow';
 import CaseStudyNext from '../components/case-study/CaseStudyNext';
 
 export default function RapidoCaseStudy() {
   return (
     <CaseStudyLayout
-      title="An Insight Into The Lives of Bike-Taxi Drivers in India"
+      title="Inside the Ride"
       company="Rapido"
-      domain="Mobility"
-      accentColor="#FFD11A"
-      readTime="8 min read"
+      domain="Gig Economy"
+      accentColor="#7F77DD"
+      readTime="12 min read"
     >
       {/* Tags */}
       <div className="flex flex-wrap gap-2 mb-10">
-        {['Research', 'UX', 'Field Study', 'Gig Economy'].map((tag) => (
+        {['Field Research', 'UX Research', 'Gig Economy', 'India'].map((tag) => (
           <span
             key={tag}
             className="font-mono text-xs font-medium px-2.5 py-1 rounded border border-surface-border bg-surface-raised text-muted-light uppercase tracking-wider"
@@ -34,90 +33,196 @@ export default function RapidoCaseStudy() {
       {/* Meta row */}
       <CaseStudyMeta
         cells={[
-          { label: 'My Role', value: '← Add your role', isGap: true },
-          { label: 'Timeline', value: '2 weeks · ← Add year', isGap: true },
-          { label: 'Context', value: '← Add context', isGap: true },
-          { label: 'Outcome', value: '← Add outcome', isGap: true },
+          { label: 'My Role', value: 'Product Manager' },
+          { label: 'Timeline', value: '2 weeks · 2023' },
+          { label: 'Context', value: 'Independent Research' },
+          { label: 'Published', value: 'LinkedIn · Field Research' },
         ]}
       />
 
-      {/* Problem statement */}
-      <CaseStudySection eyebrow="BACKGROUND" heading="The Zomato t-shirt that started everything">
+      {/* THE HOOK */}
+      <CaseStudySection eyebrow="FIELD RESEARCH" heading="The observation that changed everything">
         <p className="text-off-white leading-relaxed mb-6" style={{ fontSize: 'var(--step-0)' }}>
-          I booked a Rapido bike ride and my driver was wearing a Zomato t-shirt. It was a branding
-          brain teaser — was this a crossover episode, or had I accidentally booked the wrong app? I
-          wanted to understand why.
+          I booked a Rapido bike ride and my driver was wearing a Zomato t-shirt. It was a small, strange thing — and I couldn't let it go. Brand crossover? Accidental booking? I asked him why.
         </p>
 
         <PullQuote>
-          "I'm not trying to steal anyone's business. I just want to make a living and provide for
-          my family."
+          "If I wear the Rapido jacket, the auto drivers know what I am. They'll harass me. This way, I look like a delivery guy."
         </PullQuote>
 
         <p className="text-off-white leading-relaxed" style={{ fontSize: 'var(--step-0)' }}>
-          For two weeks, I used my daily Rapido rides as research sessions — conducting candid
-          conversations with the drivers assigned to me. I spoke with drivers ranging from those who
-          had been with Rapido since 2017 to others who were on their very first ride. What emerged
-          wasn't just a list of product bugs. It was a picture of workers navigating fear, isolation,
-          and invisibility inside an app that had no real way to hear them.
+          That answer changed what I thought I was looking at. This wasn't a branding oddity. It was a coping mechanism — improvised by a driver working on a platform that had built him no tools to protect himself. For two weeks, I used every assigned Rapido ride as a research session. What follows is what I found, what it means for the product, and what I'd build first.
         </p>
       </CaseStudySection>
 
-      {/* Findings */}
-      <CaseStudySection eyebrow="RESEARCH" heading="What I found">
-        <FindingGrid
-          findings={[
+      {/* BUSINESS FRAMING */}
+      <CaseStudySection eyebrow="WHY IT MATTERS" heading="Business framing: Why drivers are the product">
+        <p className="text-muted-light leading-relaxed mb-8" style={{ fontSize: 'var(--step-0)' }}>
+          A research report that doesn't connect to business stakes doesn't drive product decisions. Here's the frame.
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-surface-border rounded-lg overflow-hidden mb-10">
+          {[
             {
-              icon: '⚡',
-              title: 'Freedom and Flexibility',
-              body: (
-                <>
-                  Most drivers valued the <strong className="text-off-white">freedom and flexibility</strong> the job offered and felt
-                  motivated by the incentives and extra income — but that goodwill was being eroded
-                  by daily friction.
-                </>
-              ),
+              icon: '⛓',
+              title: 'Drivers are the product',
+              body: 'Rapido\'s supply of drivers is what riders buy when they open the app. A stressed, voiceless driver is a lower-rated ride and a longer ETA. The rider experience is built entirely on top of the driver experience — but the two apps aren\'t designed that way.',
             },
             {
-              icon: '⚠️',
-              title: 'Deliberate Harassment',
-              body: (
-                <>
-                  Many drivers faced <strong className="text-off-white">deliberate harassment</strong> by auto drivers. Auto drivers
-                  would intentionally book rides just to confront them — forcing Rapido drivers to
-                  disguise themselves in Swiggy or Zomato uniforms.
-                </>
-              ),
+              icon: '🔁',
+              title: 'Churn is a compounding loss',
+              body: 'Acquiring a new driver requires onboarding, documentation, and weeks of low-earnings ramp-up. Retaining an experienced driver — especially one who\'s been on the platform for years — costs a fraction of that. Unheard grievances are a direct churn trigger.',
             },
             {
-              icon: '🔇',
-              title: 'No Grievance Mechanism',
-              body: (
-                <>
-                  The Rapido app had{' '}
-                  <strong className="text-off-white">no in-app grievance mechanism</strong>.
-                  Complaints had to be escalated to a physical Rapido office — a high barrier for
-                  drivers from low-literacy backgrounds.
-                </>
-              ),
+              icon: '📣',
+              title: 'Zero voice infrastructure',
+              body: 'At the time of research, Rapido had no in-app support mechanism for drivers. Issues were reported at a physical office. For a workforce that\'s time-poor, geographically distributed, and from low-literacy backgrounds, this is not a support system — it\'s a closed door.',
             },
-            {
-              icon: '🌐',
-              title: 'Language Barriers',
-              body: (
-                <>
-                  Drivers from outside Karnataka faced{' '}
-                  <strong className="text-off-white">language barriers</strong> that compounded
-                  every other problem — from communicating with riders to speaking up for themselves.
-                </>
-              ),
-            },
-          ]}
-        />
+          ].map((card, idx) => (
+            <div
+              key={idx}
+              className="bg-surface-raised p-6"
+              style={{ borderBottom: '1px solid var(--color-surface-border)' }}
+            >
+              <div className="text-2xl mb-3">{card.icon}</div>
+              <h4 className="font-display font-semibold text-off-white mb-2">{card.title}</h4>
+              <p className="text-muted-light text-sm leading-relaxed">{card.body}</p>
+            </div>
+          ))}
+        </div>
       </CaseStudySection>
 
-      {/* Personas */}
-      <CaseStudySection eyebrow="WHO I DESIGNED FOR" heading="Who I was designing for">
+      {/* RESEARCH DESIGN - Decision 01 */}
+      <CaseStudySection eyebrow="METHODOLOGY" heading="Research design: The deliberate method">
+        <p className="text-muted-light leading-relaxed mb-8" style={{ fontSize: 'var(--step-0)' }}>
+          The method was a deliberate choice, not an accident. And like every research method, it had real tradeoffs I have to own.
+        </p>
+
+        <DecisionBlock
+          number="01"
+          label="Research Method"
+          question="Formal interviews in a controlled setting, or ethnographic conversations during actual rides?"
+          context="I needed honest signal from a group with strong reasons to self-censor: drivers who might fear being assessed by their employer, or who'd feel intimidated articulating complaints to a stranger with a notebook."
+          options={[
+            {
+              name: 'Formal Interviews',
+              pros: 'Structured, consistent, comparable across participants.',
+              cons: 'High social desirability bias. Hard to recruit without manufacturing power dynamics. Drivers would show up to perform, not share.',
+              chosen: false,
+            },
+            {
+              name: 'In-Ride Ethnography ✓',
+              pros: 'Driver is already at work, already in context. The conversation starts naturally.',
+              cons: 'No notes during the ride, but field notes immediately after. The Zomato t-shirt story emerged this way — it wouldn\'t have come out in a formal setting.',
+              chosen: true,
+            },
+          ]}
+          chosenLabel="✓ Chose: In-ride ethnography"
+          gapNote="Removing the formality removes the filter. A driver in a formal interview gives polished, cautious answers. A driver asked a friendly question during his workday tells you about the uniform he wears to avoid being attacked."
+          outcome={{
+            title: 'What happened',
+            body: 'Every driver surfaced a grievance with no formal outlet. None of this would have appeared in a rider study. The Zomato t-shirt finding — a worker improvising his own safety mechanism — is invisible from the rider side of the platform.',
+          }}
+        />
+
+        <div
+          className="p-4 rounded-lg border mt-8"
+          style={{
+            borderColor: 'rgba(249, 115, 22, 0.22)',
+            backgroundColor: 'rgba(249, 115, 22, 0.04)',
+          }}
+        >
+          <div className="font-mono text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: '#F97316' }}>
+            Methodological Limitations — Owned
+          </div>
+          <ul className="space-y-2 text-xs text-muted-light">
+            <li>• Sample is small (~10 drivers over 2 weeks). These findings are directional, not statistically significant.</li>
+            <li>• Conversations were in English — this over-represents drivers comfortable with English, who likely have fewer language-barrier problems than those who couldn't engage. The group with the most acute pain was harder to reach.</li>
+            <li>• All research was conducted in Bangalore. Driver experience in Tier 2/3 cities may differ materially.</li>
+            <li>• No quantitative baseline to triangulate against — Rapido's actual churn rate, grievance volume, and support ticket data were unavailable.</li>
+          </ul>
+        </div>
+      </CaseStudySection>
+
+      {/* FINDINGS */}
+      <CaseStudySection eyebrow="RESEARCH" heading="What I found — and what it means for the product">
+        <p className="text-muted-light leading-relaxed mb-8" style={{ fontSize: 'var(--step-0)' }}>
+          Every finding maps to an implication. Research without a "so what" is documentation, not PM work.
+        </p>
+
+        <div className="space-y-6">
+          <FindingGrid
+            findings={[
+              {
+                icon: '📌',
+                title: 'Flexibility is the retention hook — but it\'s being eroded',
+                body: (
+                  <>
+                    Drivers consistently named flexible hours and income supplementation as what keeps them on the platform. Not brand loyalty. But every daily friction — harassment, low earnings clarity, no support — chips away at the goodwill that flexibility earns.
+                  </>
+                ),
+              },
+              {
+                icon: '⚠️',
+                title: 'Harassment is systematic, not isolated',
+                body: (
+                  <>
+                    Auto drivers deliberately book rides to confront and intimidate Rapido drivers. This is coordinated. The workaround: wear a Swiggy or Zomato uniform so you aren\'t identifiable as a bike-taxi driver.
+                  </>
+                ),
+              },
+              {
+                icon: '🔇',
+                title: 'The grievance system requires a physical office visit',
+                body: (
+                  <>
+                    No in-app support for drivers. Every complaint must be reported at a physical Rapido office. For a gig worker earning per ride, losing half a day to report a problem isn\'t a viable option — so problems go unreported.
+                  </>
+                ),
+              },
+              {
+                icon: '🌐',
+                title: 'Language barriers compound every other problem',
+                body: (
+                  <>
+                    Migrant drivers who don\'t speak Kannada face communication difficulties with riders, navigation friction, and — critically — an inability to self-advocate when things go wrong. Every other problem is harder without a shared language.
+                  </>
+                ),
+              },
+            ]}
+          />
+
+          {/* Implications */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {[
+              'Don\'t over-engineer loyalty programs. Protect schedule flexibility and make earnings transparent in the app.',
+              'This is a safety emergency. In-app incident reporting and a panic mechanism are P0 features, not backlog items.',
+              'The absence of this feature means Rapido is blind to how bad the problem is. Every unreported incident is an invisible data point.',
+              'Multi-language support in the driver app is a foundational accessibility requirement. It should have shipped at launch.',
+            ].map((implication, idx) => (
+              <div
+                key={idx}
+                className="p-4 rounded-lg text-xs"
+                style={{
+                  backgroundColor: 'rgba(127, 119, 221, 0.06)',
+                  borderLeft: '2px solid var(--case-accent)',
+                  borderColor: '#7F77DD',
+                }}
+              >
+                <strong style={{ color: '#7F77DD' }}>→ PM: </strong>
+                <span className="text-muted-light">{implication}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </CaseStudySection>
+
+      {/* PERSONAS */}
+      <CaseStudySection eyebrow="WHO I WAS DESIGNING FOR" heading="Two driver archetypes with overlapping pain">
+        <p className="text-muted-light leading-relaxed mb-8" style={{ fontSize: 'var(--step-0)' }}>
+          Distinct driver types with overlapping pain but different stakes — and therefore different solution priorities.
+        </p>
+
         <PersonaGrid
           personas={[
             {
@@ -125,13 +230,13 @@ export default function RapidoCaseStudy() {
               name: 'Gim',
               age: 33,
               meta: ['Full-time Driver', 'Manipur → Bangalore'],
-              bio: "Recently relocated to Bangalore, bought a second-hand bike to drive for Rapido. Low educational qualifications, doesn't speak Kannada, lives in a rented room. Comfortable with technology, but has no local support network.",
-              painpointsLabel: 'Core Painpoints',
+              bio: 'Relocated to Bangalore, bought a second-hand bike to drive full-time for Rapido. Doesn\'t speak Kannada. Lives alone, no local support network. Technology-comfortable but educational background is limited. Rapido is his primary income — not a supplement.',
+              painpointsLabel: 'Painpoints',
               painpoints: [
-                'Communication difficulties with local-language-only riders',
-                'Struggling to make enough to justify the cost of living',
-                'Fears confrontation from auto drivers who see him as a threat',
-                'Isolated — no community, no colleagues, no one to raise issues with',
+                'Language barrier with riders and the city itself',
+                'Constant threat of confrontation with auto drivers',
+                'No one to raise problems with — isolated by design',
+                'Reporting a grievance means losing a day\'s earnings',
               ],
             },
             {
@@ -139,24 +244,27 @@ export default function RapidoCaseStudy() {
               name: 'Rakesh',
               age: 29,
               meta: ['Part-time Driver', 'Bangalore'],
-              bio: "Married with one child. Works at a mall full-time and drives for Rapido to earn extra income. Actively uses mobile apps and is technology-savvy. The gig isn't his identity — it's a financial tool.",
-              painpointsLabel: 'Core Painpoints',
+              bio: 'Married with one child. Works at a mall by day, drives for Rapido in the evenings for supplemental income. Tech-savvy. For Rakesh, the app is a financial tool — not an identity. But the economics are tighter than they first appeared after factoring in fuel and maintenance.',
+              painpointsLabel: 'Painpoints',
               painpoints: [
-                'Low earnings after deducting fuel and maintenance costs',
-                'Long hours + mall job = exhaustion that bleeds into performance',
-                "No clear separation between his 'day job' stress and driving stress",
-                'Hostility from traditional taxi drivers who see him as competition',
+                'Earnings thinner than expected after costs',
+                'Double-shift exhaustion bleeds into performance at both jobs',
+                'Hostility from traditional taxi drivers',
+                'No visibility into earnings-per-hour, not just per-ride',
               ],
             },
           ]}
         />
       </CaseStudySection>
 
-      {/* Empathy map */}
+      {/* EMPATHY MAP */}
       <CaseStudySection eyebrow="SYNTHESIS" heading="Inside the driver's head">
+        <p className="text-muted-light leading-relaxed mb-8" style={{ fontSize: 'var(--step-0)' }}>
+          The most important gap: between what drivers say (calm, professional) and what they feel (afraid, exhausted, voiceless). The platform never sees this delta.
+        </p>
+
         <EmpathyMap
           subject="DRIVER"
-          intro="The empathy map below is synthesised from conversations across both personas. The most striking gap: between what drivers say (calm, professional) and what they feel (afraid, exhausted, invisible)."
           quadrants={[
             {
               title: 'Says',
@@ -167,7 +275,7 @@ export default function RapidoCaseStudy() {
                 '"I just want to provide for my family"',
                 '"I\'m not stealing anyone\'s business"',
                 '"I like the flexible schedule"',
-                '"I don\'t speak the local language"',
+                '"Traffic is manageable today"',
               ],
             },
             {
@@ -176,11 +284,10 @@ export default function RapidoCaseStudy() {
               chipBg: 'rgba(248,113,113,0.1)',
               chipColor: '#FCA5A5',
               chips: [
-                '"Hope I can avoid confrontations today"',
+                '"Hope I avoid confrontations today"',
                 '"Will I earn enough this month?"',
-                '"I wish I could explain myself"',
-                '"Traffic is really bad today"',
-                '"I need more time to rest"',
+                '"I wish I could explain myself better"',
+                '"I need to rest"',
               ],
             },
             {
@@ -190,9 +297,9 @@ export default function RapidoCaseStudy() {
               chipColor: '#86EFAC',
               chips: [
                 'Wears Swiggy/Zomato uniform as camouflage',
-                'Avoids routes where confrontations are likely',
+                'Avoids routes near auto stands',
                 'Parks away from designated pickup zones',
-                'Makes small talk to build rapport with riders',
+                'Makes small talk to build rider trust',
               ],
             },
             {
@@ -201,192 +308,399 @@ export default function RapidoCaseStudy() {
               chipBg: 'rgba(251,191,36,0.1)',
               chipColor: '#FCD34D',
               chips: [
-                'Fearful of hostile encounters',
+                'Fearful of encounters',
                 'Defenseless',
                 'Anxious',
-                'Stressed about income',
-                'Frustrated by traffic',
+                'Stressed about money',
                 'Tired',
+                'Isolated',
               ],
             },
           ]}
         />
       </CaseStudySection>
 
-      {/* Decisions */}
-      <CaseStudySection eyebrow="DECISIONS" heading="The decisions behind the research">
-        <DecisionBlock
-          number="01"
-          label="Research Method"
-          question="Should I conduct formal interviews, or use the rides themselves as the research setting?"
-          context="I needed candid, honest insight from drivers — not polished answers. The question was whether a formal setup would make drivers more guarded, or whether I could get better signal from an already-existing context of trust."
-          options={[
-            {
-              name: 'Formal Interview',
-              pros: 'Structured, consistent across all participants. Easy to compare responses.',
-              cons: 'Drivers may feel observed and self-censor. Hard to recruit participants.',
-              chosen: false,
-            },
-            {
-              name: 'In-Ride Ethnography ✓',
-              pros: 'Natural setting. Drivers are already at work — context is rich. Lower guard.',
-              cons: "Can't control for ride length or interruptions. No recording.",
-              chosen: true,
-            },
-          ]}
-          chosenLabel="✓ Chose: In-ride ethnography"
-          gapNote="← Add one sentence: why you chose this method over a formal setup."
-          outcome={{
-            title: 'What happened',
-            body: 'The conversational setting produced remarkably candid responses. Drivers shared concerns they almost certainly wouldn\'t have raised in a formal context — including the harassment tactic and the uniform disguise, which became two of the most critical findings.',
-          }}
-        />
+      {/* JOURNEY MAP */}
+      <CaseStudySection eyebrow="EXPERIENCE MAP" heading="Where the experience breaks down">
+        <p className="text-muted-light leading-relaxed mb-8" style={{ fontSize: 'var(--step-0)' }}>
+          An empathy map shows a cross-section. A journey map shows where on the timeline the platform fails its drivers. Phases 4 and 6 are complete product gaps.
+        </p>
 
+        <div className="overflow-x-auto mb-8">
+          <div className="grid grid-cols-6 gap-px bg-surface-border rounded-lg overflow-hidden min-w-fit">
+            {[
+              {
+                step: 'Phase 01',
+                name: 'Sign Up',
+                desc: 'Registers on Rapido, submits documents, gets onboarding. Motivated, optimistic about earnings.',
+                status: 'optimistic',
+                statusLabel: 'Optimistic',
+                pain: null,
+              },
+              {
+                step: 'Phase 02',
+                name: 'Waiting for Rides',
+                desc: 'Idles near a zone. Mentally mapping which areas to avoid. Alert but calm.',
+                status: 'neutral',
+                statusLabel: 'Calculating',
+                pain: null,
+              },
+              {
+                step: 'Phase 03',
+                name: 'During Ride',
+                desc: 'Navigates and makes small talk. Mostly positive but language barriers create friction.',
+                status: 'neutral',
+                statusLabel: 'Professional',
+                pain: null,
+              },
+              {
+                step: 'Phase 04',
+                name: 'Confrontation',
+                desc: 'An auto driver books a fake ride or physically confronts. No protection, no in-app emergency option.',
+                status: 'critical',
+                statusLabel: 'Fearful · Alone',
+                pain: 'Platform failure — zero safety infrastructure',
+              },
+              {
+                step: 'Phase 05',
+                name: 'Post-Ride',
+                desc: 'Checks earnings. Takes a break. Exhaustion is high. Earnings don\'t clearly reflect effort after costs.',
+                status: 'warning',
+                statusLabel: 'Tired · Uncertain',
+                pain: null,
+              },
+              {
+                step: 'Phase 06',
+                name: 'Incident Reporting',
+                desc: 'Tries to report the confrontation. Discovers there\'s no in-app option. Must visit a physical office.',
+                status: 'critical',
+                statusLabel: 'Defeated · Voiceless',
+                pain: 'Platform failure — problem goes unheard',
+              },
+            ].map((phase, idx) => (
+              <div key={idx} className="bg-surface-raised p-4 min-w-[160px]">
+                <div className="font-mono text-xs uppercase text-muted-light mb-2">{phase.step}</div>
+                <div className="font-semibold text-sm text-off-white mb-3">{phase.name}</div>
+                <p className="text-xs text-muted-light mb-3 leading-relaxed">{phase.desc}</p>
+                <div
+                  className="text-xs px-2 py-1 rounded inline-block mb-2"
+                  style={{
+                    backgroundColor:
+                      phase.status === 'optimistic'
+                        ? 'rgba(34, 197, 94, 0.1)'
+                        : phase.status === 'critical'
+                          ? 'rgba(248, 113, 113, 0.1)'
+                          : phase.status === 'warning'
+                            ? 'rgba(249, 115, 22, 0.1)'
+                            : 'rgba(107, 114, 128, 0.1)',
+                    color:
+                      phase.status === 'optimistic'
+                        ? '#4ADE80'
+                        : phase.status === 'critical'
+                          ? '#FCA5A5'
+                          : phase.status === 'warning'
+                            ? '#FB923C'
+                            : '#9CA3AF',
+                  }}
+                >
+                  {phase.statusLabel}
+                </div>
+                {phase.pain && <div className="text-xs text-red-400 italic mt-2">⚠ {phase.pain}</div>}
+              </div>
+            ))}
+          </div>
+        </div>
+      </CaseStudySection>
+
+      {/* OPPORTUNITY SOLUTION TREE */}
+      <CaseStudySection eyebrow="IDEATION" heading="From research to product opportunity">
+        <p className="text-muted-light leading-relaxed mb-8" style={{ fontSize: 'var(--step-0)' }}>
+          Findings organised as an opportunity tree. The ★ marks what I'd ship first — and the reasoning follows in the next section.
+        </p>
+
+        <div
+          className="rounded-lg p-8 mb-8"
+          style={{
+            backgroundColor: 'var(--color-surface)',
+            border: '0.5px solid var(--color-surface-border)',
+          }}
+        >
+          <div className="text-center mb-8">
+            <div
+              className="inline-block px-6 py-3 rounded-lg border"
+              style={{
+                borderColor: 'rgba(127, 119, 221, 0.45)',
+                backgroundColor: 'rgba(127, 119, 221, 0.07)',
+              }}
+            >
+              <div className="font-display font-semibold text-off-white text-sm">
+                How might we reduce driver churn through better platform support?
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-4 gap-6">
+            {[
+              {
+                branch: 'Safety & Security',
+                leaves: ['Panic button', 'Fake-booking detection', 'Route safety alerts'],
+              },
+              {
+                branch: 'Voice & Grievance',
+                leaves: ['In-app grievance tool ★', 'Voice note support ★', 'Quarterly driver survey'],
+              },
+              {
+                branch: 'Language & Comms',
+                leaves: ['Multi-language driver app', 'Ride comms assist', 'Regional onboarding'],
+              },
+              {
+                branch: 'Community',
+                leaves: ['Driver advisory council', 'Regional meetups', 'Skills workshops'],
+              },
+            ].map((branch, idx) => (
+              <div key={idx} className="text-center">
+                <div
+                  className="px-3 py-2 rounded border text-sm font-semibold text-muted-light mb-4 bg-surface-2"
+                  style={{ borderColor: 'var(--color-surface-border)' }}
+                >
+                  {branch.branch}
+                </div>
+                <div className="space-y-2">
+                  {branch.leaves.map((leaf, lidx) => (
+                    <div
+                      key={lidx}
+                      className={`text-xs px-2 py-1.5 rounded ${
+                        leaf.includes('★')
+                          ? 'bg-green-950 text-green-300 border border-green-700 font-semibold'
+                          : 'bg-surface-2 text-muted-light border border-surface-border'
+                      }`}
+                    >
+                      {leaf}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-8 text-xs text-muted-light">
+            ★ Ship first · All other nodes = prioritised backlog
+          </div>
+        </div>
+      </CaseStudySection>
+
+      {/* DECISIONS 2 & 3 */}
+      <CaseStudySection eyebrow="DECISIONS" heading="The critical prioritisation decisions">
         <DecisionBlock
           number="02"
           label="Scope"
-          question="Study the rider experience or the driver experience — where was the bigger, more neglected gap?"
-          context="Most product research in ride-hailing focuses on riders. The driver app is treated as a back-end operational tool, not a product deserving UX attention. The Zomato t-shirt triggered a specific question: what's happening on the other side?"
+          question="Study rider experience, or driver experience — where was the bigger unaddressed gap?"
+          context="Most product research in ride-hailing is rider-focused. The rider app is polished, A/B tested, and iterated constantly. The driver app gets the table scraps of the roadmap."
           options={[
             {
               name: 'Rider Experience',
-              pros: 'Larger user base. More existing research to build on.',
-              cons: 'Already well-studied. Unlikely to surface anything novel.',
+              pros: 'Large audience. Clear benchmarks. Lots of existing research to build on.',
+              cons: 'Already well-studied. Low probability of novel insight. Crowded research space.',
               chosen: false,
             },
             {
               name: 'Driver Experience ✓',
-              pros: 'Severely under-researched. High potential for novel insights. Direct access via daily rides.',
-              cons: 'Smaller sample. Risk of over-indexing on individual stories.',
+              pros: 'Under-researched. High insight potential. Direct access through daily commutes.',
+              cons: 'Platform\'s supply chain. Problems here become rider problems one step downstream.',
               chosen: true,
             },
           ]}
           chosenLabel="✓ Chose: Driver experience"
-          gapNote="← Add one sentence: what made you certain the driver side had a bigger unmet need."
+          gapNote="The driver experience is the rider experience, one step removed. And the most interesting product problems tend to live in the places nobody's looking. The driver-side was an open field."
           outcome={{
             title: 'What happened',
-            body: 'Every single driver interview surfaced a grievance that had no outlet. The insight about the missing in-app support system — which should have been a day-one product requirement — only emerged because we were asking the right people the right questions.',
+            body: 'Every driver surfaced a grievance with no formal outlet. The Zomato t-shirt finding — a worker improvising his own safety mechanism — is invisible from the rider side of the platform.',
           }}
         />
 
         <DecisionBlock
           number="03"
-          label="Solution Framing"
-          question="Recommend product fixes (in-app grievance tool), or systemic interventions (community, language support)?"
-          context="The research surfaced two distinct layers of problem: things a PM could fix in a sprint (no reporting mechanism in the app) and things that require Rapido to change how it thinks about its driver community. Which recommendation is more actionable? Which is more important?"
+          label="Prioritisation"
+          question="Safety features first, or a grievance mechanism first — which addresses the most urgent driver need?"
+          context="Safety felt like the most emotionally urgent problem. But a grievance mechanism is what enables Rapido to discover all future problems — including safety incidents. There's a sequencing argument here that changes everything."
           options={[
             {
-              name: 'Product / App fixes',
-              pros: "Actionable. A PM can scope this into a roadmap sprint today.",
-              cons: "Solves the symptom. Doesn't change the underlying driver-platform power dynamic.",
+              name: 'Safety Features First',
+              pros: 'Addresses the most visceral, immediate fear. High emotional resonance for drivers.',
+              cons: 'Complex to build. Requires ops coordination. Longer time-to-ship.',
               chosen: false,
             },
             {
-              name: 'Systemic interventions',
-              pros: "Addresses root causes. Could differentiate Rapido's employer brand.",
-              cons: 'Harder to scope. Requires buy-in from ops, not just product.',
-              chosen: false,
+              name: 'Grievance Tool First ✓',
+              pros: 'Fastest to ship. Addresses the widest, most universal pain across all driver types.',
+              cons: 'The data it generates will surface every other problem — including safety incidents — automatically. It\'s a force multiplier.',
+              chosen: true,
             },
           ]}
-          gapNote="← Add: which recommendation did you lead with, and why? Did you explicitly prioritise one over the other?"
+          chosenLabel="✓ Chose: Grievance tool first"
+          gapNote="A grievance tool isn't just a feature — it's feedback infrastructure. Ship this first and every subsequent decision about what to build next becomes data-backed, not assumption-backed."
           outcome={{
-            title: 'What happened',
-            body: '← Add the outcome: Was this shared? Published? Did it reach Rapido? What happened after?',
-            isGap: true,
+            title: 'The leverage argument',
+            body: 'Rapido currently has near-zero signal on driver experience quality. The grievance tool turns that from a blind spot into a feedback loop — which is arguably more valuable than any single feature it could surface.',
           }}
         />
       </CaseStudySection>
 
-      {/* Solutions */}
-      <CaseStudySection eyebrow="SOLUTIONS" heading="Proposed solutions">
-        <p
-          className="text-muted-light leading-relaxed mb-2"
-          style={{ fontSize: 'var(--step-0)' }}
-        >
-          These emerged directly from driver interviews — ranging from quick in-app fixes to
-          structural changes in how Rapido relates to its driver community.
+      {/* PRIORITISATION MATRIX */}
+      <CaseStudySection eyebrow="PRIORITISATION" heading="Solution prioritisation matrix">
+        <p className="text-muted-light leading-relaxed mb-8" style={{ fontSize: 'var(--step-0)' }}>
+          Solutions plotted by impact on driver retention vs. engineering effort. Upper-left quadrant ships first.
         </p>
-        <CaseStudyTable
-          columns={[
-            { header: 'Solution', key: 'solution' },
-            { header: 'Type', key: 'type' },
-            { header: 'What it addresses', key: 'addresses' },
+
+        <div className="grid grid-cols-2 gap-px bg-surface-border rounded-lg overflow-hidden mb-8">
+          {[
             {
-              header: 'Effort',
-              key: 'effort',
-              renderCell: (val) => (
-                <span
-                  style={{
-                    color: val === 'Low–Medium' ? '#22C55E' : '#A1A1AA',
-                    fontFamily: "'JetBrains Mono', monospace",
-                    fontSize: '12px',
-                  }}
-                >
-                  {val}
-                </span>
-              ),
-            },
-          ]}
-          rows={[
-            {
-              solution: 'In-app grievance reporting + voice note support',
-              type: 'Product',
-              addresses: 'No way to report issues without visiting an office',
-              effort: 'Low–Medium',
+              label: '✓ Ship first',
+              bg: 'rgba(34, 197, 94, 0.025)',
+              labelColor: '#22C55E',
+              items: ['In-app grievance tool', 'Voice note support', 'Earnings transparency view'],
             },
             {
-              solution: 'Multi-language support / translation layer in app',
-              type: 'Product',
-              addresses: 'Language barriers for non-local drivers',
-              effort: 'Medium',
+              label: 'Plan next',
+              bg: 'transparent',
+              labelColor: 'var(--color-text-muted)',
+              items: ['Safety hotline / panic button', 'Multi-language driver app', 'Fake-booking detection'],
             },
             {
-              solution: 'Safety panic button / dedicated safety hotline',
-              type: 'Product',
-              addresses: 'Harassment and physical threat from competing drivers',
-              effort: 'Medium',
+              label: 'Fill in',
+              bg: 'transparent',
+              labelColor: 'var(--color-text-muted)',
+              items: ['Driver recognition program', 'In-app quarterly survey'],
             },
             {
-              solution: 'Driver advisory council / regular feedback forum',
-              type: 'Systemic',
-              addresses: 'Voicelessness — no channel to influence the platform',
-              effort: 'High',
+              label: 'Deprioritise',
+              bg: 'transparent',
+              labelColor: '#F87171',
+              items: ['Driver social platform', 'Full driver marketplace'],
             },
-            {
-              solution: 'Regular community events and recognition programs',
-              type: 'Systemic',
-              addresses: 'Isolation and lack of peer community among drivers',
-              effort: 'Medium',
-            },
-            {
-              solution: 'Communication skills + language training workshops',
-              type: 'Systemic',
-              addresses: 'Confidence deficit in voicing grievances',
-              effort: 'Medium',
-            },
-          ]}
-        />
+          ].map((quad, idx) => (
+            <div
+              key={idx}
+              className="p-6"
+              style={{ backgroundColor: quad.bg, borderColor: 'var(--color-surface-border)' }}
+            >
+              <div
+                className="font-mono text-xs font-semibold uppercase mb-4"
+                style={{ color: quad.labelColor }}
+              >
+                {quad.label}
+              </div>
+              <div className="space-y-2">
+                {quad.items.map((item, iidx) => (
+                  <div
+                    key={iidx}
+                    className="text-xs px-2 py-1 rounded border border-surface-border bg-surface-2 text-muted-light"
+                  >
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="text-center text-xs text-muted-light mb-8">
+          Low effort → | ← High effort | Low impact ↓ | ↓ High impact
+        </div>
       </CaseStudySection>
 
-      {/* Metrics */}
+      {/* RECOMMENDATION */}
+      <CaseStudySection eyebrow="RECOMMENDATION" heading="What to build first">
+        <div
+          className="rounded-lg p-8 relative overflow-hidden border"
+          style={{
+            borderColor: 'rgba(127, 119, 221, 0.2)',
+            backgroundColor: 'rgba(127, 119, 221, 0.035)',
+          }}
+        >
+          <div className="font-mono text-xs font-semibold uppercase tracking-wider mb-4" style={{ color: '#7F77DD' }}>
+            The first feature
+          </div>
+          <h3 className="font-display font-bold text-xl text-off-white mb-4">
+            In-app Grievance Tool + Voice Note Support
+          </h3>
+          <p className="text-muted-light text-sm leading-relaxed mb-6 max-w-lg">
+            A categorised, in-app reporting mechanism that lets drivers flag issues immediately — without leaving the app, without visiting a physical office, without needing to write in a language they're not fluent in. Voice notes are the accessibility layer: not every driver can type confidently, but every driver can speak.
+          </p>
+
+          <div className="space-y-3">
+            {[
+              'Category-tagged reports: Safety / Income dispute / Harassment / Technical',
+              'Voice note option (≤90 sec) — removes the literacy and language barrier entirely',
+              'Status tracking — "Under review" / "Resolved" — gives the driver closure, not silence',
+              'Ops dashboard — every report routed to support with SLA targets attached',
+              'Aggregated signal piped to PM team — patterns surface the next feature automatically',
+            ].map((item, idx) => (
+              <div key={idx} className="flex gap-3 text-sm text-muted-light">
+                <span style={{ color: '#22C55E' }} className="flex-shrink-0">
+                  ✓
+                </span>
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </CaseStudySection>
+
+      {/* METRICS */}
       <StatRow
         stats={[
-          { value: '12+', label: 'Drivers interviewed', isPrimary: true },
-          { value: '2wk', label: 'Field research duration' },
-          { value: '3', label: 'Core unmet needs identified' },
+          { value: '0', label: 'In-app driver support channels found at research time', isPrimary: true },
+          { value: '10+', label: 'Drivers interviewed across 2 weeks' },
+          { value: '4', label: 'Core product gaps identified' },
         ]}
       />
 
-      {/* Reflection */}
-      <CaseStudySection eyebrow="REFLECTION" heading="Reflection">
+      {/* KPI TARGETS */}
+      <CaseStudySection eyebrow="MEASUREMENT" heading="How we'd know if it worked">
+        <p className="text-muted-light leading-relaxed mb-8" style={{ fontSize: 'var(--step-0)' }}>
+          A recommendation without measurable outcomes is an opinion. These are the KPIs I'd track from day one.
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {[
+            {
+              name: 'North Star',
+              value: '90-day Retention',
+              desc: '% of drivers still active 90 days post-onboarding. If drivers feel heard, they stay. This is the metric that matters most upstream.',
+            },
+            {
+              name: 'Leading Indicator',
+              value: '< 48h Resolution',
+              desc: 'Target: every grievance acknowledged within 48 hours. Baseline is "visit the office" — effectively infinite. Rapid acknowledgement alone changes driver trust.',
+            },
+            {
+              name: 'Adoption Signal',
+              value: 'In-app Utilisation',
+              desc: '% of drivers who use the grievance tool in first 30 days. Low utilisation = not discoverable. High = validation that the need is real.',
+            },
+          ].map((kpi, idx) => (
+            <div
+              key={idx}
+              className="bg-surface-raised rounded-lg p-6 border border-surface-border"
+            >
+              <div className="font-mono text-xs uppercase text-muted-light mb-2">{kpi.name}</div>
+              <div className="font-display font-bold text-off-white mb-3">{kpi.value}</div>
+              <p className="text-sm text-muted-light leading-relaxed">{kpi.desc}</p>
+            </div>
+          ))}
+        </div>
+      </CaseStudySection>
+
+      {/* REFLECTION */}
+      <CaseStudySection eyebrow="REFLECTION" heading="What I'd do differently">
         <div
-          className="rounded-xl p-7 md:p-8 relative overflow-hidden"
+          className="rounded-lg p-8 relative overflow-hidden"
           style={{
-            background: '#141417',
-            border: '0.5px solid rgba(255,255,255,0.08)',
+            background: 'var(--color-surface)',
+            border: '0.5px solid var(--color-surface-border)',
           }}
         >
-          {/* Decorative quote mark */}
           <span
             aria-hidden="true"
             className="absolute font-display select-none pointer-events-none"
@@ -401,18 +715,19 @@ export default function RapidoCaseStudy() {
           >
             "
           </span>
-          <p
-            className="text-muted-light italic opacity-70 leading-relaxed relative z-10"
-            style={{ fontSize: 'var(--step-0)', maxWidth: '640px' }}
-          >
-            ← Add your reflection here: What would you do differently? What surprised you? What did
-            this teach you about research, gig workers, or your own assumptions? (2–3 sentences max)
-          </p>
+          <div className="relative z-10 space-y-4">
+            <p className="text-muted-light italic leading-relaxed" style={{ fontSize: 'var(--step-0)' }}>
+              Looking back, I'd design this research in two materially different ways. First, I'd triangulate the qualitative signal with Rapido's actual platform data — driver churn cohorts, ride completion rates, support ticket volume. Without that baseline, my findings are directionally strong but commercially unanchored. A product team needs both to make a roadmap argument.
+            </p>
+            <p className="text-muted-light italic leading-relaxed" style={{ fontSize: 'var(--step-0)' }}>
+              Second, I'd recruit a Kannada-speaking co-researcher from the start. I only realised mid-study that conducting interviews in English had filtered my sample: drivers who could engage with me in English likely had fewer language-barrier problems than those who couldn't. The group with the most acute pain was the hardest to reach. That's a significant blind spot — and naming it is more useful than pretending it didn't happen.
+            </p>
+          </div>
         </div>
       </CaseStudySection>
 
       {/* Next case study */}
-      <CaseStudyNext href="#" title="← Add next case study title" />
+      <CaseStudyNext href="/case-studies/push-notifications" title="Push Notifications at Scale →" />
     </CaseStudyLayout>
   );
 }

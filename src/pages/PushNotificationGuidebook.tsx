@@ -89,6 +89,7 @@ export default function PushNotificationGuidebook() {
       company="Thought Leadership"
       domain="Research"
       accentColor="#7F77DD"
+      lightAccentColor="#5E55C4"
       readTime="12 min read"
     >
       {/* Metadata pills */}
@@ -101,9 +102,9 @@ export default function PushNotificationGuidebook() {
         ].map(({ label, variant }) => (
           <span key={label} className="font-mono text-xs font-medium px-3 py-1 rounded-full"
             style={{
-              border: variant === 'purple' ? '0.5px solid rgba(127,119,221,0.35)' : variant === 'orange' ? '0.5px solid rgba(249,115,22,0.35)' : '0.5px solid rgba(255,255,255,0.08)',
-              color:  variant === 'purple' ? '#A78BFA' : variant === 'orange' ? '#F97316' : '#6B7280',
-              background: variant === 'purple' ? 'rgba(127,119,221,0.08)' : variant === 'orange' ? 'rgba(249,115,22,0.07)' : '#1C1C21',
+              border: variant === 'purple' ? '0.5px solid rgba(127,119,221,0.35)' : variant === 'orange' ? '0.5px solid rgba(249,115,22,0.35)' : '0.5px solid var(--color-surface-border)',
+              color:  variant === 'purple' ? '#A78BFA' : variant === 'orange' ? '#F97316' : 'var(--color-muted-light)',
+              background: variant === 'purple' ? 'rgba(127,119,221,0.08)' : variant === 'orange' ? 'rgba(249,115,22,0.07)' : 'var(--color-surface-raised)',
             }}>
             {label}
           </span>
@@ -250,7 +251,7 @@ export default function PushNotificationGuidebook() {
 
         {/* 69% pull stat */}
         <div className="flex items-baseline gap-4 py-5 mb-4"
-          style={{ borderTop:'0.5px solid rgba(255,255,255,0.08)', borderBottom:'0.5px solid rgba(255,255,255,0.08)' }}>
+          style={{ borderTop:'0.5px solid var(--color-surface-border)', borderBottom:'0.5px solid var(--color-surface-border)' }}>
           <span className="font-mono font-medium leading-none" style={{ fontSize:'clamp(2.5rem,6vw,3.5rem)', color:'#22C55E' }}>69%</span>
           <p className="font-sans text-muted-light leading-relaxed" style={{ fontSize:'14px', maxWidth:'260px' }}>
             average open rate — the highest of any push notification type by a wide margin

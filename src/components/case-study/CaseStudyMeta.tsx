@@ -14,7 +14,7 @@ export default function CaseStudyMeta({ cells }: CaseStudyMetaProps) {
       className="grid gap-px rounded-xl overflow-hidden mb-14"
       style={{
         gridTemplateColumns: `repeat(${Math.min(cells.length, 4)}, 1fr)`,
-        background: 'rgba(255,255,255,0.06)',
+        background: 'var(--color-surface-border)',
       }}
     >
       {cells.map(({ label, value, isGap }) => (

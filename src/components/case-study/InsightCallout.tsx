@@ -15,7 +15,7 @@ export default function InsightCallout({ label, children }: InsightCalloutProps)
     >
       <p
         className="font-mono uppercase tracking-[0.12em] mb-2"
-        style={{ fontSize: '9px', color: 'var(--case-accent)' }}
+        style={{ fontSize: 'var(--step--1)', color: 'var(--case-accent)' }}
       >
         {label}
       </p>

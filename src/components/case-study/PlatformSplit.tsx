@@ -19,7 +19,7 @@ export default function PlatformSplit({ platforms }: PlatformSplitProps) {
   return (
     <div
       className="grid grid-cols-1 sm:grid-cols-2 gap-px rounded-xl overflow-hidden my-5"
-      style={{ background: 'rgba(255,255,255,0.06)' }}
+      style={{ background: 'var(--color-surface-border)' }}
     >
       {platforms.map(({ name, icon, iconBg, rows }) => (
         <div key={name} className="bg-surface-raised p-5">
@@ -31,7 +31,7 @@ export default function PlatformSplit({ platforms }: PlatformSplitProps) {
             >
               {icon}
             </div>
-            <span className="font-display font-bold text-off-white" style={{ fontSize: '13px', letterSpacing: '-0.2px' }}>
+            <span className="font-display font-bold text-off-white" style={{ fontSize: 'var(--step-0)', letterSpacing: '-0.2px' }}>
               {name}
             </span>
           </div>
@@ -42,13 +42,13 @@ export default function PlatformSplit({ platforms }: PlatformSplitProps) {
                 key={key}
                 className="flex items-center justify-between py-1.5"
                 style={{
-                  borderBottom: i < rows.length - 1 ? '0.5px solid rgba(255,255,255,0.06)' : 'none',
+                  borderBottom: i < rows.length - 1 ? '0.5px solid var(--color-surface-border)' : 'none',
                 }}
               >
-                <span className="font-sans text-muted-light" style={{ fontSize: '12px' }}>{key}</span>
+                <span className="font-sans text-muted-light" style={{ fontSize: 'var(--step--1)' }}>{key}</span>
                 <span
                   className="font-mono font-medium"
-                  style={{ fontSize: '11px', color: valueColor ?? '#FAFAF9' }}
+                  style={{ fontSize: 'var(--step--1)', color: valueColor ?? 'var(--color-off-white)' }}
                 >
                   {value}
                 </span>

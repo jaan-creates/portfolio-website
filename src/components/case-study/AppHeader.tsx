@@ -15,8 +15,8 @@ export default function AppHeader({ icon, name, subtitle }: AppHeaderProps) {
     <div
       className="flex items-center gap-4 p-5 rounded-xl mb-5"
       style={{
-        background: '#141417',
-        border: '0.5px solid rgba(255,255,255,0.08)',
+        background: 'var(--color-surface)',
+        border: '0.5px solid var(--color-surface-border)',
       }}
     >
       <div

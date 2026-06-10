@@ -48,7 +48,7 @@ export default function BarChart({ title, rows }: BarChartProps) {
     <div
       ref={ref}
       className="rounded-xl p-5 my-5"
-      style={{ background: '#141417', border: '0.5px solid rgba(255,255,255,0.08)' }}
+      style={{ background: 'var(--color-surface)', border: '0.5px solid var(--color-surface-border)' }}
     >
       <p
         className="font-mono uppercase tracking-[0.1em] text-muted-light mb-4"
@@ -67,7 +67,7 @@ export default function BarChart({ title, rows }: BarChartProps) {
             </span>
             <div
               className="flex-1 rounded-full overflow-hidden"
-              style={{ height: '6px', background: '#252530' }}
+              style={{ height: '6px', background: 'var(--color-surface-raised)' }}
             >
               <div
                 style={{
@@ -81,7 +81,7 @@ export default function BarChart({ title, rows }: BarChartProps) {
             </div>
             <span
               className="font-mono flex-shrink-0"
-              style={{ fontSize: '10px', color: '#6B7280', width: '40px' }}
+              style={{ fontSize: '10px', color: 'var(--color-muted)', width: '40px' }}
             >
               {displayValue}
             </span>

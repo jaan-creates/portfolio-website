@@ -29,7 +29,7 @@ export default function EmpathyMap({ subject, intro, quadrants }: EmpathyMapProp
         <div className="relative">
           <div
             className="grid grid-cols-2 gap-px"
-            style={{ background: 'rgba(255,255,255,0.06)' }}
+            style={{ background: 'var(--color-surface-border)' }}
           >
             {quadrants.map(({ title, titleColor, chipBg, chipColor, chips }) => (
               <div key={title} className="bg-surface-raised p-6 min-h-[180px]">
@@ -68,7 +68,7 @@ export default function EmpathyMap({ subject, intro, quadrants }: EmpathyMapProp
               transform: 'translate(-50%, -50%)',
               width: '64px',
               height: '64px',
-              background: '#1A1A1F',
+              background: 'var(--color-surface-raised)',
               border: '1.5px solid var(--case-accent)',
               zIndex: 10,
             }}

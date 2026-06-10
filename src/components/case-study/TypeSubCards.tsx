@@ -32,8 +32,8 @@ export default function TypeSubCards({ cards }: TypeSubCardsProps) {
           key={chipLabel}
           className="rounded-xl p-4 relative overflow-hidden"
           style={{
-            background: '#1C1C21',
-            border: '0.5px solid rgba(255,255,255,0.08)',
+            background: 'var(--color-surface-raised)',
+            border: '0.5px solid var(--color-surface-border)',
           }}
         >
           {/* Top bar */}
@@ -68,7 +68,7 @@ export default function TypeSubCards({ cards }: TypeSubCardsProps) {
             className="font-sans italic text-muted-light rounded px-2 py-1.5"
             style={{
               fontSize: '11px',
-              background: 'rgba(255,255,255,0.04)',
+              background: 'var(--color-surface)',
               borderRadius: '5px',
             }}
           >

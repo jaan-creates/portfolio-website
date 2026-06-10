@@ -32,8 +32,8 @@ export default function DecisionBlock({
 }: DecisionBlockProps) {
   return (
     <div
-      className="relative bg-surface-raised rounded-r-xl mb-6"
-      style={{ borderLeft: '2px solid var(--case-accent)', padding: '32px 32px 32px 40px' }}
+      className="relative bg-surface-raised rounded-r-xl mb-6 p-8 pl-10"
+      style={{ borderLeft: '2px solid var(--case-accent)' }}
     >
       {/* Number badge */}
       <span
@@ -82,15 +82,15 @@ export default function DecisionBlock({
             style={{
               border: chosen
                 ? '0.5px solid rgba(34,197,94,0.4)'
-                : '0.5px solid rgba(255,255,255,0.06)',
-              background: chosen ? 'rgba(34,197,94,0.05)' : '#232328',
+                : '0.5px solid var(--color-surface-border)',
+              background: chosen ? 'rgba(34,197,94,0.05)' : 'var(--color-surface)',
             }}
           >
             <p
               className="font-sans font-semibold uppercase tracking-[0.04em] mb-2"
               style={{
                 fontSize: '13px',
-                color: chosen ? '#22C55E' : '#A1A1AA',
+                color: chosen ? '#22C55E' : 'var(--color-muted-light)',
               }}
             >
               {name}
@@ -136,8 +136,8 @@ export default function DecisionBlock({
         <div
           className="rounded-md mt-4 p-4"
           style={{
-            background: '#232328',
-            border: '0.5px solid rgba(255,255,255,0.06)',
+            background: 'var(--color-surface)',
+            border: '0.5px solid var(--color-surface-border)',
           }}
         >
           <strong

@@ -17,15 +17,15 @@ export default function PipelineFlow({ steps }: PipelineFlowProps) {
             <div
               className="w-11 h-11 rounded-xl flex items-center justify-center text-lg flex-shrink-0"
               style={{
-                background: '#1C1C21',
-                border: '0.5px solid rgba(255,255,255,0.13)',
+                background: 'var(--color-surface-raised)',
+                border: '0.5px solid var(--color-surface-border)',
               }}
             >
               {icon}
             </div>
             <p
               className="font-mono uppercase text-center leading-snug text-muted-light"
-              style={{ fontSize: '9px', letterSpacing: '0.05em' }}
+              style={{ fontSize: 'var(--step--1)', letterSpacing: '0.05em' }}
             >
               {label}
             </p>

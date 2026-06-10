@@ -4,22 +4,22 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg: '#0D0D0F',
-        'off-white': '#FAFAF9',
+        bg: 'var(--color-bg)',
+        'off-white': 'var(--color-off-white)',
         accent: {
-          purple: '#7F77DD',
-          green: '#22C55E',
-          orange: '#F97316',
+          purple: 'var(--color-accent-purple)',
+          green: 'var(--color-accent-green)',
+          orange: 'var(--color-accent-orange)',
         },
         muted: {
-          DEFAULT: '#6B7280',
-          dark: '#3F3F46',
-          light: '#A1A1AA',
+          DEFAULT: 'var(--color-muted)',
+          dark: 'var(--color-muted-dark)',
+          light: 'var(--color-muted-light)',
         },
         surface: {
-          DEFAULT: '#131316',
-          raised: '#1A1A1F',
-          border: 'rgba(255,255,255,0.06)',
+          DEFAULT: 'var(--color-surface)',
+          raised: 'var(--color-surface-raised)',
+          border: 'var(--color-surface-border)',
         },
       },
       fontFamily: {
