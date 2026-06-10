@@ -17,6 +17,8 @@ export default function RapidoCaseStudy() {
       domain="Gig Economy"
       accentColor="#7F77DD"
       readTime="12 min read"
+      coverImage="/assets/rapido/cover.jpeg"
+      coverImageAlt="Rapido bike-taxi driver on the road, POV from passenger seat"
     >
       {/* Tags */}
       <div className="flex flex-wrap gap-2 mb-10">

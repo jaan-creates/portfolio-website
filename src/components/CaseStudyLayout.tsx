@@ -11,6 +11,8 @@ interface CaseStudyLayoutProps {
   lightAccentColor?: string;
   lightAccentLargeTextOnly?: boolean;
   readTime: string;
+  coverImage?: string;
+  coverImageAlt?: string;
   children: React.ReactNode;
 }
 
@@ -22,6 +24,8 @@ export default function CaseStudyLayout({
   lightAccentColor,
   lightAccentLargeTextOnly = false,
   readTime,
+  coverImage,
+  coverImageAlt = '',
   children,
 }: CaseStudyLayoutProps) {
   const { theme } = useTheme();
@@ -110,17 +114,66 @@ export default function CaseStudyLayout({
         </div>
       </div>
 
-      {/* Page hero */}
-      <div className="max-w-3xl mx-auto px-6 pt-20 pb-0">
-        <h1
-          className="font-display font-bold text-off-white leading-tight"
-          style={{ fontSize: 'var(--step-4)' }}
-        >
-          {title}
-        </h1>
-        <p className="text-muted-light mt-3" style={{ fontSize: 'var(--step--1)' }}>
-          {readTime}
-        </p>
+      {/* Page hero — full-bleed cover or plain title */}
+      {coverImage ? (
+        <div className="relative w-full overflow-hidden" style={{ height: '520px' }}>
+          <img
+            src={coverImage}
+            alt={coverImageAlt}
+            width={1280}
+            height={520}
+            loading="eager"
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ filter: 'brightness(0.55) saturate(0.75)' }}
+          />
+          {/* gradient: transparent top → solid bg at bottom */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'linear-gradient(180deg, rgba(13,13,15,0.15) 0%, rgba(13,13,15,0.25) 40%, rgba(13,13,15,0.8) 72%, #0D0D0F 100%)',
+            }}
+          />
+          {/* subtle grid overlay */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 opacity-[0.025]"
+            style={{
+              backgroundImage:
+                'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)',
+              backgroundSize: '48px 48px',
+            }}
+          />
+          <div className="absolute bottom-0 left-0 right-0">
+            <div className="max-w-3xl mx-auto px-6 pb-10">
+              <h1
+                className="font-display font-bold text-off-white leading-tight"
+                style={{ fontSize: 'var(--step-4)', letterSpacing: '-0.03em' }}
+              >
+                {title}
+              </h1>
+              <p className="text-muted-light mt-2" style={{ fontSize: 'var(--step--1)' }}>
+                {readTime}
+              </p>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="max-w-3xl mx-auto px-6 pt-20 pb-0">
+          <h1
+            className="font-display font-bold text-off-white leading-tight"
+            style={{ fontSize: 'var(--step-4)' }}
+          >
+            {title}
+          </h1>
+          <p className="text-muted-light mt-3" style={{ fontSize: 'var(--step--1)' }}>
+            {readTime}
+          </p>
+        </div>
+      )}
+
+      {/* Divider below hero */}
+      <div className="max-w-3xl mx-auto px-6">
         <hr className="border-surface-border my-10" />
       </div>
 
