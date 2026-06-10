@@ -30,16 +30,6 @@ export default function RapidoCaseStudy() {
         ))}
       </div>
 
-      {/* Meta row */}
-      <CaseStudyMeta
-        cells={[
-          { label: 'My Role', value: 'Product Manager' },
-          { label: 'Timeline', value: '2 weeks · 2023' },
-          { label: 'Context', value: 'Independent Research' },
-          { label: 'Published', value: 'LinkedIn · Field Research' },
-        ]}
-      />
-
       {/* THE HOOK */}
       <CaseStudySection eyebrow="FIELD RESEARCH" heading="The observation that changed everything">
         <p className="text-off-white leading-relaxed mb-6" style={{ fontSize: 'var(--step-0)' }}>
