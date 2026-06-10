@@ -40,16 +40,21 @@ export default function RapidoCaseStudy() {
           "If I wear the Rapido jacket, the auto drivers know what I am. They'll harass me. This way, I look like a delivery guy."
         </PullQuote>
 
-        <div className="my-10 rounded-lg overflow-hidden border border-surface-border">
-          <img
-            src="/assets/rapido/cover.jpeg"
-            alt="POV from passenger seat of Rapido driver on the road, wearing red Zomato jacket"
-            width={900}
-            height={400}
-            loading="eager"
-            className="w-full h-auto"
-          />
-        </div>
+        <figure className="my-10">
+          <div className="rounded-lg overflow-hidden border border-surface-border">
+            <img
+              src="/assets/rapido/cover.jpeg"
+              alt="POV from passenger seat of Rapido driver on the road, wearing red Zomato jacket"
+              width={900}
+              height={400}
+              loading="eager"
+              className="w-full h-auto"
+            />
+          </div>
+          <figcaption className="text-center text-xs text-muted-light mt-3 italic">
+            Captured during my ride — the uniform camouflage in motion
+          </figcaption>
+        </figure>
 
         <p className="text-off-white leading-relaxed" style={{ fontSize: 'var(--step-0)' }}>
           That answer changed what I thought I was looking at. This wasn't a branding oddity. It was a coping mechanism — improvised by a driver working on a platform that had built him no tools to protect himself. For two weeks, I used every assigned Rapido ride as a research session. What follows is what I found, what it means for the product, and what I'd build first.
