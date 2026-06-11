@@ -52,7 +52,7 @@ export default function RapidoCaseStudy() {
             />
           </div>
           <figcaption className="text-center text-xs text-muted-light mt-3 italic">
-            Captured during my ride — the uniform camouflage in motion
+            Photo taken during my Rapido ride. The Zomato t-shirt was deliberate.
           </figcaption>
         </figure>
 
@@ -664,9 +664,6 @@ export default function RapidoCaseStudy() {
 
       {/* KPI TARGETS */}
       <CaseStudySection eyebrow="MEASUREMENT" heading="How we'd know if it worked">
-        <p className="text-muted-light leading-relaxed mb-8" style={{ fontSize: 'var(--step-0)' }}>
-          A recommendation without measurable outcomes is an opinion. These are the KPIs I'd track from day one.
-        </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {[
@@ -695,40 +692,6 @@ export default function RapidoCaseStudy() {
               <p className="text-sm text-muted-light leading-relaxed">{kpi.desc}</p>
             </div>
           ))}
-        </div>
-      </CaseStudySection>
-
-      {/* REFLECTION */}
-      <CaseStudySection eyebrow="REFLECTION" heading="What I'd do differently">
-        <div
-          className="rounded-lg p-8 relative overflow-hidden"
-          style={{
-            background: 'var(--color-surface)',
-            border: '0.5px solid var(--color-surface-border)',
-          }}
-        >
-          <span
-            aria-hidden="true"
-            className="absolute font-display select-none pointer-events-none"
-            style={{
-              top: '-12px',
-              left: '24px',
-              fontSize: '120px',
-              color: 'var(--case-accent)',
-              opacity: 0.08,
-              lineHeight: 1,
-            }}
-          >
-            "
-          </span>
-          <div className="relative z-10 space-y-4">
-            <p className="text-muted-light italic leading-relaxed" style={{ fontSize: 'var(--step-0)' }}>
-              Looking back, I'd design this research in two materially different ways. First, I'd triangulate the qualitative signal with Rapido's actual platform data — driver churn cohorts, ride completion rates, support ticket volume. Without that baseline, my findings are directionally strong but commercially unanchored. A product team needs both to make a roadmap argument.
-            </p>
-            <p className="text-muted-light italic leading-relaxed" style={{ fontSize: 'var(--step-0)' }}>
-              Second, I'd recruit a Kannada-speaking co-researcher from the start. I only realised mid-study that conducting interviews in English had filtered my sample: drivers who could engage with me in English likely had fewer language-barrier problems than those who couldn't. The group with the most acute pain was the hardest to reach. That's a significant blind spot — and naming it is more useful than pretending it didn't happen.
-            </p>
-          </div>
         </div>
       </CaseStudySection>
 
