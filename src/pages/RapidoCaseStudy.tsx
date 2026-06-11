@@ -152,9 +152,6 @@ export default function RapidoCaseStudy() {
 
       {/* FINDINGS */}
       <CaseStudySection eyebrow="RESEARCH" heading="What I found — and what it means for the product">
-        <p className="text-muted-light leading-relaxed mb-8" style={{ fontSize: 'var(--step-0)' }}>
-          Every finding maps to an implication. Research without a "so what" is documentation, not PM work.
-        </p>
 
         <div className="space-y-6">
           <FindingGrid
@@ -225,9 +222,6 @@ export default function RapidoCaseStudy() {
 
       {/* PERSONAS */}
       <CaseStudySection eyebrow="WHO I WAS DESIGNING FOR" heading="Two driver archetypes with overlapping pain">
-        <p className="text-muted-light leading-relaxed mb-8" style={{ fontSize: 'var(--step-0)' }}>
-          Distinct driver types with overlapping pain but different stakes — and therefore different solution priorities.
-        </p>
 
         <PersonaGrid
           personas={[
@@ -265,9 +259,6 @@ export default function RapidoCaseStudy() {
 
       {/* EMPATHY MAP */}
       <CaseStudySection eyebrow="SYNTHESIS" heading="Inside the driver's head">
-        <p className="text-muted-light leading-relaxed mb-8" style={{ fontSize: 'var(--step-0)' }}>
-          The most important gap: between what drivers say (calm, professional) and what they feel (afraid, exhausted, voiceless). The platform never sees this delta.
-        </p>
 
         <EmpathyMap
           subject="DRIVER"
