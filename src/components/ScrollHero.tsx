@@ -638,8 +638,11 @@ export default function ScrollHero({
             return (
               <span
                 key={i}
-                className="sh-seg"
-                style={{ opacity: 0 }} // GSAP reveals in Phase 4
+                className={`sh-seg ${i === headline.length - 1 ? 'sh-seg-final' : ''}`}
+                style={{
+                  opacity: 0, // GSAP reveals in Phase 4
+                  ...(i === headline.length - 1 && { color: '#F97316' })
+                }}
               >
                 {token}
               </span>
