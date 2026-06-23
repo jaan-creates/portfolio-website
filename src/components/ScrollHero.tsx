@@ -539,16 +539,18 @@ export default function ScrollHero({
           }}
         >
           <h2
-            className="font-display font-semibold"
+            className="font-display"
             style={{
               fontSize: 'clamp(2rem, 1.5rem + 2vw, 2.75rem)',
               color: 'var(--color-off-white)',
-              letterSpacing: '-0.01em',
-              lineHeight: 1.2,
+              letterSpacing: '0.02em',
+              wordSpacing: '0.15em',
+              lineHeight: 1.3,
               maxWidth: '25ch',
+              fontWeight: 600,
             }}
           >
-            Hey,
+            <span style={{ fontWeight: 400, fontSize: '0.85em', opacity: 0.85 }}>Hey,</span>
             <br />
             I am Janu — Product Manager
           </h2>
