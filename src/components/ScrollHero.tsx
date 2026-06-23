@@ -526,41 +526,31 @@ export default function ScrollHero({
           ref={headerRef}
           className="sh-header"
           style={{
-            padding: `6.5rem clamp(1.5rem, 5vw, 4rem) 2.5rem`,
+            padding: `clamp(4rem, 15vh, 8rem) clamp(1.5rem, 5vw, 4rem) 2.5rem`,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             textAlign: 'center',
-            gap: '0.6rem',
+            gap: '1.2rem',
             position: 'relative',
             zIndex: 1,
-            pointerEvents: 'none', // let the perspective grid behind receive hover
+            pointerEvents: 'none',
             willChange: 'transform, opacity',
           }}
         >
           <h2
             className="font-display font-semibold"
             style={{
-              fontSize: 'clamp(1.5rem, 1.15rem + 1.7vw, 2.25rem)',
+              fontSize: 'clamp(2rem, 1.5rem + 2vw, 2.75rem)',
               color: 'var(--color-off-white)',
               letterSpacing: '-0.01em',
-              lineHeight: 1.12,
-              maxWidth: '20ch',
+              lineHeight: 1.2,
+              maxWidth: '25ch',
             }}
           >
-            <span
-              style={{
-                display: 'block',
-                fontSize: '0.6em',
-                fontWeight: 400,
-                opacity: 0.75,
-                letterSpacing: '0.01em',
-                marginBottom: '0.25em',
-              }}
-            >
-              Hey there, This is
-            </span>
-            Janu — Senior Product Manager
+            Hey,
+            <br />
+            I am Janu — Product Manager
           </h2>
           <p
             className="font-sans"
@@ -573,7 +563,7 @@ export default function ScrollHero({
               alignItems: 'center',
               justifyContent: 'center',
               gap: '0.55rem',
-              maxWidth: '34rem',
+              maxWidth: '100%',
             }}
           >
             <span>Problems, interrogated</span>
