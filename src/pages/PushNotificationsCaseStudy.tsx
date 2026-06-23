@@ -11,25 +11,10 @@ import BiasCard from '../components/case-study/BiasCard';
 import NotificationTimeline from '../components/case-study/NotificationTimeline';
 import CaseStudyNext from '../components/case-study/CaseStudyNext';
 
-// ─── App icon definitions ───────────────────────────────────────────────────
-const MMT_ICON = {
-  label: 'my',
-  bg: 'linear-gradient(135deg,#b71c1c,#d32f2f)',
-  color: '#fff',
-};
-const NAVI_ICON = {
-  label: 'N',
-  bg: 'linear-gradient(135deg,#0d7a6e,#0a9e8c)',
-  color: '#fff',
-  fontSize: '12px',
-};
-const ACKO_ICON = {
-  label: 'acko',
-  bg: 'linear-gradient(135deg,#1a237e,#283593)',
-  color: '#fff',
-  fontSize: '9px',
-  letterSpacing: '-0.5px',
-};
+// ─── App icon definitions — real brand logos ─────────────────────────────────
+const MMT_ICON  = { src: '/assets/push playbook/makemytrip.png' };
+const NAVI_ICON = { src: '/assets/push playbook/navi.png' };
+const ACKO_ICON = { src: '/assets/push playbook/acko.png' };
 
 // ─── Notification grids ──────────────────────────────────────────────────────
 const MMT_DAY1 = [
@@ -215,18 +200,14 @@ export default function PushNotificationsCaseStudy() {
             className="flex items-center gap-2 rounded-full px-3 py-1.5"
             style={{ background: 'var(--color-surface-raised)', border: '0.5px solid var(--color-surface-border)' }}
           >
-            <div
-              className="flex-shrink-0 flex items-center justify-center rounded-md font-bold"
-              style={{
-                width: '22px', height: '22px',
-                background: icon.bg,
-                color: icon.color,
-                fontSize: icon.fontSize ?? '10px',
-                letterSpacing: (icon as typeof ACKO_ICON).letterSpacing,
-              }}
-            >
-              {icon.label}
-            </div>
+            <img
+              src={icon.src}
+              alt={`${name} logo`}
+              width={22}
+              height={22}
+              className="flex-shrink-0 rounded-md"
+              style={{ width: '22px', height: '22px', objectFit: 'cover' }}
+            />
             <span className="font-sans font-medium text-muted-light" style={{ fontSize: '11px' }}>
               {name}
             </span>
@@ -251,12 +232,12 @@ export default function PushNotificationsCaseStudy() {
                 : variant === 'green'
                 ? '0.5px solid rgba(34,197,94,0.35)'
                 : '0.5px solid var(--color-surface-border)',
-              color: variant === 'purple' ? '#A78BFA' : variant === 'green' ? '#22C55E' : '#6B7280',
+              color: variant === 'purple' ? '#A78BFA' : variant === 'green' ? '#22C55E' : 'var(--color-muted-light)',
               background: variant === 'purple'
                 ? 'rgba(127,119,221,0.08)'
                 : variant === 'green'
                 ? 'rgba(34,197,94,0.07)'
-                : '#1C1C21',
+                : 'var(--color-surface-raised)',
             }}
           >
             {label}
@@ -546,9 +527,9 @@ export default function PushNotificationsCaseStudy() {
         <div
           className="my-3 p-4 rounded-lg font-sans text-sm"
           style={{
-            background: '#141417',
+            background: 'var(--color-surface)',
             border: '0.5px solid var(--color-surface-border)',
-            borderLeft: '2px solid #6B7280',
+            borderLeft: '2px solid var(--color-muted)',
           }}
         >
           🤫{' '}
@@ -598,7 +579,7 @@ export default function PushNotificationsCaseStudy() {
               key={num}
               className="rounded-xl p-5 relative overflow-hidden"
               style={{
-                background: '#141417',
+                background: 'var(--color-surface)',
                 border: '0.5px solid var(--color-surface-border)',
               }}
             >

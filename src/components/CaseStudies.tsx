@@ -45,18 +45,6 @@ const caseStudies: CaseStudyItem[] = [
   },
   {
     id: '03',
-    title: 'Leafy Luxe',
-    company: 'Health & Glow',
-    domain: 'Beauty-Tech',
-    hook: 'Before "AI features" were a mandate, I designed one that actually knew your skin.',
-    accent: '#F07A1E',
-    lightAccent: '#C4560F',
-    href: '/case-studies/health-and-glow',
-    status: 'live',
-    readTime: '6 min',
-  },
-  {
-    id: '04',
     title: 'Pet-Z: Zero to One',
     company: 'Pet-Z',
     domain: 'Pet Care',
@@ -68,7 +56,7 @@ const caseStudies: CaseStudyItem[] = [
     readTime: '10 min',
   },
   {
-    id: '05',
+    id: '04',
     title: 'The Push Notification Playbook',
     company: 'Thought Leadership',
     domain: 'Research',
@@ -80,7 +68,7 @@ const caseStudies: CaseStudyItem[] = [
     readTime: '15 min',
   },
   {
-    id: '06',
+    id: '05',
     title: 'Paradox of Choice',
     company: 'Swiggy',
     domain: 'Food-Tech',
@@ -92,7 +80,7 @@ const caseStudies: CaseStudyItem[] = [
     readTime: '8 min',
   },
   {
-    id: '07',
+    id: '06',
     title: 'Push Notification Guidebook',
     company: 'Thought Leadership',
     domain: 'Research',
@@ -310,7 +298,7 @@ export default function CaseStudies() {
             className="font-display font-semibold text-off-white"
             style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)' }}
           >
-            Seven products. Seven different worlds.
+            Six products. Six different worlds.
           </h2>
         </BlockReveal>
         <BlockReveal animateOnScroll className="mb-16">

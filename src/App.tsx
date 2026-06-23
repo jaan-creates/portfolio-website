@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigationType } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 import { ThemeProvider } from './contexts/ThemeContext';
 import Lenis from 'lenis';
@@ -7,15 +7,16 @@ import ScrollTrigger from 'gsap/ScrollTrigger';
 
 import Nav from './components/Nav';
 import Hero from './components/Hero';
+import ScrollHero from './components/ScrollHero';
 import BuilderProjects from './components/BuilderProjects';
 import WorkExperience from './components/WorkExperience';
+import ExperienceCards3D from './components/ExperienceCards3D';
 import CaseStudies from './components/CaseStudies';
 import BeyondResume from './components/BeyondResume';
-import PersonalityGallery from './components/PersonalityGallery';
+import SpiralGallery from './components/SpiralGallery';
 import Contact from './components/Contact';
 import RapidoCaseStudy from './pages/RapidoCaseStudy';
 import PlumCaseStudy from './pages/PlumCaseStudy';
-import HealthGlowCaseStudy from './pages/HealthGlowCaseStudy';
 import PushNotificationsCaseStudy from './pages/PushNotificationsCaseStudy';
 import PushNotificationGuidebook from './pages/PushNotificationGuidebook';
 import PetzCaseStudy from './pages/PetzCaseStudy';
@@ -43,20 +44,17 @@ const scrollHistory = new Map<string, number>();
 
 function ScrollManager() {
   const location = useLocation();
+  // React Router's navigation type ('POP' for back/forward) — a window popstate
+  // listener is unreliable here: React 18 flushes the Router's popstate update
+  // synchronously, so this effect can run before any sibling listener fires.
+  const navigationType = useNavigationType();
   const prevKeyRef = useRef<string>('');
-  const isPoppingRef = useRef(false);
-
-  useEffect(() => {
-    const onPopState = () => { isPoppingRef.current = true; };
-    window.addEventListener('popstate', onPopState);
-    return () => window.removeEventListener('popstate', onPopState);
-  }, []);
 
   useEffect(() => {
     const currentKey = location.pathname + location.search;
 
-    if (isPoppingRef.current) {
-      isPoppingRef.current = false;
+    if (navigationType === 'POP' && prevKeyRef.current) {
+      scrollHistory.set(prevKeyRef.current, lenis.scroll);
       const saved = scrollHistory.get(currentKey) ?? 0;
       requestAnimationFrame(() => {
         lenis.scrollTo(saved, { immediate: true });
@@ -75,17 +73,25 @@ function ScrollManager() {
   return null;
 }
 
+// Build-time hero selector. 'ai' → <HeroAlt />; unset/anything else → <Hero />.
+// Read once at module level — build-time only, never sniffs window.location.
+const SITE_VARIANT = import.meta.env.VITE_SITE_VARIANT;
+
+const USE_3D_EXPERIENCE = true; // flip to false to revert to <WorkExperience /> instantly
+
+// --- TRIAL: 3D spiral gallery vs. original Beyond the Resume ---
+const USE_SPIRAL_GALLERY = true; // flip to false to restore the original
+
 function LandingPage() {
   return (
     <div className="bg-bg text-off-white min-h-screen font-sans">
       <Nav />
       <main>
-        <Hero />
+        {SITE_VARIANT === 'ai' ? <ScrollHero /> : <Hero />}
         <BuilderProjects />
-        <WorkExperience />
+        {USE_3D_EXPERIENCE ? <ExperienceCards3D /> : <WorkExperience />}
         <CaseStudies />
-        <BeyondResume />
-        <PersonalityGallery />
+        {USE_SPIRAL_GALLERY ? <SpiralGallery /> : <BeyondResume />}
         <Contact />
       </main>
     </div>
@@ -100,7 +106,6 @@ export default function App() {
       <Route path="/" element={<LandingPage />} />
       <Route path="/case-studies/rapido" element={<RapidoCaseStudy />} />
       <Route path="/case-studies/plum" element={<PlumCaseStudy />} />
-      <Route path="/case-studies/health-and-glow" element={<HealthGlowCaseStudy />} />
       <Route path="/case-studies/push-notifications" element={<PushNotificationsCaseStudy />} />
       <Route path="/case-studies/push-guidebook" element={<PushNotificationGuidebook />} />
       <Route path="/case-studies/petz" element={<PetzCaseStudy />} />

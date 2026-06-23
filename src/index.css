@@ -13,12 +13,22 @@
     --color-surface: #131316;
     --color-surface-raised: #1A1A1F;
     --color-surface-border: rgba(255, 255, 255, 0.06);
-    --color-muted: #6B7280;
+    --color-muted: #9CA3AF;
     --color-muted-dark: #3F3F46;
-    --color-muted-light: #A1A1AA;
+    --color-muted-light: #D4D4D8;
     --color-accent-purple: #7F77DD;
     --color-accent-green: #22C55E;
     --color-accent-orange: #F97316;
+
+    /* ScrollHero narrative palette (dark-mode defaults) */
+    /* Dark mode stays solid black the whole scroll — no flip. bg-b === bg-a so
+       updateHero's per-frame swap is a visual no-op; the bright-bg treatment
+       lives only in light mode (html.light below). */
+    --sh-bg-a: #0D0D0F;    /* hero start bg  */
+    --sh-bg-b: #0D0D0F;    /* hero end bg / outro — same as bg-a (no flip) */
+    --sh-headline-color: #FAFAF9;  /* white headline/outro text on black */
+    --sh-eyebrow-color: #14B8A6;   /* eyebrow on bg-a */
+    --sh-tagline-color: #A1A1AA;   /* tagline on bg-a */
 
     /* Fluid type scale */
     --step--1: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
@@ -36,12 +46,20 @@
     --color-surface-border: rgba(0, 0, 0, 0.08);
     --color-muted: #52525B;
     --color-muted-dark: #C4C2BC;
-    --color-muted-light: #4B5563;
+    --color-muted-light: #374151;
     --color-accent-purple: #5A4FCF;
     --color-accent-green: #15803D;
     --color-accent-orange: #C2410C;
     --shadow-raised: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
     --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.07);
+
+    /* ScrollHero narrative palette (light mode) — stays light the whole scroll,
+       mirroring dark mode's solid-black treatment. bg-b === bg-a so no flip. */
+    --sh-bg-a: #F5F4F0;    /* hero bg */
+    --sh-bg-b: #F5F4F0;    /* same as bg-a — no flip to black */
+    --sh-headline-color: #0D0D0F;  /* dark headline text on cream */
+    --sh-eyebrow-color: #0F766E;   /* darker teal — passes 4.5:1 on cream */
+    --sh-tagline-color: #4B5563;   /* muted dark on cream */
   }
 
   *, *::before, *::after {
@@ -93,6 +111,14 @@
     grid-template-rows: repeat(18, 1fr);
   }
 
+  /* Full-bleed variant — centred and large so the interactive tiles span the
+     hero end to end (used by ScrollHero via <PerspectiveGrid className="sh-grid" />). */
+  .sh-grid .grid-inner {
+    left: 50%;
+    width: 130vmax;
+    height: 130vmax;
+  }
+
   .grid-tile {
     border: 0.5px solid var(--color-surface-border);
     transition: background 1.3s ease;
@@ -139,13 +165,21 @@
     /* Animation removed to allow GSAP scroll-driven y-tweens */
   }
 
-  /* Notification card glow — used on Push Notifications case study */
+  /* Notification card glow — dark mode */
   @keyframes notifCardGlow {
     0%, 100% { border-color: rgba(255,255,255,0.13); box-shadow: none; }
     50%       { border-color: rgba(127,119,221,0.35); box-shadow: 0 0 18px rgba(127,119,221,0.1); }
   }
+  /* Notification card glow — light mode */
+  @keyframes notifCardGlowLight {
+    0%, 100% { border-color: rgba(0,0,0,0.08); box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+    50%       { border-color: rgba(94,85,196,0.3); box-shadow: 0 2px 12px rgba(94,85,196,0.1); }
+  }
   .notif-card-glow {
     animation: notifCardGlow 5s ease-in-out infinite;
+  }
+  html.light .notif-card-glow {
+    animation: notifCardGlowLight 5s ease-in-out infinite;
   }
   @media (prefers-reduced-motion: reduce) {
     .notif-card-glow { animation: none; }
@@ -305,3 +339,84 @@
 }
 .beyond-intro-right { text-align: right; }
 .beyond-intro-left  { text-align: left; }
+
+/* ===== Experience Cards 3D (ExperienceCards3D.tsx) ===== */
+#experience {
+  /* teal accent + "ink" (silver on dark, charcoal on light) for card-back art and headings */
+  --exp3d-accent: #14B8A6;
+  --exp3d-accent-hi: #2DD4BF;
+  --exp3d-accent-lo: #0D9488;
+  --exp3d-ink-hi: #F4F4F5;
+  --exp3d-ink-lo: #9CA3AF;
+}
+html.light #experience {
+  --exp3d-accent: #0F766E;
+  --exp3d-accent-hi: #14B8A6;
+  --exp3d-accent-lo: #115E59;
+  --exp3d-ink-hi: #52525B;
+  --exp3d-ink-lo: #27272A;
+}
+.exp3d {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--color-bg);
+}
+.exp3d__header {
+  position: absolute;
+  top: 8vh;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 1;
+}
+.exp3d__card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 240px;
+  height: 360px;
+  transform: translate(-50%, -50%); /* GSAP layers x/rotation on top — transform only */
+  perspective: 1000px;
+  will-change: transform;
+  z-index: 2;
+}
+.exp3d__float {
+  position: absolute;
+  inset: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .exp3d__float { animation: exp3dFloat 3s ease-in-out infinite; }
+  /* per-card stagger set inline via animationDelay in ExperienceCards3D.tsx */
+}
+.exp3d__inner {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+.exp3d__front,
+.exp3d__back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 16px;
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-surface-border);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.exp3d__back {
+  transform: rotateY(180deg); /* pre-rotated so it reads correctly after flip */
+  justify-content: flex-start; /* denser role copy reads top-down */
+  padding: 20px;
+  overflow: hidden;
+}
+@keyframes exp3dFloat {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-12px); }
+  100% { transform: translateY(0); }
+}

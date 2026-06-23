@@ -4,7 +4,7 @@ import CaseStudyMeta from '../components/case-study/CaseStudyMeta';
 import InsightCallout from '../components/case-study/InsightCallout';
 import FindingGrid from '../components/case-study/FindingGrid';
 import CaseStudyTable from '../components/case-study/CaseStudyTable';
-import CaseStudyNext from '../components/case-study/CaseStudyNext';
+import ZoomableImage from '../components/ZoomableImage';
 
 /* ── Inline sub-components (Plum-only) ─────────────────────────── */
 
@@ -319,37 +319,13 @@ export default function PlumCaseStudy() {
           stage.
         </p>
 
-        {/* Journey map image */}
-        <div
-          className="rounded-xl overflow-hidden mb-2"
-          style={{
-            background: 'var(--color-surface)',
-            border: '1px solid var(--color-surface-border)',
-            aspectRatio: '16/7',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <img
-            src="/assets/plum-user-journey.webp"
-            alt="Full user journey map across seven stages: Awareness, Discovery, Finding a slot, Filling appointment details, Reschedule, Cancel, No-show — showing emotions, actions, pain points and opportunities at each stage"
-            className="w-full h-full object-contain"
-            loading="lazy"
-            onError={(e) => {
-              const img = e.currentTarget;
-              img.style.display = 'none';
-              const placeholder = img.nextElementSibling as HTMLElement;
-              if (placeholder) placeholder.style.display = 'block';
-            }}
+        {/* Journey map image with zoom */}
+        <div className="mb-2">
+          <ZoomableImage
+            src="/assets/plum/plum-user-journey.png"
+            alt="User Journey Map across 7 stages: Awareness, Discovery, Finding a matching slot, Filling appointment details & confirmation, Reschedule an appointment, Cancel an appointment, No show to an appointment — showing emotions, actions, pain points and opportunities at each touchpoint"
+            containerClassName="rounded-xl overflow-hidden"
           />
-          <p
-            className="text-muted-light text-center p-8 font-mono hidden"
-            style={{ fontSize: 'var(--step--1)' }}
-          >
-            User Journey Map — Awareness → Discovery → Finding a Slot → Confirmation → Reschedule →
-            Cancel → No-show
-          </p>
         </div>
         <p
           className="text-muted-light text-center italic mb-8"
@@ -431,6 +407,20 @@ export default function PlumCaseStudy() {
             within three months of implementation, among users who typically reschedule or cancel
             same-doctor appointments.
           </Hypothesis>
+
+          {/* Smart Reschedule Screens */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-10">
+            {[2, 3, 4].map((num) => (
+              <div key={num} className="flex flex-col">
+                <ZoomableImage
+                  src={`/assets/plum/Smart-reschedule-${num}.png`}
+                  alt={`Smart Reschedule screen ${num}`}
+                  className="w-full h-auto object-contain"
+                  containerClassName="rounded-lg overflow-hidden h-96"
+                />
+              </div>
+            ))}
+          </div>
         </SolutionCard>
 
         {/* Solution 2 */}
@@ -456,6 +446,20 @@ export default function PlumCaseStudy() {
             <strong style={{ color: 'var(--case-accent)' }}>5% decrease in no-shows</strong> within
             four months, primarily for same-day and one-day-advance bookings.
           </Hypothesis>
+
+          {/* Priority Waitlist Screens */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-10">
+            {[1, 2, 3].map((num) => (
+              <div key={num} className="flex flex-col">
+                <ZoomableImage
+                  src={`/assets/plum/Priority-waitlist-${num}.png`}
+                  alt={`Priority Waitlist screen ${num}`}
+                  className="w-full h-auto object-contain"
+                  containerClassName="rounded-lg overflow-hidden h-96"
+                />
+              </div>
+            ))}
+          </div>
         </SolutionCard>
 
         {/* Solution 3 — RICE #1 */}
@@ -483,6 +487,20 @@ export default function PlumCaseStudy() {
             within three months. This assumes users considering cancellation are still open to a
             convenient alternative — and that removing search friction is the key blocker.
           </Hypothesis>
+
+          {/* Reschedule Suggestion Screens */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10 max-w-2xl">
+            {[1, 2].map((num) => (
+              <div key={num} className="flex flex-col">
+                <ZoomableImage
+                  src={`/assets/plum/Reschedule-suggestion-${num}.png`}
+                  alt={`Reschedule Suggestion screen ${num}`}
+                  className="w-full h-auto object-contain"
+                  containerClassName="rounded-lg overflow-hidden h-96"
+                />
+              </div>
+            ))}
+          </div>
         </SolutionCard>
 
         {/* Solution 4 — Hero */}
@@ -519,6 +537,20 @@ export default function PlumCaseStudy() {
             </strong>{' '}
             within six months — impacting the 2% of consultations currently cancelled by doctors.
           </Hypothesis>
+
+          {/* Heal Scoreboard Screens */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-10">
+            {[1, 2, 3].map((num) => (
+              <div key={num} className="flex flex-col">
+                <ZoomableImage
+                  src={`/assets/plum/heal-${num}.png`}
+                  alt={`Heal Scoreboard screen ${num}`}
+                  className="w-full h-auto object-contain"
+                  containerClassName="rounded-lg overflow-hidden h-96"
+                />
+              </div>
+            ))}
+          </div>
         </SolutionCard>
 
         {/* Solution 5 */}
@@ -545,6 +577,20 @@ export default function PlumCaseStudy() {
             </strong>{' '}
             of implementation, particularly for dependent bookings.
           </Hypothesis>
+
+          {/* Personalized In-line Section Screens */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10 max-w-2xl">
+            {[1, 2].map((num) => (
+              <div key={num} className="flex flex-col">
+                <ZoomableImage
+                  src={`/assets/plum/Personalized-${num}.png`}
+                  alt={`Personalized In-line screen ${num}`}
+                  className="w-full h-auto object-contain"
+                  containerClassName="rounded-lg overflow-hidden h-96"
+                />
+              </div>
+            ))}
+          </div>
         </SolutionCard>
       </CaseStudySection>
 
@@ -666,12 +712,6 @@ export default function PlumCaseStudy() {
           </strong>
         </InsightCallout>
       </CaseStudySection>
-
-      {/* Next */}
-      <CaseStudyNext
-        href="/case-studies/health-and-glow"
-        title="Health & Glow — ← Coming Soon"
-      />
     </CaseStudyLayout>
   );
 }

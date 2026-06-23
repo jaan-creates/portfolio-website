@@ -1,3 +1,5 @@
+import { useTheme } from '../../contexts/ThemeContext';
+
 export type BiasVariant = 'rec' | 'sca' | 'unc' | 'los' | 'nov';
 
 interface BiasCardProps {
@@ -17,8 +19,7 @@ const CHIP_STYLES: Record<BiasVariant, { bg: string; color: string; border: stri
   nov: { bg: 'rgba(34,197,94,0.08)',  color: '#22C55E', border: 'rgba(34,197,94,0.3)'    },
 };
 
-// Shared MMT icon for all bias cards
-const MMT_ICON = { bg: 'linear-gradient(135deg,#b71c1c,#d32f2f)', label: 'my' };
+const MMT_LOGO = '/assets/push playbook/makemytrip.png';
 
 export default function BiasCard({
   biasType,
@@ -28,7 +29,18 @@ export default function BiasCard({
   notifBody,
   explanation,
 }: BiasCardProps) {
+  const { theme } = useTheme();
+  const isLight = theme === 'light';
   const chip = CHIP_STYLES[variant];
+
+  // Embedded notification mockup mirrors the OS: white card in light mode, dark in dark mode
+  const notifBg     = isLight ? '#FFFFFF' : '#1C1C21';
+  const notifBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.13)';
+  const titleColor  = isLight ? '#1A1A1F' : '#FAFAF9';
+  const bodyColor   = isLight ? '#4B5563' : '#9CA3AF';
+  const timeColor   = isLight ? '#9CA3AF' : '#6B7280';
+  // Brand amber darkened for contrast on white
+  const appNameColor = isLight ? 'color-mix(in srgb, #fbbf24 50%, #1A1A1F)' : '#fbbf24';
 
   return (
     <div
@@ -58,34 +70,30 @@ export default function BiasCard({
       <div
         className="rounded-lg p-2.5 mb-3"
         style={{
-          background: '#1C1C21',
-          border: '0.5px solid rgba(255,255,255,0.13)',
+          background: notifBg,
+          border: `0.5px solid ${notifBorder}`,
         }}
       >
         <div className="flex items-center gap-1.5 mb-1">
-          <div
-            className="flex-shrink-0 flex items-center justify-center rounded font-bold"
-            style={{
-              width: '18px',
-              height: '18px',
-              background: MMT_ICON.bg,
-              color: '#fff',
-              fontSize: '8px',
-            }}
-          >
-            {MMT_ICON.label}
-          </div>
-          <span className="font-sans font-semibold" style={{ fontSize: '10px', color: '#fbbf24' }}>
+          <img
+            src={MMT_LOGO}
+            alt="MakeMyTrip logo"
+            width={18}
+            height={18}
+            className="flex-shrink-0 rounded"
+            style={{ width: '18px', height: '18px', objectFit: 'cover' }}
+          />
+          <span className="font-sans font-semibold" style={{ fontSize: '10px', color: appNameColor }}>
             MakeMyTrip
           </span>
-          <span className="font-mono ml-auto" style={{ fontSize: '9px', color: '#6B7280' }}>
+          <span className="font-mono ml-auto" style={{ fontSize: '9px', color: timeColor }}>
             {notifTimestamp}
           </span>
         </div>
-        <p className="font-sans font-bold leading-snug mb-0.5" style={{ fontSize: '12px', color: '#FAFAF9' }}>
+        <p className="font-sans font-bold leading-snug mb-0.5" style={{ fontSize: '12px', color: titleColor }}>
           {notifTitle}
         </p>
-        <p className="font-sans leading-relaxed" style={{ fontSize: '11px', color: '#9CA3AF' }}>
+        <p className="font-sans leading-relaxed" style={{ fontSize: '11px', color: bodyColor }}>
           {notifBody}
         </p>
       </div>

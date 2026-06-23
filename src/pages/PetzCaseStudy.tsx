@@ -8,6 +8,7 @@ import InsightCallout from '../components/case-study/InsightCallout';
 import CaseStudyTable from '../components/case-study/CaseStudyTable';
 import StatRow from '../components/case-study/StatRow';
 import CaseStudyNext from '../components/case-study/CaseStudyNext';
+import ZoomableFrame from '../components/ZoomableFrame';
 import { useTheme } from '../contexts/ThemeContext';
 
 const DARK_ACCENT = '#6C7BF5';
@@ -105,6 +106,52 @@ function MarketplaceDiagram() {
           </ul>
         </div>
       </div>
+    </div>
+  );
+}
+
+function IframePhone({ src, offset = 0 }: { src: string; offset?: number }) {
+  const innerW = 140; // 152px outer - 6px×2 border
+  const scale = innerW / 390;
+  const innerH = Math.round(844 * scale); // ~303px
+  return (
+    <div
+      style={{
+        width: '152px',
+        height: `${innerH}px`,
+        background: '#1C1C1E',
+        borderRadius: '28px',
+        border: '6px solid #2C2C2E',
+        boxShadow: '0 24px 48px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.04) inset',
+        overflow: 'hidden',
+        flexShrink: 0,
+        transform: `translateY(${offset}px)`,
+        position: 'relative',
+      }}
+    >
+      <div
+        style={{
+          position: 'absolute', top: '6px', left: '50%',
+          transform: 'translateX(-50%)',
+          width: '48px', height: '14px',
+          background: '#1C1C1E', borderRadius: '0 0 10px 10px',
+          zIndex: 10,
+        }}
+      />
+      <iframe
+        src={src}
+        scrolling="no"
+        tabIndex={-1}
+        style={{
+          width: '390px',
+          height: '844px',
+          border: 'none',
+          display: 'block',
+          transform: `scale(${scale})`,
+          transformOrigin: 'top left',
+          pointerEvents: 'none',
+        }}
+      />
     </div>
   );
 }
@@ -281,8 +328,8 @@ function AppShowcase() {
           </p>
         </div>
         <div className="flex justify-center gap-3 py-6 px-4" style={{ background: 'rgba(0,0,0,0.2)' }}>
-          <OwnerHomeScreen />
-          <BookingScreen />
+          <IframePhone src="/assets/petz/home.html" />
+          <IframePhone src="/assets/petz/grooming.html" offset={20} />
         </div>
         <div className="px-5 pb-5">
           <p className="text-muted-light mb-3" style={{ fontSize: 'var(--step--1)' }}>
@@ -370,7 +417,7 @@ function UserFlow() {
               className="flex flex-col items-center text-center px-3 py-3 rounded-xl"
               style={{
                 minWidth: '88px',
-                background: step.highlight ? `rgba(108,123,245,0.12)` : '#1A1A1F',
+                background: step.highlight ? `rgba(108,123,245,0.12)` : 'var(--color-surface-raised)',
                 border: `0.5px solid ${step.highlight ? accent + '50' : 'var(--color-surface-border)'}`,
               }}
             >
@@ -497,57 +544,238 @@ function PricingTiers() {
   );
 }
 
-function ReflectionCards() {
+const JOURNEY_STAGES = [
+  {
+    num: '01',
+    name: 'Need Arises',
+    feel: 'Anxious',
+    feelClass: 'low' as const,
+    doing: 'Pet falls sick or is overdue for grooming. Something needs to happen, now.',
+    pain: 'Urgency with no obvious first step or trusted go-to.',
+    opp: 'One-tap category access; nearby services surfaced instantly on the home screen.',
+  },
+  {
+    num: '02',
+    name: 'Discovery',
+    feel: 'Overwhelmed',
+    feelClass: 'low' as const,
+    doing: 'Asks friends, searches Google, scrolls Instagram and WhatsApp groups.',
+    pain: 'No trusted source. Conflicting advice. The lowest point of the journey.',
+    opp: 'Verified, rated providers filtered by distance — discovery becomes a single screen.',
+  },
+  {
+    num: '03',
+    name: 'Evaluation',
+    feel: 'Cautious',
+    feelClass: 'mid' as const,
+    doing: "Compares clinics, reads reviews, weighs price against distance.",
+    pain: "Can't judge quality or price upfront; everything is opaque.",
+    opp: 'Transparent pricing, ratings, and detailed provider profiles side by side.',
+  },
+  {
+    num: '04',
+    name: 'Booking',
+    feel: 'Hopeful',
+    feelClass: 'high' as const,
+    doing: 'Picks a slot, selects the pet, and pays — the moment of commitment.',
+    pain: '"Will they actually confirm? Will they show up?"',
+    opp: 'Instant confirmation plus a WhatsApp receipt turns hope into certainty.',
+  },
+  {
+    num: '05',
+    name: 'The Wait',
+    feel: 'Uncertain',
+    feelClass: 'low' as const,
+    doing: 'Waits for appointment day, quietly second-guessing the choice.',
+    pain: 'Silence breeds doubt; no reminder, no easy way to adjust plans.',
+    opp: 'Timely reminder nudges and a frictionless reschedule keep confidence alive.',
+  },
+  {
+    num: '06',
+    name: 'Appointment',
+    feel: 'Relieved',
+    feelClass: 'high' as const,
+    doing: 'Service happens — at home or on premise. The promise is tested.',
+    pain: 'A late or cancelled provider collapses all the trust built so far.',
+    opp: 'Provider reliability scoring and status tracking protect the peak moment.',
+  },
+  {
+    num: '07',
+    name: 'Aftercare',
+    feel: 'Loyal',
+    feelClass: 'high' as const,
+    doing: 'Leaves a review, saves records, and considers the next booking.',
+    pain: 'Records lost between visits; every next time starts from scratch.',
+    opp: 'Saved health records and one-tap rebook turn a transaction into a habit.',
+  },
+];
+
+const FEEL_STYLES: Record<'low' | 'mid' | 'high', React.CSSProperties> = {
+  low: {
+    background: 'rgba(244,114,114,0.1)',
+    color: '#F47272',
+    border: '1px solid rgba(244,114,114,0.22)',
+    borderRadius: '999px',
+    padding: '4px 10px',
+    fontSize: '11px',
+    fontWeight: 600,
+    display: 'inline-block',
+  },
+  mid: {
+    background: 'rgba(161,161,170,0.08)',
+    color: '#A1A1AA',
+    border: '1px solid rgba(161,161,170,0.18)',
+    borderRadius: '999px',
+    padding: '4px 10px',
+    fontSize: '11px',
+    fontWeight: 600,
+    display: 'inline-block',
+  },
+  high: {
+    background: 'rgba(20,184,166,0.1)',
+    color: '#14B8A6',
+    border: '1px solid rgba(20,184,166,0.22)',
+    borderRadius: '999px',
+    padding: '4px 10px',
+    fontSize: '11px',
+    fontWeight: 600,
+    display: 'inline-block',
+  },
+};
+
+function JourneyMap() {
   const { theme } = useTheme();
   const accent = theme === 'light' ? LIGHT_ACCENT : DARK_ACCENT;
-  const reflections = [
-    {
-      num: '01',
-      title: 'The supply-side problem needed a sharper plan.',
-      body: "I identified the supply-first strategy correctly, but I didn't design a compelling enough vendor proposition for the earliest adopters — the ones who'd take a bet on an unproven platform. First vendors need more than a profile; they need a meaningful incentive structure, dedicated onboarding support, and a 'founding provider' status that makes early adoption feel worth the risk. I'd redesign the vendor acquisition playbook with that in mind.",
-    },
-    {
-      num: '02',
-      title: 'Journey map was missing. That was a real gap.',
-      body: "I built user flows (what happens) but not a journey map (how it feels). For a product fundamentally about trust — trusting a stranger to care for your pet — the emotional moments matter enormously. Where does an owner's anxiety peak? At the 'choose a provider' step. At 'confirm booking.' At the door on appointment day. Those are the moments where the product either earns confidence or loses it. I'd start with the emotion curve next time, not after.",
-    },
-    {
-      num: '03',
-      title: "The hardest question I didn't fully answer.",
-      body: "If I were taking Pet-Z to a first investor meeting, the conversation I'd want to have is: how do you get the first 50 verified vets on the platform before you have a single pet owner? The UX problem I solved. The go-to-market problem — the grind of early supply acquisition — is the real product challenge, and this version of the work only gestures at it. That's where the real difficulty lives.",
-    },
-  ];
 
   return (
-    <ul className="mt-4">
-      {reflections.map((r, i) => (
-        <li
-          key={i}
-          className="flex gap-5 py-5"
-          style={{
-            borderBottom: i < reflections.length - 1 ? '0.5px solid var(--color-surface-border)' : 'none',
-          }}
+    <div className="mt-8">
+      {/* Emotion curve */}
+      <div
+        className="rounded-t-xl overflow-hidden relative"
+        style={{ background: 'var(--color-surface)', border: '0.5px solid var(--color-surface-border)', borderBottom: 'none', paddingTop: '40px', paddingBottom: '8px' }}
+      >
+        <span
+          className="absolute font-mono uppercase tracking-[0.1em]"
+          style={{ top: '14px', left: '20px', fontSize: '10px', color: 'var(--color-muted-light)' }}
         >
-          <span
-            className="font-mono font-bold flex-shrink-0 opacity-40"
-            style={{ fontSize: '11px', color: accent, paddingTop: '2px', width: '1.5em' }}
+          Emotional High → Low across the journey
+        </span>
+        <svg
+          viewBox="0 0 1120 220"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{ width: '100%', height: 'auto', display: 'block' }}
+          aria-label="Emotion curve across the owner journey"
+          role="img"
+        >
+          <defs>
+            <linearGradient id="petzCurveFill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={accent} stopOpacity="0.18" />
+              <stop offset="100%" stopColor={accent} stopOpacity="0" />
+            </linearGradient>
+          </defs>
+          {/* neutral line */}
+          <line x1="40" y1="120" x2="1080" y2="120" stroke="rgba(255,255,255,0.07)" strokeWidth="1" strokeDasharray="4 6" />
+          <text x="44" y="115" fontSize="10" fontFamily="Inter, sans-serif" style={{ fill: 'var(--color-muted-light)' }}>neutral</text>
+          {/* area fill */}
+          <path
+            d="M80,148 C160,162 160,164 240,166 C320,162 320,134 400,132 C480,124 480,88 560,78 C640,74 640,122 720,123 C800,119 800,56 880,51 C960,48 960,64 1040,69 L1040,200 L80,200 Z"
+            fill="url(#petzCurveFill)"
+          />
+          {/* curve line */}
+          <path
+            d="M80,148 C160,162 160,164 240,166 C320,162 320,134 400,132 C480,124 480,88 560,78 C640,74 640,122 720,123 C800,119 800,56 880,51 C960,48 960,64 1040,69"
+            fill="none"
+            stroke={accent}
+            strokeWidth="2.5"
+            strokeLinecap="round"
+          />
+          {/* emotion dots */}
+          {[
+            { cx: 80,   cy: 148, stroke: '#F47272', emoji: '😰', ey: 132 },
+            { cx: 240,  cy: 166, stroke: '#F47272', emoji: '😵', ey: 186 },
+            { cx: 400,  cy: 132, stroke: '#A1A1AA', emoji: '🤔', ey: 116 },
+            { cx: 560,  cy: 78,  stroke: '#14B8A6', emoji: '🙂', ey: 62  },
+            { cx: 720,  cy: 123, stroke: '#F47272', emoji: '😟', ey: 145 },
+            { cx: 880,  cy: 51,  stroke: '#14B8A6', emoji: '😊', ey: 35  },
+            { cx: 1040, cy: 69,  stroke: '#14B8A6', emoji: '😍', ey: 53  },
+          ].map((p) => (
+            <g key={p.cx}>
+              <circle cx={p.cx} cy={p.cy} r="5" fill="#0D0D0F" stroke={p.stroke} strokeWidth="2" />
+              <text x={p.cx} y={p.ey} textAnchor="middle" fontSize="15">{p.emoji}</text>
+            </g>
+          ))}
+        </svg>
+      </div>
+
+      {/* Stage columns */}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(7, 1fr)',
+          gap: '1px',
+          background: 'var(--color-surface-border)',
+          border: '0.5px solid var(--color-surface-border)',
+          borderRadius: '0 0 12px 12px',
+          overflow: 'hidden',
+        }}
+      >
+        {JOURNEY_STAGES.map((stage) => (
+          <div
+            key={stage.num}
+            style={{ background: 'var(--color-surface)', padding: '16px 12px', display: 'flex', flexDirection: 'column', gap: '10px' }}
           >
-            {r.num}
-          </span>
-          <div>
-            <p
-              className="font-display font-semibold text-off-white mb-1"
-              style={{ fontSize: 'var(--step-0)' }}
+            <div>
+              <p style={{ fontSize: '10px', fontWeight: 600, letterSpacing: '0.08em', color: accent, marginBottom: '2px' }}>
+                STAGE {stage.num}
+              </p>
+              <p className="font-display font-bold text-off-white" style={{ fontSize: 'var(--step-0)', lineHeight: 1.2 }}>
+                {stage.name}
+              </p>
+            </div>
+            <span style={FEEL_STYLES[stage.feelClass]}>{stage.feel}</span>
+            <div>
+              <p style={{ fontSize: '9px', fontWeight: 600, letterSpacing: '0.08em', color: 'var(--color-muted-light)', textTransform: 'uppercase', marginBottom: '3px' }}>
+                Doing
+              </p>
+              <p style={{ fontSize: '12px', color: 'var(--color-muted-light)', lineHeight: 1.5 }}>{stage.doing}</p>
+            </div>
+            <div>
+              <p style={{ fontSize: '9px', fontWeight: 600, letterSpacing: '0.08em', color: '#F47272', textTransform: 'uppercase', marginBottom: '3px' }}>
+                Pain
+              </p>
+              <p style={{ fontSize: '12px', color: 'var(--color-muted-light)', lineHeight: 1.5 }}>{stage.pain}</p>
+            </div>
+            <div
+              style={{
+                background: `rgba(108,123,245,0.07)`,
+                borderRadius: '6px',
+                padding: '8px 10px',
+                borderLeft: `2px solid ${accent}`,
+              }}
             >
-              {r.title}
-            </p>
-            <p className="text-muted-light leading-relaxed" style={{ fontSize: 'var(--step--1)' }}>
-              {r.body}
-            </p>
+              <p style={{ fontSize: '9px', fontWeight: 600, letterSpacing: '0.08em', color: accent, textTransform: 'uppercase', marginBottom: '3px' }}>
+                Pet-Z opportunity
+              </p>
+              <p style={{ fontSize: '11.5px', color: 'var(--color-muted-light)', lineHeight: 1.5 }}>{stage.opp}</p>
+            </div>
           </div>
-        </li>
-      ))}
-    </ul>
+        ))}
+      </div>
+
+      {/* Legend */}
+      <div className="flex flex-wrap gap-5 mt-5" aria-hidden="true">
+        {[
+          { color: '#F47272', label: 'Trust at risk (low)' },
+          { color: '#A1A1AA', label: 'Neutral / cautious' },
+          { color: '#14B8A6', label: 'Trust earned (high)' },
+        ].map((l) => (
+          <div key={l.label} className="flex items-center gap-2" style={{ fontSize: 'var(--step--1)', color: 'var(--color-muted-light)' }}>
+            <span style={{ width: '12px', height: '12px', borderRadius: '3px', background: l.color, display: 'inline-block', flexShrink: 0 }} />
+            {l.label}
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -557,7 +785,7 @@ export default function PetzCaseStudy() {
 
   return (
     <CaseStudyLayout
-      title="Designing both sides of India's pet care marketplace — because the vet is a user too."
+      title="Designing both sides of India's pet care marketplace — Pet-Z"
       company="Pet-Z"
       domain="Pet Care"
       accentColor={DARK_ACCENT}
@@ -748,6 +976,27 @@ export default function PetzCaseStudy() {
         />
       </CaseStudySection>
 
+      {/* Journey Map */}
+      <CaseStudySection eyebrow="THE OWNER'S EXPERIENCE" heading="A journey built on trust — or broken by it.">
+        <p className="text-muted-light leading-relaxed" style={{ fontSize: 'var(--step-0)' }}>
+          Pet care is fundamentally about trusting a stranger with a family member. Mapping the
+          first-time owner's emotional journey shows exactly where that trust is won and where it
+          slips away — and which moments the product has to get right.
+        </p>
+        <div className="overflow-x-auto -mx-6 px-6">
+          <div style={{ minWidth: '900px' }}>
+            <JourneyMap />
+          </div>
+        </div>
+        <InsightCallout label="The insight that shaped the build">
+          The two deepest dips — Discovery and The Wait — are the moments most likely to lose an
+          owner, and neither is solved by a better booking screen. They're solved by trust signals
+          (verified, reviewed providers) and proactive communication (reminders, status, easy
+          reschedule). That's why those features ranked as P0 in prioritisation, even above flashier
+          ones. The journey map didn't just describe the experience — it set the build order.
+        </InsightCallout>
+      </CaseStudySection>
+
       {/* Marketplace challenge */}
       <CaseStudySection eyebrow="THE CORE TENSION" heading="Who do you build for first?">
         <p className="text-muted-light leading-relaxed mb-2" style={{ fontSize: 'var(--step-0)' }}>
@@ -775,6 +1024,69 @@ export default function PetzCaseStudy() {
           care management; a vendor app focused on profile, scheduling, and growth.
         </p>
         <AppShowcase />
+
+        {/* Owner app screens */}
+        <div className="mt-10">
+          <p className="font-mono uppercase tracking-[0.1em] mb-4" style={{ fontSize: '10px', color: ACCENT }}>
+            Owner App — Designed Screens
+          </p>
+          <p className="text-muted-light mb-5" style={{ fontSize: 'var(--step--1)' }}>
+            From first open to confirmed booking. Click any screen to zoom.
+          </p>
+          <div className="overflow-x-auto pb-3 -mx-2 px-2">
+            <div className="flex gap-4 items-end" style={{ minWidth: 'max-content' }}>
+              {[
+                { src: '/assets/petz/welcome.html',          label: 'Welcome' },
+                { src: '/assets/petz/slide.html',            label: 'Onboarding' },
+                { src: '/assets/petz/login.html',            label: 'Log In' },
+                { src: '/assets/petz/home.html',             label: 'Home' },
+                { src: '/assets/petz/home2.html',            label: 'Home — Alt' },
+                { src: '/assets/petz/grooming.html',         label: 'Find Grooming' },
+                { src: '/assets/petz/booking-services.html', label: 'Book Services' },
+                { src: '/assets/petz/booking-calendar.html', label: 'Pick a Slot' },
+              ].map(({ src, label }) => (
+                <ZoomableFrame
+                  key={src}
+                  src={src}
+                  label={label}
+                  accent={ACCENT}
+                  frameWidth={390}
+                  frameHeight={844}
+                  thumbWidth={160}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Pet management screens */}
+        <div className="mt-10">
+          <p className="font-mono uppercase tracking-[0.1em] mb-4" style={{ fontSize: '10px', color: ACCENT }}>
+            Pet Management — Designed Screens
+          </p>
+          <p className="text-muted-light mb-5" style={{ fontSize: 'var(--step--1)' }}>
+            Pet profiles, health history, and vaccination records — the features that drive Monthly plan upgrades.
+          </p>
+          <div className="overflow-x-auto pb-3 -mx-2 px-2">
+            <div className="flex gap-4 items-end" style={{ minWidth: 'max-content' }}>
+              {[
+                { src: '/assets/petz/pet-profile.html',   label: 'Add a Pet' },
+                { src: '/assets/petz/pet-history.html',   label: 'Pet Profile' },
+                { src: '/assets/petz/health-records.html', label: 'Health Records' },
+              ].map(({ src, label }) => (
+                <ZoomableFrame
+                  key={src}
+                  src={src}
+                  label={label}
+                  accent={ACCENT}
+                  frameWidth={390}
+                  frameHeight={844}
+                  thumbWidth={160}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
       </CaseStudySection>
 
       {/* Happy path flow */}
@@ -968,45 +1280,62 @@ export default function PetzCaseStudy() {
             {
               header: 'Pet-Z',
               key: 'petz',
-              renderCell: (v) => (
-                <span
-                  style={{
-                    color: v === '✓' ? '#A7F3D0' : v === '~' ? '#FDE68A' : '#4B5563',
-                    fontWeight: 600,
-                    fontSize: '13px',
-                  }}
-                >
-                  {v}
-                </span>
-              ),
+              renderCell: (v) => {
+                const c = v === '✓'
+                  ? (theme === 'light' ? '#15803D' : '#4ADE80')
+                  : v === '~'
+                  ? (theme === 'light' ? '#B45309' : '#FCD34D')
+                  : (theme === 'light' ? '#9CA3AF' : '#52525B');
+                return <span style={{ color: c, fontWeight: 600, fontSize: '13px' }}>{v}</span>;
+              },
             },
             {
               header: 'Supertails',
               key: 'supertails',
-              renderCell: (v) => (
-                <span style={{ color: v === '✓' ? '#A7F3D0' : v === '~' ? '#FDE68A' : '#4B5563', fontSize: '13px' }}>{v}</span>
-              ),
+              renderCell: (v) => {
+                const c = v === '✓'
+                  ? (theme === 'light' ? '#15803D' : '#4ADE80')
+                  : v === '~'
+                  ? (theme === 'light' ? '#B45309' : '#FCD34D')
+                  : (theme === 'light' ? '#9CA3AF' : '#52525B');
+                return <span style={{ color: c, fontSize: '13px' }}>{v}</span>;
+              },
             },
             {
               header: 'PetKonnect',
               key: 'petkonnect',
-              renderCell: (v) => (
-                <span style={{ color: v === '✓' ? '#A7F3D0' : v === '~' ? '#FDE68A' : '#4B5563', fontSize: '13px' }}>{v}</span>
-              ),
+              renderCell: (v) => {
+                const c = v === '✓'
+                  ? (theme === 'light' ? '#15803D' : '#4ADE80')
+                  : v === '~'
+                  ? (theme === 'light' ? '#B45309' : '#FCD34D')
+                  : (theme === 'light' ? '#9CA3AF' : '#52525B');
+                return <span style={{ color: c, fontSize: '13px' }}>{v}</span>;
+              },
             },
             {
               header: 'HUFT',
               key: 'huft',
-              renderCell: (v) => (
-                <span style={{ color: v === '✓' ? '#A7F3D0' : v === '~' ? '#FDE68A' : '#4B5563', fontSize: '13px' }}>{v}</span>
-              ),
+              renderCell: (v) => {
+                const c = v === '✓'
+                  ? (theme === 'light' ? '#15803D' : '#4ADE80')
+                  : v === '~'
+                  ? (theme === 'light' ? '#B45309' : '#FCD34D')
+                  : (theme === 'light' ? '#9CA3AF' : '#52525B');
+                return <span style={{ color: c, fontSize: '13px' }}>{v}</span>;
+              },
             },
             {
               header: 'Local WhatsApp',
               key: 'whatsapp',
-              renderCell: (v) => (
-                <span style={{ color: v === '✓' ? '#A7F3D0' : v === '~' ? '#FDE68A' : '#4B5563', fontSize: '13px' }}>{v}</span>
-              ),
+              renderCell: (v) => {
+                const c = v === '✓'
+                  ? (theme === 'light' ? '#15803D' : '#4ADE80')
+                  : v === '~'
+                  ? (theme === 'light' ? '#B45309' : '#FCD34D')
+                  : (theme === 'light' ? '#9CA3AF' : '#52525B');
+                return <span style={{ color: c, fontSize: '13px' }}>{v}</span>;
+              },
             },
           ]}
           rows={[
@@ -1034,45 +1363,6 @@ export default function PetzCaseStudy() {
             dedicated vendor growth tools in a single platform. Supertails and PetKonnect are the closest,
             but neither was designed two-sided from the ground up — their vendor experience is a bolt-on.
             Pet-Z's differentiator is that the vendor is a first-class user, not an afterthought.
-          </p>
-        </div>
-      </CaseStudySection>
-
-      {/* Reflections */}
-      <CaseStudySection eyebrow="REFLECTIONS" heading="What I'd do differently.">
-        <ReflectionCards />
-        <div
-          className="rounded-xl p-7 mt-8 relative overflow-hidden"
-          style={{ background: 'var(--color-surface)', border: '0.5px solid rgba(255,255,255,0.08)' }}
-        >
-          <span
-            aria-hidden="true"
-            className="absolute font-display select-none pointer-events-none"
-            style={{
-              top: '-12px',
-              left: '24px',
-              fontSize: '120px',
-              color: ACCENT,
-              opacity: 0.06,
-              lineHeight: 1,
-            }}
-          >
-            "
-          </span>
-          <p
-            className="font-mono uppercase tracking-[0.1em] mb-3"
-            style={{ fontSize: '10px', color: '#A1A1AA' }}
-          >
-            Honest framing
-          </p>
-          <p
-            className="text-off-white italic leading-relaxed relative z-10"
-            style={{ fontSize: 'var(--step-0)', maxWidth: '640px' }}
-          >
-            "Pet-Z is concept work — a rigorous 0→1 exercise, not a shipped product. The research,
-            personas, flows, and prioritisation are real thinking applied to a real market gap. Where I
-            claim production metrics, treat them as targets and hypotheses. Where I claim execution, it's
-            the design layer, not engineering delivery."
           </p>
         </div>
       </CaseStudySection>

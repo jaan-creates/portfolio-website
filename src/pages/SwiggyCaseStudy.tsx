@@ -4,6 +4,7 @@ import CaseStudyMeta from '../components/case-study/CaseStudyMeta';
 import InsightCallout from '../components/case-study/InsightCallout';
 import CaseStudyTable from '../components/case-study/CaseStudyTable';
 import CaseStudyNext from '../components/case-study/CaseStudyNext';
+import ZoomableImage from '../components/ZoomableImage';
 import { useTheme } from '../contexts/ThemeContext';
 
 const DARK_ACCENT = '#FC8019';
@@ -561,18 +562,14 @@ export default function SwiggyCaseStudy() {
                 { src: '/assets/swiggy/Frame%2049%201.svg', alt: 'Deal Store curated shortlist — top 5 matching deals' },
                 { src: '/assets/swiggy/Frame%2011.svg', alt: 'Restaurant-side deal setup — review promotion details and start promotion' },
               ].map(({ src, alt }) => (
-                <div
+                <ZoomableImage
                   key={src}
-                  className="rounded-xl overflow-hidden flex items-center justify-center"
-                  style={{ background: 'var(--color-surface-raised)', border: '0.5px solid var(--color-surface-border)', height: '320px' }}
-                >
-                  <img
-                    src={src}
-                    alt={alt}
-                    style={{ height: '100%', width: 'auto', maxWidth: '100%', objectFit: 'contain' }}
-                    loading="lazy"
-                  />
-                </div>
+                  src={src}
+                  alt={alt}
+                  containerClassName="rounded-xl overflow-hidden"
+                  containerStyle={{ background: 'var(--color-surface-raised)', border: '0.5px solid var(--color-surface-border)', height: '320px' }}
+                  imgStyle={{ height: '100%', width: 'auto', maxWidth: '100%', objectFit: 'contain' }}
+                />
               ))}
             </div>
             <p className="text-center mt-2 text-muted-light italic" style={{ fontSize: 'var(--step--1)' }}>
@@ -638,18 +635,14 @@ export default function SwiggyCaseStudy() {
                 { src: '/assets/swiggy/Frame%2020%201.svg', alt: 'Full restaurant reviews page with user comments and review highlights' },
                 { src: '/assets/swiggy/Group%2057.svg', alt: 'Post-order review submission form — rate, tag, and post anonymously' },
               ].map(({ src, alt }) => (
-                <div
+                <ZoomableImage
                   key={src}
-                  className="rounded-xl overflow-hidden flex items-center justify-center"
-                  style={{ background: 'var(--color-surface-raised)', border: '0.5px solid var(--color-surface-border)', height: '280px' }}
-                >
-                  <img
-                    src={src}
-                    alt={alt}
-                    style={{ height: '100%', width: 'auto', maxWidth: '100%', objectFit: 'contain' }}
-                    loading="lazy"
-                  />
-                </div>
+                  src={src}
+                  alt={alt}
+                  containerClassName="rounded-xl overflow-hidden"
+                  containerStyle={{ background: 'var(--color-surface-raised)', border: '0.5px solid var(--color-surface-border)', height: '280px' }}
+                  imgStyle={{ height: '100%', width: 'auto', maxWidth: '100%', objectFit: 'contain' }}
+                />
               ))}
             </div>
             <p className="text-center mt-2 text-muted-light italic" style={{ fontSize: 'var(--step--1)' }}>
@@ -674,29 +667,21 @@ export default function SwiggyCaseStudy() {
           <figure className="my-0">
             <div className="grid grid-cols-3 gap-3">
               {/* Main feed — 2/3 width */}
-              <div
-                className="col-span-2 rounded-xl overflow-hidden flex items-center justify-center"
-                style={{ background: 'var(--color-surface-raised)', border: '0.5px solid var(--color-surface-border)', height: '240px' }}
-              >
-                <img
-                  src="/assets/swiggy/image%2037.svg"
-                  alt="Top Mentions feed — restaurant cards with friend mention counts and Mark as tried option"
-                  style={{ height: '100%', width: 'auto', maxWidth: '100%', objectFit: 'contain' }}
-                  loading="lazy"
-                />
-              </div>
+              <ZoomableImage
+                src="/assets/swiggy/image%2037.svg"
+                alt="Top Mentions feed — restaurant cards with friend mention counts and Mark as tried option"
+                containerClassName="col-span-2 rounded-xl overflow-hidden"
+                containerStyle={{ background: 'var(--color-surface-raised)', border: '0.5px solid var(--color-surface-border)', height: '240px' }}
+                imgStyle={{ height: '100%', width: 'auto', maxWidth: '100%', objectFit: 'contain' }}
+              />
               {/* Account entry point — 1/3 width */}
-              <div
-                className="rounded-xl overflow-hidden flex items-center justify-center"
-                style={{ background: 'var(--color-surface-raised)', border: '0.5px solid var(--color-surface-border)', height: '240px' }}
-              >
-                <img
-                  src="/assets/swiggy/image%2039.svg"
-                  alt="Account menu showing Recommendations as a top-level entry point"
-                  style={{ height: '100%', width: 'auto', maxWidth: '100%', objectFit: 'contain' }}
-                  loading="lazy"
-                />
-              </div>
+              <ZoomableImage
+                src="/assets/swiggy/image%2039.svg"
+                alt="Account menu showing Recommendations as a top-level entry point"
+                containerClassName="rounded-xl overflow-hidden"
+                containerStyle={{ background: 'var(--color-surface-raised)', border: '0.5px solid var(--color-surface-border)', height: '240px' }}
+                imgStyle={{ height: '100%', width: 'auto', maxWidth: '100%', objectFit: 'contain' }}
+              />
             </div>
             <p className="text-center mt-2 text-muted-light italic" style={{ fontSize: 'var(--step--1)' }}>
               Left: friends' Top Mentions feed · Right: Recommendations entry in the account menu
@@ -797,18 +782,14 @@ export default function SwiggyCaseStudy() {
               { src: '/assets/swiggy/Group%2062.svg', alt: 'Landing page how it works — Select Preference to Match-Making flow' },
               { src: '/assets/swiggy/Group%2063.svg', alt: 'Landing page testimonials and FAQ' },
             ].map(({ src, alt }) => (
-              <div
+              <ZoomableImage
                 key={src}
-                className="rounded-xl overflow-hidden flex items-center justify-center"
-                style={{ background: 'var(--color-surface-raised)', border: '0.5px solid var(--color-surface-border)', height: '340px' }}
-              >
-                <img
-                  src={src}
-                  alt={alt}
-                  style={{ height: '100%', width: 'auto', maxWidth: '100%', objectFit: 'contain' }}
-                  loading="lazy"
-                />
-              </div>
+                src={src}
+                alt={alt}
+                containerClassName="rounded-xl overflow-hidden"
+                containerStyle={{ background: 'var(--color-surface-raised)', border: '0.5px solid var(--color-surface-border)', height: '340px' }}
+                imgStyle={{ height: '100%', width: 'auto', maxWidth: '100%', objectFit: 'contain' }}
+              />
             ))}
           </div>
           <p className="text-center mt-2 text-muted-light italic" style={{ fontSize: 'var(--step--1)' }}>
@@ -837,14 +818,13 @@ export default function SwiggyCaseStudy() {
         </p>
 
         <figure className="my-0">
-          <div className="rounded-xl overflow-hidden" style={{ background: 'var(--color-surface-raised)', border: '0.5px solid var(--color-surface-border)' }}>
-            <img
-              src="/assets/swiggy/Group%2064.svg"
-              alt="Google Analytics dashboard — users 73, new users 73, bounce rate 22%, pages per session 1.19"
-              className="w-full h-auto block"
-              loading="lazy"
-            />
-          </div>
+          <ZoomableImage
+            src="/assets/swiggy/Group%2064.svg"
+            alt="Google Analytics dashboard — users 73, new users 73, bounce rate 22%, pages per session 1.19"
+            containerClassName="rounded-xl overflow-hidden"
+            containerStyle={{ background: 'var(--color-surface-raised)', border: '0.5px solid var(--color-surface-border)' }}
+            className="w-full h-auto block"
+          />
           <p className="text-center mt-3 text-muted-light italic" style={{ fontSize: 'var(--step--1)' }}>
             The actual analytics from the test — receipts, not assumptions.
           </p>
@@ -930,33 +910,6 @@ export default function SwiggyCaseStudy() {
           deals-claimed-per-day, drop-off during deal setup, and the partner-equity guardrail
           above.
         </InsightCallout>
-      </CaseStudySection>
-
-      {/* REFLECTION */}
-      <CaseStudySection eyebrow="REFLECTION" heading="What I'd do differently.">
-        <ul className="mt-2">
-          <ReflectionItem
-            index="01"
-            title="Test the flow, not just the pitch."
-            body="The landing page proved desire. Next I'd put a clickable Deal Store prototype in front of the same users to prove the experience reduces decision time — the actual bet."
-          />
-          <ReflectionItem
-            index="02"
-            title='Pressure-test the "6 tries" cap.'
-            body="It's elegant scarcity, but it risks frustrating genuine searchers. I'd A/B the cap and watch null-deal searches before committing to a number."
-          />
-          <ReflectionItem
-            index="03"
-            title="Bring fairness in earlier."
-            body="I caught the rich-get-richer risk late, as a failure mode. It should have shaped the ranking model from the first sketch, not been bolted on."
-          />
-          <ReflectionItem
-            index="04"
-            title="Name the scope honestly."
-            body="This is a self-directed product exercise, validated with a real demand test — not a shipped feature. The thinking and the test are the deliverable, and I'd rather be precise about that than oversell it."
-            isLast
-          />
-        </ul>
       </CaseStudySection>
 
       {/* Next */}

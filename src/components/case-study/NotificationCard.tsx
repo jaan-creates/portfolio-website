@@ -1,11 +1,12 @@
 import { useTheme } from '../../contexts/ThemeContext';
 
 interface NotifIcon {
-  label: string;
-  bg: string;
+  label?: string;
+  bg?: string;
   color?: string;
   fontSize?: string;
   letterSpacing?: string;
+  src?: string;
 }
 
 interface NotifButton {
@@ -55,18 +56,27 @@ export default function NotificationCard({
   chipVariant = 'cp',
 }: NotificationCardProps) {
   const { theme } = useTheme();
-  const isIos = variant === 'ios';
+  const isLightMode = theme === 'light';
 
-  const variantStyle: React.CSSProperties = {
-    default: { background: '#1C1C21',                             borderColor: 'rgba(255,255,255,0.13)' },
-    dark:    { background: '#0d0d12',                             borderColor: 'rgba(255,255,255,0.13)' },
-    ios:     { background: theme === 'light' ? '#1C1C21' : 'rgba(255,255,255,0.07)', borderColor: 'rgba(255,255,255,0.13)' },
-    red:     { background: 'rgba(239,68,68,0.04)',                borderColor: 'rgba(239,68,68,0.22)' },
+  const variantStyle: React.CSSProperties = isLightMode ? {
+    default: { background: '#FFFFFF',                             borderColor: 'rgba(0,0,0,0.08)' },
+    dark:    { background: '#F5F4F0',                             borderColor: 'rgba(0,0,0,0.08)' },
+    ios:     { background: '#FFFFFF',                             borderColor: 'rgba(0,0,0,0.08)' },
+    red:     { background: 'rgba(239,68,68,0.08)',                borderColor: 'rgba(239,68,68,0.22)' },
+  }[variant] : {
+    default: { background: '#191920',                             borderColor: 'rgba(255,255,255,0.15)' },
+    dark:    { background: '#131316',                             borderColor: 'rgba(255,255,255,0.15)' },
+    ios:     { background: 'rgba(255,255,255,0.08)',              borderColor: 'rgba(255,255,255,0.15)' },
+    red:     { background: 'rgba(239,68,68,0.06)',                borderColor: 'rgba(239,68,68,0.25)' },
   }[variant];
 
-  const titleColor = isIos ? '#fff' : '#FAFAF9';
-  const bodyColor  = isIos ? 'rgba(255,255,255,0.55)' : '#9CA3AF';
-  const timeColor  = isIos ? 'rgba(255,255,255,0.3)'  : '#6B7280';
+  const titleColor = isLightMode ? '#1A1A1F' : '#FAFAF9';
+  const bodyColor  = isLightMode ? '#4B5563' : '#9CA3AF';
+  const timeColor  = isLightMode ? '#9CA3AF' : '#6B7280';
+  // Brand colors are tuned for dark backgrounds — darken them on white cards for contrast
+  const resolvedAppNameColor = isLightMode
+    ? `color-mix(in srgb, ${appNameColor} 50%, #1A1A1F)`
+    : appNameColor;
 
   return (
     <div
@@ -100,22 +110,35 @@ export default function NotificationCard({
 
       {/* Header row */}
       <div className="flex items-center gap-2 mb-1.5">
-        <div
-          className="flex-shrink-0 flex items-center justify-center rounded-md font-bold"
-          style={{
-            width: '22px',
-            height: '22px',
-            background: icon.bg,
-            color: icon.color ?? '#fff',
-            fontSize: icon.fontSize ?? '11px',
-            letterSpacing: icon.letterSpacing,
-          }}
-        >
-          {icon.label}
-        </div>
+        {icon.src ? (
+          <img
+            src={icon.src}
+            alt={appName}
+            className="flex-shrink-0 rounded-md"
+            style={{
+              width: '22px',
+              height: '22px',
+              objectFit: 'cover',
+            }}
+          />
+        ) : (
+          <div
+            className="flex-shrink-0 flex items-center justify-center rounded-md font-bold"
+            style={{
+              width: '22px',
+              height: '22px',
+              background: icon.bg,
+              color: icon.color ?? '#fff',
+              fontSize: icon.fontSize ?? '11px',
+              letterSpacing: icon.letterSpacing,
+            }}
+          >
+            {icon.label}
+          </div>
+        )}
         <span
           className="font-sans font-semibold"
-          style={{ fontSize: '11px', letterSpacing: '0.02em', color: appNameColor }}
+          style={{ fontSize: '11px', letterSpacing: '0.02em', color: resolvedAppNameColor }}
         >
           {appName}
         </span>
@@ -149,11 +172,11 @@ export default function NotificationCard({
                 fontSize: '11px',
                 border: btn.accentColor
                   ? `0.5px solid ${btn.accentColor}66`
-                  : '0.5px solid rgba(255,255,255,0.14)',
+                  : isLightMode ? '0.5px solid rgba(0,0,0,0.1)' : '0.5px solid rgba(255,255,255,0.14)',
                 background: btn.accentColor
                   ? `${btn.accentColor}26`
-                  : 'rgba(255,255,255,0.07)',
-                color: btn.accentColor ?? '#9CA3AF',
+                  : isLightMode ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.07)',
+                color: btn.accentColor ?? (isLightMode ? '#52525B' : '#9CA3AF'),
               }}
             >
               {btn.label}

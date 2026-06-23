@@ -11,11 +11,16 @@ export default function Hero() {
     if (portraitRef.current) {
       const img = portraitRef.current.querySelector('img');
       if (img) {
-        gsap.fromTo(
-          img,
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 1, ease: 'power2.out' }
-        );
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduce) {
+          gsap.set(img, { opacity: 1, y: 0 });
+        } else {
+          gsap.fromTo(
+            img,
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 1, ease: 'power2.out' }
+          );
+        }
       }
     }
   }, []);

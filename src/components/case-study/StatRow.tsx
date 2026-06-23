@@ -25,10 +25,10 @@ export default function StatRow({ stats }: StatRowProps) {
           ? 'var(--case-accent)'
           : 'var(--color-off-white)';
         return (
-          <div key={i} className="bg-surface-raised px-6 py-8 md:px-8 md:py-9 text-center">
+          <div key={i} className="bg-surface-raised px-4 py-7 md:px-6 md:py-8 text-center">
             <div
               className="font-mono font-medium leading-none mb-3"
-              style={{ fontSize: 'clamp(2rem, 4.5vw, 3rem)', color: valueColor }}
+              style={{ fontSize: 'clamp(1.5rem, 3vw, 2.25rem)', color: valueColor, whiteSpace: 'nowrap' }}
             >
               {stat.value}
             </div>

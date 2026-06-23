@@ -60,12 +60,18 @@ export default function Nav() {
     ? 'none'
     : 'transform 0.3s ease';
 
+  // AI variant (janu-portfolio) drops the scrolled border line so it doesn't
+  // cut across the scroll-driven hero. Main site nav is unchanged.
+  const isAi = import.meta.env.VITE_SITE_VARIANT === 'ai';
+
   return (
     <header
       className={clsx(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-500 nav-blur',
         scrolled
-          ? 'bg-bg/80 border-b border-surface-border py-4'
+          ? isAi
+            ? 'bg-bg/80 py-4'
+            : 'bg-bg/80 border-b border-surface-border py-4'
           : 'bg-transparent py-6'
       )}
     >
