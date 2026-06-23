@@ -550,7 +550,7 @@ export default function ScrollHero({
               fontWeight: 600,
             }}
           >
-            <span style={{ fontWeight: 400, fontSize: '0.85em', opacity: 0.85 }}>Hey,</span>
+            <span style={{ fontWeight: 400, fontSize: '0.75em', opacity: 0.6 }}>Hey,</span>
             <br />
             I am Janu — Product Manager
           </h2>
