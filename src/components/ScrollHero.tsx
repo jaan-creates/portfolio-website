@@ -47,7 +47,8 @@ const PLACEHOLDER_HEADLINE: HeadlineToken[] = [
   SLOT, // 💼 Employment
   ", and AI",
   SLOT, // ✦ AI
-  " — for users in 40+ countries.\n\nLately, I’m vibe-coding my idea notes into live AI products.",
+  " — for users in 40+ countries.\n\n",
+  "Lately, I’m vibe-coding my idea notes into live AI products.",
 ];
 
 const FINAL_ICON_DESKTOP  = 40;  // px — also the .slot reserved size; sized to sit inline with paragraph text
