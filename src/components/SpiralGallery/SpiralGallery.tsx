@@ -327,7 +327,12 @@ export default function SpiralGallery() {
       const revealFallback = window.setTimeout(revealCanvas, 5000);
       const loader = new THREE.TextureLoader(manager);
       const textures = SPIRAL_IMAGES.map(({ src }) => {
-        const tex = loader.load(src);
+        const tex = loader.load(
+          src,
+          undefined,
+          undefined,
+          () => { console.warn('SpiralGallery: failed to load', src); }
+        );
         tex.colorSpace = THREE.SRGBColorSpace;
         tex.minFilter = THREE.LinearMipmapLinearFilter;
         tex.generateMipmaps = true;
@@ -458,7 +463,7 @@ export default function SpiralGallery() {
           spinVelocity = 0;
         } else {
           spinVelocity +=
-            (lenis.velocity ?? 0) * CONFIG.scrollSpin + gestureDelta * CONFIG.gestureSpin;
+            (lenis?.velocity ?? 0) * CONFIG.scrollSpin + gestureDelta * CONFIG.gestureSpin;
           gestureDelta = 0;
           appliedSpin = CONFIG.baseSpin + spinVelocity;
           spinVelocity *= CONFIG.spinDecay;
@@ -538,11 +543,11 @@ export default function SpiralGallery() {
     };
     checkVisibility();
     window.addEventListener('scroll', checkVisibility, { passive: true });
-    lenis.on('scroll', checkVisibility); // repo-native scroll signal
+    lenis?.on('scroll', checkVisibility);
 
     return () => {
       window.removeEventListener('scroll', checkVisibility);
-      lenis.off('scroll', checkVisibility);
+      lenis?.off('scroll', checkVisibility);
       cleanupScene?.();
     };
   }, [mode]);
