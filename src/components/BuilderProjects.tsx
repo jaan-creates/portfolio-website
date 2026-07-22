@@ -26,7 +26,7 @@ export default function BuilderProjects() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-          {/* Daybreak */}
+          {/* Daybrief */}
           <Link
             to="/projects/daybreak"
             className="rounded-2xl border border-surface-border bg-surface p-8 flex flex-col gap-5 transition-colors duration-300 group cursor-pointer no-underline"
@@ -50,15 +50,15 @@ export default function BuilderProjects() {
                 className="font-display font-semibold text-off-white mb-2 transition-colors duration-200"
                 style={{ fontSize: 'var(--step-0)' }}
               >
-                Daybreak
+                Daybrief
               </h3>
               <p className="text-muted-light text-sm leading-relaxed">
-                An AI agent that reads my inbox, weather, and news every morning and delivers one
-                clean brief to WhatsApp — so the day starts with a summary, not a scroll.
+                Every morning at 9am, an automation reads my inbox, calendar, five news feeds, and
+                weather — and throws most of the noise away. One curated email, 60 seconds, $0.04.
               </p>
             </div>
             <div className="flex gap-2 flex-wrap">
-              {['AI Agent', 'Claude', 'WhatsApp'].map((tag) => (
+              {['AI Agent', 'Claude', 'n8n'].map((tag) => (
                 <span
                   key={tag}
                   className="font-mono text-xs px-2.5 py-1 rounded-full"
