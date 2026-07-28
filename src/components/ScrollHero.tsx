@@ -57,6 +57,21 @@ const INITIAL_ICON_DESKTOP = 80; // px — icon size before scaling
 const INITIAL_ICON_MOBILE  = 48;
 const MOBILE_BP = 1000;
 
+// ---------------------------------------------------------------------------
+// Pin distance + scroll-progress checkpoints for the four choreography phases.
+// Named so the ScrollTrigger `end` distance and the phase math below can't
+// drift out of sync with each other. Trimmed from an earlier 3x/0.75 tuning
+// pass so the headline pays off sooner and the header stays legible longer —
+// see PM WEBSITE build report, hero pacing rework.
+// ---------------------------------------------------------------------------
+const PIN_VH          = 2;     // ScrollTrigger `end`, in viewport-heights
+const HEADER_FADE_END  = 0.35; // "Hey, I am Janu" fully gone by this progress
+const PHASE1_END       = 0.25; // lift-off
+const PHASE2_END       = 0.45; // scale + centre-travel
+const BG_FLIP_AT       = 0.35; // background A -> B
+const PHASE3_END       = 0.58; // icon clones fly into headline slots
+const PHASE4_START     = PHASE3_END; // headline text reveal begins here
+
 // Shared type scale for the statement paragraph (animated + static must match)
 const HEADLINE_FONT = 'clamp(1.125rem, 0.78rem + 1.45vw, 1.75rem)';
 
@@ -224,37 +239,40 @@ export default function ScrollHero({
     const updateHero = (progress: number) => {
       const vh = window.innerHeight;
 
-      // ── Phase 1 · 0 → 0.30 · lift-off ──────────────────────────────
-      const p1          = localP(progress, 0, 0.30);
+      // ── Phase 1 · 0 → PHASE1_END · lift-off ─────────────────────────
+      const p1          = localP(progress, 0, PHASE1_END);
       const phase1LiftY = -vh * 0.30;            // container's final Y in Phase 1
       const containerY  = phase1LiftY * p1;      // current Y during Phase 1
 
-      // Header: fade + slide up during first 15%
-      const headerP = localP(progress, 0, 0.15);
+      // Header: fade + slide up — stretched across a longer window so the
+      // name/title stays legible for longer in absolute scroll distance.
+      const headerP = localP(progress, 0, HEADER_FADE_END);
       header.style.opacity   = String(1 - headerP);
       header.style.transform = `translateY(${-50 * headerP}px)`;
 
       // Interactive perspective grid: live at the top, fades out as the statement takes over
       if (gridRef.current) {
-        gridRef.current.style.opacity = String(1 - localP(progress, 0, 0.25));
+        gridRef.current.style.opacity = String(1 - localP(progress, 0, PHASE1_END));
       }
 
-      if (progress <= 0.30) {
+      if (progress <= PHASE1_END) {
         // Container rises as a unit
         iconContainer.style.transform = `translateY(${containerY}px)`;
 
-        // Each icon peels off with a staggered sub-window
+        // Each icon peels off with a staggered sub-window (window scales with
+        // PHASE1_END so the last icon still finishes right at phase end).
+        const staggerSpan = PHASE1_END * 0.5;
         iconEls.forEach((icon, i) => {
-          const staggerStart = (i / iconEls.length) * 0.15;
-          const staggerEnd   = staggerStart + 0.15;
+          const staggerStart = (i / iconEls.length) * staggerSpan;
+          const staggerEnd   = staggerStart + staggerSpan;
           const iconP        = localP(progress, staggerStart, staggerEnd);
           icon.style.transform = `translateY(${-40 * iconP}px)`;
         });
       }
 
-      // ── Phase 2 · 0.30 → 0.60 · scale + centre-travel + bg flip ─────
-      if (progress > 0.30 && progress <= 0.60) {
-        const scaleP  = localP(progress, 0.30, 0.60);
+      // ── Phase 2 · PHASE1_END → PHASE2_END · scale + centre-travel + bg flip ─
+      if (progress > PHASE1_END && progress <= PHASE2_END) {
+        const scaleP  = localP(progress, PHASE1_END, PHASE2_END);
         const centreX = window.innerWidth / 2;
         const centreY = vh / 2;
 
@@ -276,13 +294,15 @@ export default function ScrollHero({
         iconEls.forEach(icon => { icon.style.transform = ''; });
       }
 
-      // Background: A until 50% progress, then B. CSS transition smooths the flip.
-      // CSS variables are resolved at paint time, so theme changes are reactive.
-      hero.style.backgroundColor = progress > 0.50 ? 'var(--sh-bg-b)' : 'var(--sh-bg-a)';
+      // Background: A until BG_FLIP_AT progress, then B. CSS transition smooths
+      // the flip. CSS variables are resolved at paint time, so theme changes
+      // are reactive. Both themes now define a genuinely distinct bg-b (see
+      // index.css) so this is a real transition, not a no-op.
+      hero.style.backgroundColor = progress > BG_FLIP_AT ? 'var(--sh-bg-b)' : 'var(--sh-bg-a)';
 
-      // ── Phase 3 · 0.60 → 0.75 · icon clones fly into headline slots ──
-      if (progress > 0.60) {
-        const moveP = localP(progress, 0.60, 0.75);
+      // ── Phase 3 · PHASE2_END → PHASE3_END · icon clones fly into headline slots ──
+      if (progress > PHASE2_END) {
+        const moveP = localP(progress, PHASE2_END, PHASE3_END);
 
         // Lock container to its centred+scaled position and hide original icons
         {
@@ -347,10 +367,11 @@ export default function ScrollHero({
         );
 
         // Handoff: as the icons land, the REAL inline slot icons take over from the flying
-        // clones. Crossfaded over a small window (0.72→0.78) rather than a hard switch, so
-        // there's no pop in either direction. The inline icons are part of the headline, so
-        // they scroll away WITH the text when the pin releases — no empty slots at the end.
-        const hand = localP(progress, 0.72, 0.78);
+        // clones. Crossfaded over a small window straddling PHASE3_END rather than a hard
+        // switch, so there's no pop in either direction. The inline icons are part of the
+        // headline, so they scroll away WITH the text when the pin releases — no empty
+        // slots at the end.
+        const hand = localP(progress, PHASE3_END - 0.03, PHASE3_END + 0.03);
         slotIcons.forEach(el => { el.style.opacity = String(hand); });
 
         clonesRef.current.forEach((clone, i) => {
@@ -383,7 +404,7 @@ export default function ScrollHero({
           .forEach(el => { (el as HTMLElement).style.opacity = '0'; });
       }
 
-      // ── Phase 4 · 0.75 → 1.0 · headline text reveals ────────────────
+      // ── Phase 4 · PHASE4_START → 1.0 · headline text reveals ────────
       if (headlineRef.current) {
         const segEls = Array.from(
           headlineRef.current.querySelectorAll<HTMLElement>('.sh-seg')
@@ -394,21 +415,22 @@ export default function ScrollHero({
           // First: reset all segs to 0 so nothing reveals early
           segEls.forEach(s => { s.style.opacity = '0'; });
 
-          if (progress > 0.75) {
+          if (progress > PHASE4_START) {
             // Compute offset so the last segment finishes exactly at progress=1
-            const segWindow = 0.04;
-            const offset    = segCount > 1
-              ? (0.25 - segWindow) / (segCount - 1)
+            const segWindow  = 0.04;
+            const phase4Span = 1 - PHASE4_START;
+            const offset     = segCount > 1
+              ? (phase4Span - segWindow) / (segCount - 1)
               : 0;
 
             // Sequential reveal — segments fade in DOM order (sentence start → end)
             segEls.forEach((seg, k) => {
-              const segStart = 0.75 + k * offset;
+              const segStart = PHASE4_START + k * offset;
               const segP     = localP(progress, segStart, segStart + segWindow);
               seg.style.opacity = String(segP);
             });
-            // Icons are now the inline .sh-slot-icon elements (handed off at 0.75) —
-            // they sit in the headline flow, so nothing to re-pin here.
+            // Icons are now the inline .sh-slot-icon elements (handed off at
+            // PHASE3_END) — they sit in the headline flow, so nothing to re-pin here.
           }
         }
       }
@@ -423,21 +445,21 @@ export default function ScrollHero({
     };
 
     // ------------------------------------------------------------------
-    // Pinned ScrollTrigger — 8× viewport height, scrub 1
+    // Pinned ScrollTrigger — 2× viewport height, scrub 0.8
     // ------------------------------------------------------------------
     const mm = gsap.matchMedia();
     mm.add('(prefers-reduced-motion: no-preference)', () => {
       const st = ScrollTrigger.create({
         trigger: hero,
         start: 'top top',
-        end: `+=${3 * window.innerHeight}`,
+        end: `+=${PIN_VH * window.innerHeight}`,
         pin: true,
         pinSpacing: true,
-        scrub: 1.2,
+        scrub: 0.8,
         anticipatePin: 1, // smooths the pin engage/disengage jump when scrolling back up
         invalidateOnRefresh: true,
         onUpdate: (self) => updateHero(self.progress),
-        // No onLeave/onEnterBack needed: by progress 0.75 the icons hand off to the
+        // No onLeave/onEnterBack needed: by PHASE3_END the icons hand off to the
         // inline .sh-slot-icon elements (part of the headline), so they scroll away with
         // the text on pin release and reappear correctly on scrub-back via updateHero.
       });
@@ -493,7 +515,7 @@ export default function ScrollHero({
   return (
     <>
       {/* ------------------------------------------------------------------ */}
-      {/* Pinned hero — GSAP pins this for 8× viewport height                */}
+      {/* Pinned hero — GSAP pins this for 2× viewport height                */}
       {/* ------------------------------------------------------------------ */}
       <section
         ref={heroRef}

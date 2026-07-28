@@ -23,3 +23,6 @@ dist-ssr
 .env
 
 .vercel
+
+# Local-only backups of full-resolution originals (see scripts/optimize-*.mjs)
+assets-originals/

@@ -1,28 +1,30 @@
 // Ordered source images for the spiral. Swap photos by editing this array.
-// Images from /public/assets/spiral/
+// Images from /public/assets/spiral/ — optimized WebP versions (see
+// scripts/optimize-spiral-images.mjs); full-resolution originals are archived
+// under /assets-originals/spiral/ (not part of the shipped build).
 export interface SpiralImage {
   src: string;
   alt: string;
 }
 
 export const SPIRAL_IMAGES: SpiralImage[] = [
-  { src: '/assets/spiral/DSCF8324.jpg', alt: 'Travel photograph' },
-  { src: '/assets/spiral/DSCF7493.jpg', alt: 'Travel photograph' },
-  { src: '/assets/spiral/IMG_5005.jpg', alt: 'Travel photograph' },
-  { src: '/assets/spiral/DSCF2614.jpg', alt: 'Travel photograph' },
-  { src: '/assets/spiral/DSCF0820.jpg', alt: 'Travel photograph' },
-  { src: '/assets/spiral/DSCF6043.jpg', alt: 'Travel photograph' },
-  { src: '/assets/spiral/DSCF6609.jpg', alt: 'Travel photograph' },
-  { src: '/assets/spiral/DSCF6050.jpg', alt: 'Travel photograph' },
-  { src: '/assets/spiral/DSCF6701.jpg', alt: 'Travel photograph' },
-  { src: '/assets/spiral/DSCF2607.jpg', alt: 'Travel photograph' },
-  { src: '/assets/spiral/DSCF7202.jpg', alt: 'Travel photograph' },
-  { src: '/assets/spiral/WhatsApp%20Image%202026-06-17%20at%204.37.22%20PM.jpeg', alt: 'Travel photograph' },
-  { src: '/assets/spiral/WhatsApp%20Image%202026-06-17%20at%204.31.47%20PM.jpeg', alt: 'Travel photograph' },
-  { src: '/assets/spiral/WhatsApp%20Image%202026-06-17%20at%204.44.06%20PM.jpeg', alt: 'Travel photograph' },
-  { src: '/assets/spiral/WhatsApp%20Image%202026-06-17%20at%204.44.37%20PM.jpeg', alt: 'Travel photograph' },
-  { src: '/assets/spiral/IMG_5398.JPG.jpeg', alt: 'Travel photograph' },
-  { src: '/assets/spiral/IMG_5397.JPG.jpeg', alt: 'Travel photograph' },
-  { src: '/assets/spiral/IMG_5400.PNG', alt: 'Travel photograph' },
-  { src: '/assets/spiral/IMG_5399.JPG.jpeg', alt: 'Travel photograph' },
+  { src: '/assets/spiral/travel-01.webp', alt: 'Travel photograph' },
+  { src: '/assets/spiral/travel-02.webp', alt: 'Travel photograph' },
+  { src: '/assets/spiral/travel-03.webp', alt: 'Travel photograph' },
+  { src: '/assets/spiral/travel-04.webp', alt: 'Travel photograph' },
+  { src: '/assets/spiral/travel-05.webp', alt: 'Travel photograph' },
+  { src: '/assets/spiral/travel-06.webp', alt: 'Travel photograph' },
+  { src: '/assets/spiral/travel-07.webp', alt: 'Travel photograph' },
+  { src: '/assets/spiral/travel-08.webp', alt: 'Travel photograph' },
+  { src: '/assets/spiral/travel-09.webp', alt: 'Travel photograph' },
+  { src: '/assets/spiral/travel-10.webp', alt: 'Travel photograph' },
+  { src: '/assets/spiral/travel-11.webp', alt: 'Travel photograph' },
+  { src: '/assets/spiral/travel-12.webp', alt: 'Travel photograph' },
+  { src: '/assets/spiral/travel-13.webp', alt: 'Travel photograph' },
+  { src: '/assets/spiral/travel-14.webp', alt: 'Travel photograph' },
+  { src: '/assets/spiral/travel-15.webp', alt: 'Travel photograph' },
+  { src: '/assets/spiral/travel-16.webp', alt: 'Travel photograph' },
+  { src: '/assets/spiral/travel-17.webp', alt: 'Travel photograph' },
+  { src: '/assets/spiral/travel-18.webp', alt: 'Travel photograph' },
+  { src: '/assets/spiral/travel-19.webp', alt: 'Travel photograph' },
 ];

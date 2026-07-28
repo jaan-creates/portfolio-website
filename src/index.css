@@ -21,11 +21,11 @@
     --color-accent-orange: #F97316;
 
     /* ScrollHero narrative palette (dark-mode defaults) */
-    /* Dark mode stays solid black the whole scroll — no flip. bg-b === bg-a so
-       updateHero's per-frame swap is a visual no-op; the bright-bg treatment
-       lives only in light mode (html.light below). */
+    /* Dark mode stays in the same dark family the whole scroll — no light
+       flash — but bg-b is a genuinely deeper tone than bg-a so updateHero's
+       per-frame swap at BG_FLIP_AT is a real, perceptible transition. */
     --sh-bg-a: #0D0D0F;    /* hero start bg  */
-    --sh-bg-b: #0D0D0F;    /* hero end bg / outro — same as bg-a (no flip) */
+    --sh-bg-b: #050506;    /* hero end bg / outro — deeper near-black */
     --sh-headline-color: #FAFAF9;  /* white headline/outro text on black */
     --sh-eyebrow-color: #14B8A6;   /* eyebrow on bg-a */
     --sh-tagline-color: #A1A1AA;   /* tagline on bg-a */
@@ -53,10 +53,11 @@
     --shadow-raised: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
     --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.07);
 
-    /* ScrollHero narrative palette (light mode) — stays light the whole scroll,
-       mirroring dark mode's solid-black treatment. bg-b === bg-a so no flip. */
+    /* ScrollHero narrative palette (light mode) — bg-b is a genuinely deeper
+       warm stone tone than bg-a, so the mid-scroll flip is a real transition.
+       --sh-headline-color stays dark and remains >4.5:1 against bg-b. */
     --sh-bg-a: #F5F4F0;    /* hero bg */
-    --sh-bg-b: #F5F4F0;    /* same as bg-a — no flip to black */
+    --sh-bg-b: #E4E1D8;    /* deeper warm stone — real flip, not a no-op */
     --sh-headline-color: #0D0D0F;  /* dark headline text on cream */
     --sh-eyebrow-color: #0F766E;   /* darker teal — passes 4.5:1 on cream */
     --sh-tagline-color: #4B5563;   /* muted dark on cream */

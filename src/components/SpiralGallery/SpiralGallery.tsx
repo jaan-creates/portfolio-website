@@ -261,20 +261,6 @@ export default function SpiralGallery() {
     };
   }, []);
 
-  // Warm the browser cache on mount so the gallery's photos are downloaded (and
-  // decoded) while the visitor is still up at the hero — by the time they scroll
-  // here the WebGL textures resolve from cache and never flash black.
-  useEffect(() => {
-    const imgs = SPIRAL_IMAGES.map(({ src }) => {
-      const img = new Image();
-      img.src = src;
-      // decode() is best-effort — ignore failures (e.g. not-yet-attached images)
-      img.decode?.().catch(() => {});
-      return img;
-    });
-    return () => { imgs.forEach(img => { img.src = ''; }); };
-  }, []);
-
   useEffect(() => {
     if (mode !== 'webgl') return;
     const section = sectionRef.current;
@@ -527,6 +513,21 @@ export default function SpiralGallery() {
     const pauseRef = { current: null as null | (() => void) };
     const resumeRef = { current: null as null | (() => void) };
 
+    // Warm the browser cache the first time the gallery nears the viewport (not
+    // on page mount) — by the time the visitor actually scrolls here, the WebGL
+    // textures resolve from cache and never flash black, without competing with
+    // hero-critical requests at initial load.
+    let warmed = false;
+    const warmImageCache = () => {
+      if (warmed) return;
+      warmed = true;
+      SPIRAL_IMAGES.forEach(({ src }) => {
+        const img = new Image();
+        img.src = src;
+        img.decode?.().catch(() => {});
+      });
+    };
+
     // Lazy init when near the viewport; pause the loop when fully off-screen.
     // Bounds check on scroll instead of IntersectionObserver — IO proved
     // unreliable in embedded/emulated browsers, and this costs one
@@ -535,6 +536,7 @@ export default function SpiralGallery() {
       const r = section.getBoundingClientRect();
       const near = r.top < window.innerHeight + 200 && r.bottom > -200;
       if (near) {
+        warmImageCache();
         initScene();
         resumeRef.current?.();
       } else {
