@@ -558,9 +558,9 @@ export default function SwiggyCaseStudy() {
           <figure className="my-0 mb-2">
             <div className="grid grid-cols-3 gap-3">
               {[
-                { src: '/assets/swiggy/Group%2053.svg', alt: 'Deal Store preference screen — select cuisine, meal type, and restaurant type' },
-                { src: '/assets/swiggy/Frame%2049%201.svg', alt: 'Deal Store curated shortlist — top 5 matching deals' },
-                { src: '/assets/swiggy/Frame%2011.svg', alt: 'Restaurant-side deal setup — review promotion details and start promotion' },
+                { src: '/assets/swiggy/group-53.webp', alt: 'Deal Store preference screen — select cuisine, meal type, and restaurant type' },
+                { src: '/assets/swiggy/frame-49-1.webp', alt: 'Deal Store curated shortlist — top 5 matching deals' },
+                { src: '/assets/swiggy/frame-11.webp', alt: 'Restaurant-side deal setup — review promotion details and start promotion' },
               ].map(({ src, alt }) => (
                 <ZoomableImage
                   key={src}
@@ -631,9 +631,9 @@ export default function SwiggyCaseStudy() {
           <figure className="my-0">
             <div className="grid grid-cols-3 gap-3">
               {[
-                { src: '/assets/swiggy/image%2035.svg', alt: 'Restaurant listing tile showing review metrics — Good Food 91%, Right Order 87%, On-time 92%' },
-                { src: '/assets/swiggy/Frame%2020%201.svg', alt: 'Full restaurant reviews page with user comments and review highlights' },
-                { src: '/assets/swiggy/Group%2057.svg', alt: 'Post-order review submission form — rate, tag, and post anonymously' },
+                { src: '/assets/swiggy/image-35.webp', alt: 'Restaurant listing tile showing review metrics — Good Food 91%, Right Order 87%, On-time 92%' },
+                { src: '/assets/swiggy/frame-20-1.webp', alt: 'Full restaurant reviews page with user comments and review highlights' },
+                { src: '/assets/swiggy/group-57.webp', alt: 'Post-order review submission form — rate, tag, and post anonymously' },
               ].map(({ src, alt }) => (
                 <ZoomableImage
                   key={src}
@@ -668,7 +668,7 @@ export default function SwiggyCaseStudy() {
             <div className="grid grid-cols-3 gap-3">
               {/* Main feed — 2/3 width */}
               <ZoomableImage
-                src="/assets/swiggy/image%2037.svg"
+                src="/assets/swiggy/image-37.webp"
                 alt="Top Mentions feed — restaurant cards with friend mention counts and Mark as tried option"
                 containerClassName="col-span-2 rounded-xl overflow-hidden"
                 containerStyle={{ background: 'var(--color-surface-raised)', border: '0.5px solid var(--color-surface-border)', height: '240px' }}
@@ -676,7 +676,7 @@ export default function SwiggyCaseStudy() {
               />
               {/* Account entry point — 1/3 width */}
               <ZoomableImage
-                src="/assets/swiggy/image%2039.svg"
+                src="/assets/swiggy/image-39.webp"
                 alt="Account menu showing Recommendations as a top-level entry point"
                 containerClassName="rounded-xl overflow-hidden"
                 containerStyle={{ background: 'var(--color-surface-raised)', border: '0.5px solid var(--color-surface-border)', height: '240px' }}
@@ -777,10 +777,10 @@ export default function SwiggyCaseStudy() {
         <figure className="my-0 mb-6">
           <div className="grid grid-cols-2 gap-3">
             {[
-              { src: '/assets/swiggy/Group%2060.svg', alt: 'Landing page hero — Still deciding what to order? Get Early Access' },
-              { src: '/assets/swiggy/Group%2061.svg', alt: 'Landing page match-making section' },
-              { src: '/assets/swiggy/Group%2062.svg', alt: 'Landing page how it works — Select Preference to Match-Making flow' },
-              { src: '/assets/swiggy/Group%2063.svg', alt: 'Landing page testimonials and FAQ' },
+              { src: '/assets/swiggy/group-60.webp', alt: 'Landing page hero — Still deciding what to order? Get Early Access' },
+              { src: '/assets/swiggy/group-61.webp', alt: 'Landing page match-making section' },
+              { src: '/assets/swiggy/group-62.webp', alt: 'Landing page how it works — Select Preference to Match-Making flow' },
+              { src: '/assets/swiggy/group-63.webp', alt: 'Landing page testimonials and FAQ' },
             ].map(({ src, alt }) => (
               <ZoomableImage
                 key={src}
@@ -819,7 +819,7 @@ export default function SwiggyCaseStudy() {
 
         <figure className="my-0">
           <ZoomableImage
-            src="/assets/swiggy/Group%2064.svg"
+            src="/assets/swiggy/group-64.webp"
             alt="Google Analytics dashboard — users 73, new users 73, bounce rate 22%, pages per session 1.19"
             containerClassName="rounded-xl overflow-hidden"
             containerStyle={{ background: 'var(--color-surface-raised)', border: '0.5px solid var(--color-surface-border)' }}

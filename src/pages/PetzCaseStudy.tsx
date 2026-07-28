@@ -140,6 +140,8 @@ function IframePhone({ src, offset = 0 }: { src: string; offset?: number }) {
       />
       <iframe
         src={src}
+        loading="lazy"
+        title="Petz app screen mockup"
         scrolling="no"
         tabIndex={-1}
         style={{

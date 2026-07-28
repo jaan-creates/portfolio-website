@@ -375,7 +375,7 @@ export default function DaybreakProject() {
             label="hero — Daybrief email screenshot"
             caption="A real Daybrief"
             aspect="aspect-video"
-            src="/assets/daybrief/Daybreak Email-selection (1).png"
+            src="/assets/daybrief/daybrief-email-selection.webp"
             containerClassName="w-full rounded-xl overflow-hidden"
           />
         </div>
@@ -445,7 +445,7 @@ export default function DaybreakProject() {
             label="before / after audit — side-by-side"
             caption=""
             aspect="aspect-[4/3]"
-            src="/assets/daybrief/before_after_user_input_curation.png"
+            src="/assets/daybrief/daybrief-before-after-curation.webp"
           />
 
           <div
@@ -558,7 +558,7 @@ export default function DaybreakProject() {
             label="priorities.md — annotated: LAYER 0 Three-Test Filter"
             caption="The brain is a text file. Full version in the repo."
             aspect="aspect-[4/3]"
-            src="/assets/daybrief/Priorities Doc-selection.png"
+            src="/assets/daybrief/daybrief-priorities-doc.webp"
           />
 
           <div
@@ -646,7 +646,7 @@ export default function DaybreakProject() {
               label="cost footer close-up"
               caption="Every brief ships with its own bill."
               aspect="aspect-[3/1]"
-              src="/assets/daybrief/Day Badge-selection.png"
+              src="/assets/daybrief/daybrief-day-badge.webp"
               containerClassName="block mx-auto max-w-sm rounded-xl overflow-hidden"
             />
           </div>
