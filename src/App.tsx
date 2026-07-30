@@ -1,5 +1,5 @@
 import { Routes, Route, useLocation, useNavigationType } from 'react-router-dom';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, Suspense, lazy } from 'react';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { lenis } from './lib/lenis';
 
@@ -13,13 +13,14 @@ import CaseStudies from './components/CaseStudies';
 import BeyondResume from './components/BeyondResume';
 import SpiralGallery from './components/SpiralGallery';
 import Contact from './components/Contact';
-import RapidoCaseStudy from './pages/RapidoCaseStudy';
-import PlumCaseStudy from './pages/PlumCaseStudy';
-import PushNotificationsCaseStudy from './pages/PushNotificationsCaseStudy';
-import PushNotificationGuidebook from './pages/PushNotificationGuidebook';
-import PetzCaseStudy from './pages/PetzCaseStudy';
-import SwiggyCaseStudy from './pages/SwiggyCaseStudy';
-import DaybreakProject from './pages/DaybreakProject';
+
+const RapidoCaseStudy = lazy(() => import('./pages/RapidoCaseStudy'));
+const PlumCaseStudy = lazy(() => import('./pages/PlumCaseStudy'));
+const PushNotificationsCaseStudy = lazy(() => import('./pages/PushNotificationsCaseStudy'));
+const PushNotificationGuidebook = lazy(() => import('./pages/PushNotificationGuidebook'));
+const PetzCaseStudy = lazy(() => import('./pages/PetzCaseStudy'));
+const SwiggyCaseStudy = lazy(() => import('./pages/SwiggyCaseStudy'));
+const DaybreakProject = lazy(() => import('./pages/DaybreakProject'));
 
 // ---------------------------------------------------------------------------
 // ScrollManager — fixes two UX bugs:
@@ -87,20 +88,26 @@ function LandingPage() {
   );
 }
 
+function RouteFallback() {
+  return <div className="bg-bg min-h-screen" />;
+}
+
 export default function App() {
   return (
     <ThemeProvider>
       <ScrollManager />
-      <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/case-studies/rapido" element={<RapidoCaseStudy />} />
-      <Route path="/case-studies/plum" element={<PlumCaseStudy />} />
-      <Route path="/case-studies/push-notifications" element={<PushNotificationsCaseStudy />} />
-      <Route path="/case-studies/push-guidebook" element={<PushNotificationGuidebook />} />
-      <Route path="/case-studies/petz" element={<PetzCaseStudy />} />
-      <Route path="/case-studies/swiggy" element={<SwiggyCaseStudy />} />
-      <Route path="/projects/daybreak" element={<DaybreakProject />} />
-    </Routes>
+      <Suspense fallback={<RouteFallback />}>
+        <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/case-studies/rapido" element={<RapidoCaseStudy />} />
+        <Route path="/case-studies/plum" element={<PlumCaseStudy />} />
+        <Route path="/case-studies/push-notifications" element={<PushNotificationsCaseStudy />} />
+        <Route path="/case-studies/push-guidebook" element={<PushNotificationGuidebook />} />
+        <Route path="/case-studies/petz" element={<PetzCaseStudy />} />
+        <Route path="/case-studies/swiggy" element={<SwiggyCaseStudy />} />
+        <Route path="/projects/daybreak" element={<DaybreakProject />} />
+      </Routes>
+      </Suspense>
     </ThemeProvider>
   );
 }

@@ -52,7 +52,7 @@ Meeting these is what separates award-winning from amateur — they enable great
 ## Deployment
 - Local preview: `npm run dev`
 - Deploy to production: `vercel --prod` from project root
-- Live URL: https://pm-website-six.vercel.app/
+- Live URL: https://janu-balachandran.vercel.app/
 
 ## Closing the loop (end of every working session)
 When we finish a meaningful chunk of work, produce a BUILD REPORT I can paste
@@ -77,11 +77,12 @@ Keep it short and factual.
 
 ### Routing — react-router-dom v6 (BrowserRouter in main.tsx, routes in App.tsx)
 /                                  → LandingPage
-/case-studies/rapido               → RapidoCaseStudy (built)
-/case-studies/push-notifications   → PushNotificationsCaseStudy (built)
-/case-studies/push-guidebook       → PushNotificationGuidebook (built, not in grid — direct URL only)
-/case-studies/plum                 → PlumCaseStudy (PLACEHOLDER)
-/case-studies/health-and-glow      → HealthGlowCaseStudy (PLACEHOLDER)
+/case-studies/rapido               → RapidoCaseStudy (built, in grid)
+/case-studies/plum                 → PlumCaseStudy (built, in grid)
+/case-studies/petz                 → PetzCaseStudy (built, in grid)
+/case-studies/push-notifications   → PushNotificationsCaseStudy (built, in grid)
+/case-studies/swiggy               → SwiggyCaseStudy (built, in grid)
+/case-studies/push-guidebook       → PushNotificationGuidebook (built, in grid)
 /projects/daybreak                 → DaybreakProject (built)
 
 ### Motion invariants
@@ -110,5 +111,5 @@ Guidebook: PipelineFlow, PlatformSplit, TypeDefinition, TypeSubCards, AnatomyBlo
 
 ## Open TODOs (next session)
 - Rapido content gaps: Role/Timeline/Context/Outcome meta; Decision 1&2 "why" sentences; Decision 3 chosen recommendation + outcome; confirm "12+" driver count; reflection paragraph.
-- PlumCaseStudy + HealthGlowCaseStudy: awaiting content HTMLs.
 - Link guidebook from Push Notifications page (CaseStudyNext → /case-studies/push-guidebook).
+- CI now runs typecheck + lint + build on every push/PR to `main` via `.github/workflows/ci.yml`.
