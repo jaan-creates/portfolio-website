@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
-import ScrollTrigger from 'gsap/ScrollTrigger';
 import BlockReveal from './BlockReveal';
 import { useTheme } from '../contexts/ThemeContext';
 

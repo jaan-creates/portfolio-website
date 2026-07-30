@@ -299,47 +299,6 @@ function DemandStatCell({ value, label }: { value: string; label: string }) {
   );
 }
 
-function ReflectionItem({
-  index,
-  title,
-  body,
-  isLast,
-}: {
-  index: string;
-  title: string;
-  body: string;
-  isLast?: boolean;
-}) {
-  const { theme } = useTheme();
-  const accent = theme === 'light' ? LIGHT_ACCENT : DARK_ACCENT;
-  return (
-    <li
-      className="flex gap-5 py-5"
-      style={{
-        borderBottom: isLast ? 'none' : '0.5px solid var(--color-surface-border)',
-      }}
-    >
-      <span
-        className="font-mono font-bold flex-shrink-0 opacity-40 mt-0.5"
-        style={{ fontSize: '11px', color: accent, width: '1.5em' }}
-      >
-        {index}
-      </span>
-      <div>
-        <p
-          className="font-display font-semibold text-off-white mb-1"
-          style={{ fontSize: 'var(--step-0)' }}
-        >
-          {title}
-        </p>
-        <p className="text-muted-light leading-relaxed" style={{ fontSize: 'var(--step--1)' }}>
-          {body}
-        </p>
-      </div>
-    </li>
-  );
-}
-
 /* ── Page ───────────────────────────────────────────────────────── */
 
 export default function SwiggyCaseStudy() {

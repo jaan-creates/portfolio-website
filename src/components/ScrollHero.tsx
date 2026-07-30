@@ -5,10 +5,10 @@ import PerspectiveGrid from './PerspectiveGrid';
 
 // Marker for a slot position in the headline token array.
 // Each SLOT corresponds to one icon landing target.
-export const SLOT = Symbol('slot');
-export type HeadlineToken = string | typeof SLOT;
+const SLOT = Symbol('slot');
+type HeadlineToken = string | typeof SLOT;
 
-export interface IconDef {
+interface IconDef {
   glyph: string; // path to a white-able SVG glyph, centred on the colour square
   color: string; // square background colour
   alt: string;

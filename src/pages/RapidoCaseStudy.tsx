@@ -1,6 +1,5 @@
 import CaseStudyLayout from '../components/CaseStudyLayout';
 import CaseStudySection from '../components/CaseStudySection';
-import CaseStudyMeta from '../components/case-study/CaseStudyMeta';
 import PullQuote from '../components/case-study/PullQuote';
 import FindingGrid from '../components/case-study/FindingGrid';
 import PersonaGrid from '../components/case-study/PersonaGrid';

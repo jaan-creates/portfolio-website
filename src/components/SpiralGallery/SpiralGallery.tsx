@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import gsap from 'gsap';
-import { lenis } from '../../App';
+import { lenis } from '../../lib/lenis';
 import { SPIRAL_IMAGES } from './spiralImages';
 
 // Reuse warmed fetches: a browser-cache preload (below) primes these URLs so the
@@ -195,29 +195,6 @@ function buildSpiral(textures: THREE.Texture[]): {
   }
 
   return { group, spiralHeight, disposables, meshes };
-}
-
-function HeadingOverlay() {
-  return (
-    <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center">
-      <div
-        className="px-6 py-16 text-center"
-        style={{
-          background:
-            'radial-gradient(ellipse 60% 50% at 50% 50%, rgba(13,13,15,0.82) 0%, rgba(13,13,15,0.45) 55%, transparent 100%)',
-        }}
-      >
-        <h2
-          className="font-display text-off-white"
-          style={{ fontSize: 'var(--step-4)', lineHeight: 1.1 }}
-        >
-          The human behind the product
-          <br />
-          Beyond the resume
-        </h2>
-      </div>
-    </div>
-  );
 }
 
 function StaticFallback() {

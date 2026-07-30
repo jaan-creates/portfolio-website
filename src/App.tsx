@@ -1,9 +1,7 @@
 import { Routes, Route, useLocation, useNavigationType } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 import { ThemeProvider } from './contexts/ThemeContext';
-import Lenis from 'lenis';
-import gsap from 'gsap';
-import ScrollTrigger from 'gsap/ScrollTrigger';
+import { lenis } from './lib/lenis';
 
 import Nav from './components/Nav';
 import Hero from './components/Hero';
@@ -22,15 +20,6 @@ import PushNotificationGuidebook from './pages/PushNotificationGuidebook';
 import PetzCaseStudy from './pages/PetzCaseStudy';
 import SwiggyCaseStudy from './pages/SwiggyCaseStudy';
 import DaybreakProject from './pages/DaybreakProject';
-
-gsap.registerPlugin(ScrollTrigger);
-
-export const lenis = new Lenis({ autoRaf: false });
-lenis.on('scroll', ScrollTrigger.update);
-gsap.ticker.add((time) => {
-  lenis.raf(time * 1000);
-});
-gsap.ticker.lagSmoothing(0);
 
 // ---------------------------------------------------------------------------
 // ScrollManager — fixes two UX bugs:
