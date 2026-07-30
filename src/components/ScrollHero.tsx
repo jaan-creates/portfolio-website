@@ -290,8 +290,13 @@ export default function ScrollHero({
           `scale(${scale})`,
         ].join(' ');
 
-        // Reset individual icon stagger transforms (carried from Phase 1 max)
-        iconEls.forEach(icon => { icon.style.transform = ''; });
+        // Ease the per-icon stagger offset back to 0 over the first 20% of
+        // Phase 2, instead of snapping it away instantly — Phase 1 leaves
+        // every icon at translateY(-40px) by PHASE1_END, so an instant reset
+        // here was a visible 40px pop right at the phase boundary.
+        const iconEaseEnd = PHASE1_END + (PHASE2_END - PHASE1_END) * 0.2;
+        const iconEaseP   = 1 - localP(progress, PHASE1_END, iconEaseEnd);
+        iconEls.forEach(icon => { icon.style.transform = `translateY(${-40 * iconEaseP}px)`; });
       }
 
       // Background: A until BG_FLIP_AT progress, then B. CSS transition smooths
