@@ -367,11 +367,14 @@ export default function ScrollHero({
         );
 
         // Handoff: as the icons land, the REAL inline slot icons take over from the flying
-        // clones. Crossfaded over a small window straddling PHASE3_END rather than a hard
-        // switch, so there's no pop in either direction. The inline icons are part of the
-        // headline, so they scroll away WITH the text when the pin releases — no empty
-        // slots at the end.
-        const hand = localP(progress, PHASE3_END - 0.03, PHASE3_END + 0.03);
+        // clones. Crossfaded over a small window starting AT PHASE3_END (not before) —
+        // the clone's horizontal leg (hHalf) doesn't finish until progress===PHASE3_END,
+        // so starting the crossfade earlier let the still-mid-flight clone (short of its
+        // target X) render simultaneously with the already-in-place real icon: two visibly
+        // offset, partially-opaque copies of the same icon. Starting exactly at PHASE3_END
+        // guarantees the clone has already arrived (pixel-aligned with the real icon)
+        // before any cross-dissolve begins.
+        const hand = localP(progress, PHASE3_END, PHASE3_END + 0.03);
         slotIcons.forEach(el => { el.style.opacity = String(hand); });
 
         clonesRef.current.forEach((clone, i) => {
