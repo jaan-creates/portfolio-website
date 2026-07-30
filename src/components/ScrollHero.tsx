@@ -467,9 +467,25 @@ export default function ScrollHero({
         anticipatePin: 1, // smooths the pin engage/disengage jump when scrolling back up
         invalidateOnRefresh: true,
         onUpdate: (self) => updateHero(self.progress),
-        // No onLeave/onEnterBack needed: by PHASE3_END the icons hand off to the
-        // inline .sh-slot-icon elements (part of the headline), so they scroll away with
+        // No onLeave needed: by PHASE3_END the icons hand off to the inline
+        // .sh-slot-icon elements (part of the headline), so they scroll away with
         // the text on pin release and reappear correctly on scrub-back via updateHero.
+        //
+        // onLeaveBack: GSAP stops calling onUpdate once progress leaves the
+        // trigger's 0–1 range, so scrolling back up past the pin's start could
+        // strand any still-flying position:fixed clones at their last viewport
+        // coordinates. This ONLY removes those clones and restores the
+        // container's opacity — it deliberately does not touch any transform,
+        // the header, or the grid, so it can never replay/snap the lift-off
+        // animation, even if it fires more eagerly than a single true exit
+        // (e.g. interacting with anticipatePin).
+        onLeaveBack: () => {
+          if (clonesRef.current.length > 0) {
+            clonesRef.current.forEach(c => c.remove());
+            clonesRef.current = [];
+            iconContainer.style.opacity = '1';
+          }
+        },
       });
 
       // Resize: recompute sizes, update slots, refresh ScrollTrigger
