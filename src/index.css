@@ -19,6 +19,7 @@
     --color-accent-purple: #7F77DD;
     --color-accent-green: #22C55E;
     --color-accent-orange: #F97316;
+    --color-accent-amber: #D9A82D;
 
     /* ScrollHero narrative palette (dark-mode defaults) */
     /* Dark mode stays in the same dark family the whole scroll — no light
@@ -50,6 +51,7 @@
     --color-accent-purple: #5A4FCF;
     --color-accent-green: #15803D;
     --color-accent-orange: #C2410C;
+    --color-accent-amber: #B48214;
     --shadow-raised: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
     --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.07);
 

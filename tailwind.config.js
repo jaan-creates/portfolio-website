@@ -10,6 +10,7 @@ export default {
           purple: 'var(--color-accent-purple)',
           green: 'var(--color-accent-green)',
           orange: 'var(--color-accent-orange)',
+          amber: 'var(--color-accent-amber)',
         },
         muted: {
           DEFAULT: 'var(--color-muted)',
